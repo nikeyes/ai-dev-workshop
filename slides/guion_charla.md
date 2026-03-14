@@ -137,64 +137,46 @@ Recordad: el cuello de botella nunca ha sido las líneas por minuto. Siempre ha 
 
 ### SLIDE 7 - Diseña para supervisión
 
-**Título:** No puedes revisar cada línea. Diseña sistemas que capturen errores.
+**Título:** No puedes revisar cada línea de código. Diseña sistemas que capturen errores.
 **Contenido:**
 
 **Guardarraíles técnicos además de los habituales**
 - Hooks: linter automático en cada tool use
-- Tests de arquitectura: verifican estructura, no solo funcionalidad
-- Aceptance Testing.
-- CI/CD maduro: si no es fiable con humanos, será un desastre con agentes
-- Permisos configurados: qué puede hacer la IA sin aprobación y qué no
+- Testing avanzado: 
+    - Tests de arquitectura: verifican estructura, no solo funcionalidad
+    - Aceptance Testing: 
+- CI/CD maduros y estables: si no es fiable con humanos, será un desastre con agentes
+- Configuración de permisos del agente: ¿Qué puede hacer la IA sin aprobación y qué no?
 
 **Checklist de verificación cuando hay IA:**
-- ¿Respeta el dominio o es código plausible?
-- ¿Los tests validan invariantes reales?
-- ¿Hay observabilidad y límites operativos?
-- ¿Puedo borrarlo sin romper el sistema?
-
-**Evaluación de riesgo por cambio (Birgitta Böckeler / Thoughtworks):**
-
-| Probabilidad de error | Impacto del error | Detectabilidad | → Nivel de revisión |
-|---|---|---|---|
-| Baja | Bajo | Alta (tests, CI) | "Vibe coding" sin miedo |
-| Alta | Alto | Baja (sin tests) | Revisión exhaustiva |
+- ¿Esto respeta mi dominio o solo suena bien? 
+- ¿Los tests prueban algo real?
+- ¿Hay observabilidad de ese caso de uso?
+- ¿Podría borrar este código sin romper nada?
 
 **Notas**
 "Tu rol pasa de programador a supervisor de sistemas de producción. No podéis revisar cada línea. Necesitáis sistemas que capturen errores."
 
 "Un hook que ejecuta el linter en cada modificación le da feedback inmediato al modelo. Tests de arquitectura que verifican que la estructura se respeta. Permisos que impidan que la IA haga un `push` a main sin aprobación. Permisos que impidan borrar la Infra....
 
-"Y cuando hay IA generando código, añadid estas preguntas a vuestra revisión: 
-¿esto respeta mi dominio o solo suena bien? 
-¿Los tests prueban algo real?
-¿Hay observabilidad?
-¿Podría borrar este código sin romper nada?
 
+### SLIDE 8 - Diseña para supervisión
 
-
-
-### SLIDE 8 - Ajusta el rigor a la fase del producto
-
-**Título:** No todo necesita el mismo rigor. Pero con IA, siempre verifica.
+**Título:** ¿Qué nivel de autonomía tiene que tener la IA?
 **Contenido:**
 
-**Framework Explore / Expand / Extract:**
-
-| Fase | Prioriza | Tolera | Nivel de rigor |
+| ¿Qué estás tocando? | ¿Qué pasa si falla? | Autonomía humano/IA | Antes de mergear... |
 |---|---|---|---|
-| **Explore** | Velocidad y aprendizaje | Deuda consciente | Tests funcionales básicos, validar hipótesis rápido |
-| **Expand** | Escala y observabilidad | Estética irrelevante | Tests de integración, monitoring, contratos API |
-| **Extract** | Sostenibilidad y seguridad | Cero hacks sin plan | Mutation testing, tests de arquitectura, security scans |
+| **Un prototipo interno** | Perdemos tiempo | 🟢 **Tu diseñas, la AI implementa, no te preocupas del código** | Tests unitários y de integración. A Main directo. |
+| **Un producto con usuarios** | Un usuario tiene un problema | 🟡 **Tu diseñas, la AI implementa, tú supervisas la arquitectura** | Tests de arquitectura, Tests de aceptación, Observabilidad, PR con review como mínimo de IA |
+| **El core del negocio** | Perdemos dinero o confianza | 🟠 **Tu diseñas, la AI implementa, tú supervisas la arquitecura y el código de los módulos críticos** | Mutation testing, security scan, PR con review humano |
+| **Algo que toca el mundo físico** | Alguien puede sufrir un daño real | 🔴 **Tú decides y supervisas a bajo nivel, la IA solo asiste** | Tests con el hardware real, revisión de seguridad obligatoria |
 
-** Notas**
-"No todo necesita el mismo nivel de rigor. Y eso está bien. Pero necesitáis un criterio para decidir cuánto."
+**Ejemplo:** ¿Auth, pagos, datos personales, energía o comunicación con el cargador? Trátalo siempre como core del negocio.Si afecta al mundo físico, sube al último nivel.
 
-"En fase de exploración, priorizáis velocidad. Estáis aprendiendo, validando hipótesis. Podéis tolerar deuda consciente . La palabra clave es 'consciente'. Tests funcionales básicos y adelante."
 
-"En fase de expansión, ya tenéis usuarios. Ahora importa la escala y la observabilidad. Tests de integración, monitoring, contratos de API."
-
-"En fase de extracción, estáis protegiendo el core del negocio. Aquí es mutation testing, tests de arquitectura, security scans. Cero hacks sin plan."
+**Notas**
+"Y cuando hay IA generando código, ¿qué nivel de autonomía le damos? La tabla
 
 
 ### SLIDE 9 y 10— Lo que cambia y Lo que permanece
@@ -207,7 +189,7 @@ Recordad: el cuello de botella nunca ha sido las líneas por minuto. Siempre ha 
 - ✅ Te pagan por decidir qué NO debe entrar en producción
 - ✅ Te pagan por proteger el sistema
 
-**Cambia:**
+**Cambia el entorno:**
 - La herramienta de escritura de código
 - La velocidad de generación
 - La barrera económica del testing riguroso
@@ -215,12 +197,12 @@ Recordad: el cuello de botella nunca ha sido las líneas por minuto. Siempre ha 
 - Quién escribe el código (humano vs. agente)
 
 **Permanece y cobra más relevancia:**
-- El problema siempre ha sido integrarla y mantenerla a lo largo del tiempo
+- El problema siempre ha sido integrar y mantener a lo largo del tiempo
 - Desarrollo iterativo en pasos pequeños y seguros
 - Definir comportamiento esperado antes de implementar
 - Ciclo de feedback como cuello de botella real
 - Arquitectura y diseño simple
-- Ajustar el rigor al contexto, no buscar perfección.
+- Ajustar el nivel de autonomía al contexto, no buscar perfección.
 - Trabajo en equipo y comunicación clara
 - "We are uncovering better ways of developing software"
 
@@ -230,91 +212,5 @@ Recordad: el cuello de botella nunca ha sido las líneas por minuto. Siempre ha 
 "El Manifiesto Ágil sigue vigente. No porque sea sagrado, sino porque captura algo atemporal: estamos siempre descubriendo mejores formas. La IA es la forma nueva. Los principios son los de siempre."
 
 
-
-
-# PARA EL WORKSHOP
----
-
-- Cada persona trae un ticket pequeño/mediano de su equipo.
-- Configurar Claude Code (en Wallbox, tendremos un script o similar, lo estoy hablando con ellos)
-- Claude.md
-- skills.
-- agents 
-
-
-
-
-### SLIDE 13 — Lo que sí poner en CLAUDE.md
-
-**Título:** CLAUDE.md: el briefing, no la enciclopedia
-**Contenido (dos columnas):**
-
-**❌ No hagas:**
-- Markdowns enormes con todo lo imaginable
-- Duplicar README o configs
-- Explicar principios que la IA ya conoce
-- Meter todos los comandos "por si acaso"
-
-**✅ Haz esto:**
-- Escríbelo como para un compañero nuevo que no meta la pata
-- 40–300 líneas máximo
-- Solo lo que no se puede deducir del código
-- Convenciones que difieran del estándar del lenguaje
-- **Cómo verificar sus cambios** (lo más importante)
-
-```markdown
-## Verification Requirements
-- Run `npm test` after code changes
-- Run `npm run typecheck` before marking complete
-- For API changes, test with curl
-- For UI changes, verify in browser
-```
-
-**🎤 Notas de orador:**
-"CLAUDE.md sigue siendo importante, pero para lo esencial. Lo que no se puede deducir del código, las convenciones propias, y sobre todo: cómo verificar. Si le das una forma de comprobar su trabajo, se autocorrige. Sin eso, eres tú quien revisa cada línea."
-
-"Todo lo demás — las prácticas especializadas, los workflows complejos, la experiencia acumulada — eso va en skills, no en CLAUDE.md."
-
-
-### SLIDE 12 — De CLAUDE.md a Skills: experiencia codificada
-
-**Título:** No repitas instrucciones. Codifica tu experiencia.
-**Contenido:**
-
-**El problema de CLAUDE.md:**
-- Todo se carga siempre, sea relevante o no
-- Claude inyecta: *"Este contexto puede o no ser relevante. No respondas a él salvo que sea altamente relevante."*
-- Cuanta más basura, más probable que ignore lo importante
-
-**La solución: Skills**
-Conocimiento empaquetado que se activa solo cuando es relevante. Progressive disclosure para el contexto de la IA.
-
-**Ejemplo — pipeline de delivery (Eduardo Ferro / skill-factory):**
-```
-/story-splitting     → ¿Es esta historia realmente tres historias con un trench coat?
-/hamburger-method    → Corta la feature en capas, genera opciones, compón el slice más fino
-/small-safe-steps    → Incrementos de 1-3h, cada uno desplegable de forma independiente
-/complexity-review   → 30 dimensiones de complejidad. "¿Por qué Kafka y no una cola?"
-/code-simplifier     → Reduce complejidad sin cambiar comportamiento
-```
-
-**🎤 Notas de orador:**
-"Todos los que usáis Claude Code conocéis CLAUDE.md. Funciona. Pero tiene un problema: todo se carga siempre. Tus guías de TDD, tus prácticas de Docker, tu workflow de refactoring... todo compitiendo por la ventana de contexto, sea relevante o no."
-
-"Eduardo Ferro encontró algo mejor: las Skills. Conocimiento empaquetado que se activa solo cuando lo necesitas. Escribes `/mutation-testing` y la IA gana experiencia profunda en encontrar tests débiles. Escribes `/complexity-review` y se convierte en un revisor técnico que desafía tu propuesta contra 30 dimensiones de complejidad. El resto del tiempo, ese conocimiento está fuera del camino."
-
-"Pensadlo así: es progressive disclosure para el contexto de la IA. Le das lo que necesita, cuando lo necesita."
-
-"Pero lo más potente es que las skills se encadenan como un pipeline. Un ejemplo real: tienes una historia de usuario grande. Invocas `/story-splitting` y detecta que en realidad son tres historias disfrazadas. Coges la primera, invocas `/hamburger-method` para cortarla en capas y generar el slice más fino. Luego `/small-safe-steps` para planificar incrementos de 1-3 horas, cada uno desplegable de forma independiente."
-
-"No es una skill que lo hace todo. Son skills que componen. Eso es lo que las hace poderosas."
-
-**Transición:**
-"Y esto es open source. El skill-factory de Lada Kesseler tiene 315 commits de skills bien construidas. Eduardo añadió 11 más. Podéis forkearlo hoy y empezar a codificar vuestra experiencia."
-
----
-
-
----
 
 
