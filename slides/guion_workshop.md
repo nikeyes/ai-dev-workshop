@@ -7,6 +7,7 @@
 - skills.
 - agents 
 - Plugings 
+- hooks
 - LSP 
 
 
