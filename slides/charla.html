@@ -34,13 +34,13 @@ body { background: #fff; }
   --text-3:   #666666;
   --bar-w:    clamp(7px, 1.1vw, 13px);
   --pad:      clamp(1.5rem, 5vw, 5rem);
-  --gap:      clamp(0.5rem, 1.4vw, 1.4rem);
-  --title:    clamp(1.6rem, 4.2vw, 4rem);
-  --h2:       clamp(1.1rem, 2.5vw, 2.2rem);
-  --h3:       clamp(0.95rem, 1.85vw, 1.6rem);
-  --body:     clamp(0.88rem, 1.5vw, 1.15rem);
-  --note:     clamp(0.9rem, 1.4vw, 1.1rem);
-  --small:    clamp(0.78rem, 1.3vw, 1.05rem);
+  --gap:      clamp(0.8rem, 2vw, 2.2rem);
+  --title:    clamp(1.6rem, 5.5vw, 5.5rem);
+  --h2:       clamp(1.2rem, 3.2vw, 3rem);
+  --h3:       clamp(0.95rem, 2.2vw, 2rem);
+  --body:     clamp(0.9rem, 1.8vw, 1.4rem);
+  --note:     clamp(0.9rem, 1.7vw, 1.35rem);
+  --small:    clamp(0.8rem, 1.5vw, 1.2rem);
 }
 @media (max-height: 700px) {
   :root { --pad: clamp(1rem, 3vw, 2.5rem); --title: clamp(1.3rem, 3.2vw, 2.8rem); --gap: clamp(0.35rem, 1vw, 0.9rem); }
@@ -103,7 +103,6 @@ body { background: #fff; }
   display: flex;
   align-items: center;
   gap: clamp(0.5rem, 1.2vw, 1rem);
-  margin-bottom: clamp(0.8rem, 2vh, 2rem);
   animation: fadeIn 0.4s ease both;
 }
 .eyebrow-rule {
@@ -127,11 +126,11 @@ body { background: #fff; }
 .content {
   position: relative;
   z-index: 2;
-  padding: var(--pad) var(--pad) var(--pad) calc(var(--pad) + var(--bar-w) + clamp(4px, 0.8vw, 10px));
+  padding: calc(var(--pad) + 44px) var(--pad) var(--pad) calc(var(--pad) + var(--bar-w) + clamp(4px, 0.8vw, 10px));
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 /* Main title */
@@ -140,7 +139,7 @@ body { background: #fff; }
   font-size: var(--title);
   color: var(--text);
   line-height: 1.02;
-  margin: 0 0 clamp(0.8rem, 2vh, 2rem);
+  margin: 0;
   animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both;
 }
 .title em  { font-style: normal; -webkit-text-stroke: 2px var(--text); color: transparent; }
@@ -153,7 +152,7 @@ body { background: #fff; }
   font-weight: 800;
   color: var(--text);
   line-height: 1.1;
-  margin: 0 0 clamp(0.8rem, 2vh, 1.8rem);
+  margin: 0;
   animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both;
 }
 
@@ -162,7 +161,6 @@ body { background: #fff; }
   display: flex;
   align-items: center;
   gap: clamp(0.8rem, 2vw, 2rem);
-  margin-bottom: clamp(0.8rem, 2vh, 1.8rem);
   animation: fadeIn 0.5s ease 0.5s both;
 }
 .attr {
@@ -225,7 +223,7 @@ body { background: #fff; }
 /* ================================================================
    SLIDE 1 — PORTADA
    ================================================================ */
-.s1 .content { max-width: min(80vw, 900px); }
+.s1 .content { max-width: min(80vw, 900px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
 .s1 .title { font-size: clamp(2rem, 5.5vw, 5.2rem); margin-bottom: clamp(0.5rem, 1.5vh, 1.2rem); }
 .s1 .subtitle {
   font-family: 'Archivo Black', sans-serif;
@@ -248,7 +246,7 @@ body { background: #fff; }
 /* ================================================================
    SLIDE 2 — MANIFIESTO
    ================================================================ */
-.s2 .content { max-width: min(75vw, 920px); }
+.s2 .content { max-width: min(75vw, 920px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
 
 /* ================================================================
    SLIDE 3 — METR
@@ -621,6 +619,19 @@ body { background: #fff; }
 .s9 .x  { color: #ef4444; font-weight: 800; flex-shrink: 0; }
 .s9 .ok { color: #22c55e; font-weight: 800; flex-shrink: 0; }
 .s9 .dot { color: var(--accent); font-weight: 800; flex-shrink: 0; }
+
+/* ================================================================
+   STEP-REVEAL — items that appear one click at a time
+   ================================================================ */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* ================================================================
    SLIDE 10 — LO QUE PERMANECE
@@ -1022,42 +1033,42 @@ body { background: #fff; }
     </div>
     <h2 class="h2">¿Qué permanece — y cobra más fuerza?</h2>
     <div class="permanece">
-      <div class="perm-item">
+      <div class="perm-item reveal-item">
         <div class="perm-num">01</div>
         <div class="perm-body">
           <div class="perm-title">Arquitectura y diseño simple</div>
           <p class="perm-text">La IA genera piezas. El reto es integrar y mantener a lo largo del tiempo.</p>
         </div>
       </div>
-      <div class="perm-item">
+      <div class="perm-item reveal-item">
         <div class="perm-num">02</div>
         <div class="perm-body">
           <div class="perm-title">Pasos pequeños y seguros</div>
           <p class="perm-text">El cuello de botella nunca fue generar código — fue acortar el ciclo de feedback.</p>
         </div>
       </div>
-      <div class="perm-item">
+      <div class="perm-item reveal-item">
         <div class="perm-num">03</div>
         <div class="perm-body">
           <div class="perm-title">Definir el comportamiento antes de implementar</div>
           <p class="perm-text">Si no lo defines tú, la IA hará unos tests perfectos para el código que ella misma decidió.</p>
         </div>
       </div>
-      <div class="perm-item">
+      <div class="perm-item reveal-item">
         <div class="perm-num">04</div>
         <div class="perm-body">
           <div class="perm-title">Autonomía ajustada al riesgo</div>
           <p class="perm-text">No todo necesita el mismo nivel de rigor. Pero cada nivel necesita sus guardarraíles.</p>
         </div>
       </div>
-      <div class="perm-item">
+      <div class="perm-item reveal-item">
         <div class="perm-num">05</div>
         <div class="perm-body">
           <div class="perm-title">Trabajo en equipo y comunicación clara</div>
           <p class="perm-text">La IA amplifica lo que hay. Si estamos desalineados, amplificará el caos.</p>
         </div>
       </div>
-      <div class="perm-item">
+      <div class="perm-item reveal-item">
         <div class="perm-num">06</div>
         <div class="perm-body">
           <div class="perm-title">We ARE uncovering</div>
@@ -1073,7 +1084,6 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <script>
   const slides = Array.from(document.querySelectorAll('.slide'));
-  const titleEl = document.getElementById('nav-title');
   const counterEl = document.getElementById('nav-counter');
   let current = 0;
 
@@ -1082,9 +1092,36 @@ body { background: #fff; }
     current = idx;
   }
 
+  function revealItems(slideEl) {
+    return Array.from(slideEl.querySelectorAll('.reveal-item'));
+  }
+
   function navigate(dir) {
-    const next = Math.max(0, Math.min(slides.length - 1, current + dir));
-    slides[next].scrollIntoView({ behavior: 'smooth' });
+    const slideEl = slides[current];
+    const items = revealItems(slideEl);
+
+    if (dir > 0) {
+      // Reveal next hidden item before leaving the slide
+      const next = items.find(el => !el.classList.contains('revealed'));
+      if (next) { next.classList.add('revealed'); return; }
+    } else {
+      // Hide last revealed item before going back
+      const revealed = items.filter(el => el.classList.contains('revealed'));
+      if (revealed.length > 0) { revealed[revealed.length - 1].classList.remove('revealed'); return; }
+    }
+
+    const nextIdx = Math.max(0, Math.min(slides.length - 1, current + dir));
+    if (nextIdx === current) return;
+
+    // When jumping to a slide: going forward → reset it; going back → reveal all
+    const targetItems = revealItems(slides[nextIdx]);
+    if (dir > 0) {
+      targetItems.forEach(el => el.classList.remove('revealed'));
+    } else {
+      targetItems.forEach(el => el.classList.add('revealed'));
+    }
+
+    slides[nextIdx].scrollIntoView({ behavior: 'smooth' });
   }
 
   document.addEventListener('keydown', e => {
