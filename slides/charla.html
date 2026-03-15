@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descubriendo mejores formas de desarrollar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;700;800&family=Nunito:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* === RESET & VIEWPORT BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow-x: hidden; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body { background: #fff; }
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  background: #ffffff;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* === CSS VARIABLES === */
+:root {
+  --accent:   #ff3300;
+  --text:     #000000;
+  --text-2:   #333333;
+  --text-3:   #666666;
+  --bar-w:    clamp(7px, 1.1vw, 13px);
+  --pad:      clamp(1.5rem, 5vw, 5rem);
+  --gap:      clamp(0.5rem, 1.4vw, 1.4rem);
+  --title:    clamp(1.6rem, 4.2vw, 4rem);
+  --h2:       clamp(1.1rem, 2.5vw, 2.2rem);
+  --h3:       clamp(0.95rem, 1.85vw, 1.6rem);
+  --body:     clamp(0.88rem, 1.5vw, 1.15rem);
+  --note:     clamp(0.9rem, 1.4vw, 1.1rem);
+  --small:    clamp(0.78rem, 1.3vw, 1.05rem);
+}
+@media (max-height: 700px) {
+  :root { --pad: clamp(1rem, 3vw, 2.5rem); --title: clamp(1.3rem, 3.2vw, 2.8rem); --gap: clamp(0.35rem, 1vw, 0.9rem); }
+}
+@media (max-height: 600px) {
+  :root { --pad: clamp(0.75rem, 2.5vw, 2rem); --title: clamp(1.1rem, 2.8vw, 2.2rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.1ms !important; }
+}
+
+/* === KEYFRAMES === */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+@keyframes slideLeft{ from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }
+@keyframes scaleIn  { from { opacity:0; transform:scale(0.88); } to { opacity:1; transform:scale(1); } }
+@keyframes expandX  { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+
+/* === SHARED ELEMENTS === */
+
+/* Red left bar */
+.bar {
+  position: absolute;
+  top: 0; left: 0;
+  width: var(--bar-w);
+  height: 100%;
+  background: var(--accent);
+  z-index: 3;
+}
+
+/* Grid background */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 55px 55px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Watermark number */
+.wm {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(7rem, 18vw, 18rem);
+  color: rgba(0,0,0,0.038);
+  line-height: 1;
+  position: absolute;
+  bottom: -0.12em;
+  right: -0.06em;
+  letter-spacing: -0.05em;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Eyebrow label */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  margin-bottom: clamp(0.8rem, 2vh, 2rem);
+  animation: fadeIn 0.4s ease both;
+}
+.eyebrow-rule {
+  width: clamp(24px, 4.5vw, 50px);
+  height: 3px;
+  background: var(--accent);
+  flex-shrink: 0;
+  transform-origin: left;
+  animation: expandX 0.4s ease both;
+}
+.eyebrow-text {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--small);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Content area */
+.content {
+  position: relative;
+  z-index: 2;
+  padding: var(--pad) var(--pad) var(--pad) calc(var(--pad) + var(--bar-w) + clamp(4px, 0.8vw, 10px));
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Main title */
+.title {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: var(--title);
+  color: var(--text);
+  line-height: 1.02;
+  margin: 0 0 clamp(0.8rem, 2vh, 2rem);
+  animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both;
+}
+.title em  { font-style: normal; -webkit-text-stroke: 2px var(--text); color: transparent; }
+.title .red { color: var(--accent); }
+
+/* H2 subheading */
+.h2 {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--h2);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+  margin: 0 0 clamp(0.8rem, 2vh, 1.8rem);
+  animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+}
+
+/* Attribution row */
+.attr-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 2rem);
+  margin-bottom: clamp(0.8rem, 2vh, 1.8rem);
+  animation: fadeIn 0.5s ease 0.5s both;
+}
+.attr {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--body);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.attr-div {
+  width: 1px;
+  height: clamp(16px, 3vh, 30px);
+  background: rgba(0,0,0,0.18);
+  flex-shrink: 0;
+}
+
+/* Note text */
+.note {
+  font-size: var(--note);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.55;
+  animation: fadeIn 0.5s ease 0.7s both;
+  max-width: min(72vw, 860px);
+}
+
+/* ===== NAV OVERLAY ===== */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.75rem;
+  color: #fff;
+}
+#nav-title { font-weight: 700; letter-spacing: 0.04em; }
+.nav-controls { display: flex; gap: 0.4rem; align-items: center; }
+.nav-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  cursor: pointer;
+  padding: 0.25rem 0.7rem;
+  border-radius: 3px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.72rem;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.25); }
+#nav-counter { opacity: 0.45; font-size: 0.7rem; }
+
+/* ================================================================
+   SLIDE 1 — PORTADA
+   ================================================================ */
+.s1 .content { max-width: min(80vw, 900px); }
+.s1 .title { font-size: clamp(2rem, 5.5vw, 5.2rem); margin-bottom: clamp(0.5rem, 1.5vh, 1.2rem); }
+.s1 .subtitle {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(1.2rem, 3vw, 2.8rem);
+  color: var(--accent);
+  line-height: 1;
+  animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+}
+.s1 .speaker {
+  margin-top: clamp(2rem, 5vh, 5rem);
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--small);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  animation: fadeIn 0.5s ease 0.65s both;
+}
+
+/* ================================================================
+   SLIDE 2 — MANIFIESTO
+   ================================================================ */
+.s2 .content { max-width: min(75vw, 920px); }
+
+/* ================================================================
+   SLIDE 3 — METR
+   ================================================================ */
+.s3 .content { max-width: min(88vw, 1100px); }
+.s3 .stat-block {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.5rem, 1.5vw, 1.5rem);
+  margin-bottom: clamp(0.2rem, 1vh, 0.8rem);
+}
+.s3 .stat-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(4.5rem, 13vw, 11rem);
+  color: var(--accent);
+  line-height: 1;
+  animation: scaleIn 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+}
+.s3 .stat-label {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(1.2rem, 3vw, 2.8rem);
+  color: var(--text);
+  line-height: 1.1;
+  animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+}
+.s3 .stat-label em { font-style: normal; color: var(--accent); }
+.s3 .facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+  margin-top: clamp(1.2rem, 3vh, 3rem);
+  animation: fadeIn 0.5s ease 0.55s both;
+}
+.s3 .fact {
+  border-top: 3px solid rgba(0,0,0,0.1);
+  padding-top: clamp(0.5rem, 1.2vh, 1rem);
+}
+.s3 .fact-icon {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: var(--h3);
+  color: var(--accent);
+  margin-bottom: 0.25em;
+}
+.s3 .fact-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.s3 .source {
+  margin-top: clamp(0.8rem, 2vh, 1.8rem);
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(0.6rem, 0.9vw, 0.76rem);
+  color: var(--text-3);
+  animation: fadeIn 0.5s ease 0.8s both;
+}
+
+/* ================================================================
+   SLIDE 4 — LOS 4 PROBLEMAS
+   ================================================================ */
+.s4 .content { max-width: min(88vw, 1060px); }
+.s4 .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s4 .card {
+  border: 2px solid rgba(0,0,0,0.1);
+  padding: clamp(0.9rem, 2vw, 1.8rem);
+  background: #fafafa;
+  position: relative;
+}
+.s4 .card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0.35;
+}
+.s4 .card-num {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--small);
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.4em;
+}
+.s4 .card-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.4em;
+}
+.s4 .card-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ================================================================
+   SLIDE 5 — FLUJO DE DESARROLLO
+   ================================================================ */
+.s5 .content { max-width: min(92vw, 1100px); }
+.s5 .pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: clamp(1.2rem, 3vh, 2.5rem);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s5 .step {
+  flex: 1;
+  border: 2px solid rgba(0,0,0,0.15);
+  padding: clamp(0.7rem, 1.8vw, 1.5rem);
+  text-align: center;
+  margin-right: -2px;
+  position: relative;
+  background: #fff;
+  z-index: 1;
+}
+.s5 .step-num {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--small);
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3em;
+}
+.s5 .step-name {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: var(--h3);
+  color: var(--text);
+  line-height: 1.1;
+}
+.s5 .step-sub {
+  font-size: var(--small);
+  color: var(--text-3);
+  font-weight: 600;
+  margin-top: 0.35em;
+  line-height: 1.35;
+}
+.s5 .arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(4px, 0.6vw, 10px);
+  font-family: 'Archivo Black', sans-serif;
+  font-size: var(--h2);
+  color: rgba(0,0,0,0.12);
+  z-index: 2;
+  flex-shrink: 0;
+}
+.s5 .pipeline-note {
+  font-size: var(--note);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.55;
+  border-top: 3px solid rgba(0,0,0,0.08);
+  padding-top: clamp(0.6rem, 1.5vh, 1.2rem);
+  animation: fadeIn 0.5s ease 0.6s both;
+  max-width: min(70vw, 820px);
+}
+.s5 .pipeline-note strong { color: var(--text); font-weight: 800; }
+
+/* ================================================================
+   SLIDE 6 — PRÁCTICAS QUE FUNCIONAN
+   ================================================================ */
+.s6 .content { max-width: min(80vw, 960px); }
+.s6 .practices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  animation: fadeIn 0.5s ease 0.3s both;
+}
+.s6 .practice {
+  display: flex;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  align-items: flex-start;
+}
+.s6 .practice-bullet {
+  width: clamp(22px, 3.5vw, 34px);
+  height: clamp(22px, 3.5vw, 34px);
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+.s6 .practice-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.25em;
+}
+.s6 .practice-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.s6 .bottleneck {
+  margin-top: clamp(1rem, 2.5vh, 2rem);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.6rem, 1.5vh, 1.2rem);
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  animation: fadeIn 0.5s ease 0.65s both;
+}
+
+/* ================================================================
+   SLIDE 7 — GUARDARRAÍLES + CHECKLIST
+   ================================================================ */
+.s7 .content { max-width: min(92vw, 1100px); }
+.s7 .two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  animation: fadeIn 0.5s ease 0.3s both;
+}
+.s7 .col-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: clamp(0.6rem, 1.5vh, 1.2rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.s7 .col-title::before {
+  content: '';
+  display: inline-block;
+  width: clamp(18px, 3vw, 28px);
+  height: 3px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.s7 .item-list { list-style: none; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vh, 0.8rem); }
+.s7 .item-list li {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.4;
+  padding-left: 1.2em;
+  position: relative;
+}
+.s7 .item-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 800;
+}
+.s7 .check-list { list-style: none; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vh, 0.8rem); }
+.s7 .check-list li {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.4;
+  padding-left: 1.8em;
+  position: relative;
+}
+.s7 .check-list li::before {
+  content: '□';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 1.1em;
+  font-weight: 800;
+}
+
+/* ================================================================
+   SLIDE 8 — AUTONOMÍA
+   ================================================================ */
+.s8 .content { max-width: min(92vw, 1060px); }
+.s8 .table {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vh, 0.8rem);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s8 .row {
+  display: grid;
+  grid-template-columns: 4px 1fr 1fr 1fr;
+  align-items: center;
+  gap: clamp(0.6rem, 1.5vw, 1.4rem);
+  padding: clamp(0.55rem, 1.3vh, 1rem) clamp(0.6rem, 1.5vw, 1.2rem);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  background: #fafafa;
+}
+.s8 .row-bar { height: 100%; border-radius: 2px; min-height: 40px; }
+.s8 .row.green .row-bar  { background: #22c55e; }
+.s8 .row.yellow .row-bar { background: #eab308; }
+.s8 .row.orange .row-bar { background: #f97316; }
+.s8 .row.red    .row-bar { background: #ef4444; }
+.s8 .row-context {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--small);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+}
+.s8 .row-autonomy {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.s8 .row-gate {
+  font-size: clamp(0.65rem, 1vw, 0.82rem);
+  color: var(--text-3);
+  font-weight: 600;
+  line-height: 1.35;
+  font-family: 'Space Mono', monospace;
+}
+.s8 .table-header {
+  display: grid;
+  grid-template-columns: 4px 1fr 1fr 1fr;
+  gap: clamp(0.6rem, 1.5vw, 1.4rem);
+  padding: 0 clamp(0.6rem, 1.5vw, 1.2rem) clamp(0.3rem, 0.8vh, 0.5rem);
+}
+.s8 .th {
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ================================================================
+   SLIDE 9 — LO QUE CAMBIA
+   ================================================================ */
+.s9 .content { max-width: min(92vw, 1060px); }
+.s9 .two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  animation: fadeIn 0.5s ease 0.3s both;
+}
+.s9 .col-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: clamp(0.6rem, 1.5vh, 1.2rem);
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 0.4em;
+}
+.s9 .change-list { list-style: none; display: flex; flex-direction: column; gap: clamp(0.35rem, 0.9vh, 0.7rem); }
+.s9 .change-list li {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55em;
+}
+.s9 .x  { color: #ef4444; font-weight: 800; flex-shrink: 0; }
+.s9 .ok { color: #22c55e; font-weight: 800; flex-shrink: 0; }
+.s9 .dot { color: var(--accent); font-weight: 800; flex-shrink: 0; }
+
+/* ================================================================
+   SLIDE 10 — LO QUE PERMANECE
+   ================================================================ */
+.s10 .content { max-width: min(90vw, 1060px); }
+.s10 .permanece {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap) clamp(1.5rem, 4vw, 4rem);
+  animation: fadeIn 0.5s ease 0.3s both;
+}
+.s10 .perm-item {
+  display: flex;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  align-items: flex-start;
+}
+.s10 .perm-num {
+  font-family: 'Archivo Black', sans-serif;
+  font-size: var(--h3);
+  color: rgba(0,0,0,0.1);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 1.8em;
+  text-align: right;
+}
+.s10 .perm-body { display: flex; flex-direction: column; }
+.s10 .perm-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.2em;
+  line-height: 1.2;
+}
+.s10 .perm-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.45;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================ -->
+<!-- NAV OVERLAY                                                   -->
+<!-- ============================================================ -->
+<div id="nav">
+  <span id="nav-title">Descubriendo mejores formas de desarrollar</span>
+  <div class="nav-controls">
+    <button class="nav-btn" onclick="navigate(-1)">← Anterior</button>
+    <span id="nav-counter">1 de 10</span>
+    <button class="nav-btn" onclick="navigate(1)">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 1 — PORTADA                                             -->
+<!-- ============================================================ -->
+<section class="slide s1" data-label="Portada">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">01</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">AI Dev Workshop · 2026</span>
+    </div>
+    <h1 class="title">Descubriendo<br>mejores formas<br>de desarrollar</h1>
+    <p class="subtitle">¿otra vez?</p>
+    <p class="speaker">Jorge Castro</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2 — MANIFIESTO ÁGIL                                     -->
+<!-- ============================================================ -->
+<section class="slide s2" data-label="Manifiesto Ágil">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">02</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Manifiesto Ágil · 2001</span>
+    </div>
+    <h1 class="title">"We <em>ARE</em> uncovering<br>better ways of<br>developing software"</h1>
+    <div class="attr-row">
+      <span class="attr">— Manifiesto Ágil, 2001</span>
+    </div>
+    <p class="note">La frase no dice "we have uncovered". Dice "we ARE uncovering". Presente continuo. Un proceso que no termina.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3 — EL ESTUDIO METR                                     -->
+<!-- ============================================================ -->
+<section class="slide s3" data-label="El estudio METR">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">03</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">METR Study · Julio 2025</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num">19%</span>
+      <div>
+        <p class="stat-label">más lentos<br>(sí, más <em>LENTOS</em>)</p>
+      </div>
+    </div>
+    <div class="facts">
+      <div class="fact">
+        <div class="fact-icon">16</div>
+        <p class="fact-text">desarrolladores seniors con &gt;5 años en sus repos</p>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">246</div>
+        <p class="fact-text">tareas reales de sus propios proyectos</p>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">+20%</div>
+        <p class="fact-text">creían haber ido más rápido — pero fueron un 19% más lentos</p>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">2026</div>
+        <p class="fact-text">METR ya observa indicios de mejora en actualización de febrero</p>
+      </div>
+    </div>
+    <p class="source">Fuente: METR — metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4 — LOS 4 PROBLEMAS                                     -->
+<!-- ============================================================ -->
+<section class="slide s4" data-label="Lo que la IA hace mal">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">04</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Los 4 problemas</span>
+    </div>
+    <h2 class="h2">Lo que la IA hace mal</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-num">01</div>
+        <div class="card-title">Falta de contexto</div>
+        <p class="card-text">Al empezar cada sesión, la IA no sabe nada de tu base de código. Cero.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <div class="card-title">Alucinaciones</div>
+        <p class="card-text">Inventa APIs, métodos y dependencias que no existen. Y te lo dice convencida.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <div class="card-title">Indeterminismo</div>
+        <p class="card-text">El mismo prompt puede dar resultados diferentes cada vez que lo ejecutas.</p>
+      </div>
+      <div class="card">
+        <div class="card-num">04</div>
+        <div class="card-title">Difícil de verificar</div>
+        <p class="card-text">Generamos código más rápido de lo que nuestra carga cognitiva permite revisar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5 — FLUJO DE DESARROLLO                                 -->
+<!-- ============================================================ -->
+<section class="slide s5" data-label="Flujo de desarrollo">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">05</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">El flujo que ya conocemos</span>
+    </div>
+    <h2 class="h2">Separar fases no es opcional con IA</h2>
+    <div class="pipeline">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-name">Investigar</div>
+        <div class="step-sub">Contexto, restricciones, decisiones</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-name">Planificar</div>
+        <div class="step-sub">Diseño, pasos pequeños, criterios</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-name">Implementar</div>
+        <div class="step-sub">Sesión limpia, contexto preciso</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-name">Validar</div>
+        <div class="step-sub">Tests, revisión, feedback real</div>
+      </div>
+    </div>
+    <p class="pipeline-note">
+      Si colapses investigación, planificación e implementación en una sola sesión, sacrificas coherencia por velocidad.
+      <br>La ventana de contexto no es infinita — <strong>gestiona el contexto de forma agresiva.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6 — PRÁCTICAS QUE FUNCIONAN                            -->
+<!-- ============================================================ -->
+<section class="slide s6" data-label="Prácticas que funcionan">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">06</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Ya sabemos lo que funciona</span>
+    </div>
+    <h2 class="h2">El cuello de botella nunca fue<br>el número de líneas por minuto</h2>
+    <div class="practices">
+      <div class="practice">
+        <div class="practice-bullet">01</div>
+        <div>
+          <div class="practice-title">Story Splitting</div>
+          <p class="practice-text">Partir trabajo en piezas verticales y desplegables. Con IA esto es aún más crítico.</p>
+        </div>
+      </div>
+      <div class="practice">
+        <div class="practice-bullet">02</div>
+        <div>
+          <div class="practice-title">Hamburger Method</div>
+          <p class="practice-text">Entrega de valor de extremo a extremo antes de completar la funcionalidad completa.</p>
+        </div>
+      </div>
+      <div class="practice">
+        <div class="practice-bullet">03</div>
+        <div>
+          <div class="practice-title">Small Safe Steps</div>
+          <p class="practice-text">Cada paso debe ser reversible. Que el agente genere mucho no significa que despliegues todo junto.</p>
+        </div>
+      </div>
+      <div class="practice">
+        <div class="practice-bullet">04</div>
+        <div>
+          <div class="practice-title">Testing avanzado</div>
+          <p class="practice-text">Mutation testing, Acceptance Testing, Architectural Testing — amplían el ciclo de feedback.</p>
+        </div>
+      </div>
+    </div>
+    <p class="bottleneck">El ciclo de feedback es acortar el tiempo entre "escribir código" y "saber si es correcto".</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7 — GUARDARRAÍLES + CHECKLIST                           -->
+<!-- ============================================================ -->
+<section class="slide s7" data-label="Diseña para supervisión">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">07</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Diseña para supervisión</span>
+    </div>
+    <h2 class="h2">No puedes revisar cada línea.<br>Diseña sistemas que capturen errores.</h2>
+    <div class="two-col">
+      <div>
+        <p class="col-title">Guardarraíles técnicos</p>
+        <ul class="item-list">
+          <li>Hooks: linter automático en cada tool use</li>
+          <li>Tests de arquitectura: verifican estructura, no solo funcionalidad</li>
+          <li>Acceptance Testing: el comportamiento esperado definido antes</li>
+          <li>CI/CD maduro: si no es fiable con humanos, será un desastre con agentes</li>
+          <li>Permisos del agente: define qué puede hacer sin aprobación y qué no</li>
+        </ul>
+      </div>
+      <div>
+        <p class="col-title">Checklist antes de mergear</p>
+        <ul class="check-list">
+          <li>¿Esto respeta mi dominio o solo suena bien?</li>
+          <li>¿Los tests prueban algo real?</li>
+          <li>¿Hay observabilidad de ese caso de uso?</li>
+          <li>¿Podría borrar este código sin romper nada?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8 — NIVEL DE AUTONOMÍA                                   -->
+<!-- ============================================================ -->
+<section class="slide s8" data-label="Nivel de autonomía">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">08</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">¿Cuánta autonomía?</span>
+    </div>
+    <h2 class="h2">Ajusta la autonomía al riesgo</h2>
+    <div class="table-header">
+      <div></div>
+      <div class="th">Contexto</div>
+      <div class="th">Nivel de autonomía</div>
+      <div class="th">Antes de mergear</div>
+    </div>
+    <div class="table">
+      <div class="row green">
+        <div class="row-bar"></div>
+        <div class="row-context">Prototipo interno<br><small style="font-weight:400;color:#666">Si falla: perdemos tiempo</small></div>
+        <div class="row-autonomy">Tú diseñas, la IA implementa — no te preocupes del código</div>
+        <div class="row-gate">Tests unitarios + integración<br>A main directo</div>
+      </div>
+      <div class="row yellow">
+        <div class="row-bar"></div>
+        <div class="row-context">Producto con usuarios<br><small style="font-weight:400;color:#666">Si falla: usuario afectado</small></div>
+        <div class="row-autonomy">Tú diseñas, la IA implementa, tú supervisas arquitectura</div>
+        <div class="row-gate">Tests arquitectura + aceptación<br>Observabilidad + PR con IA review</div>
+      </div>
+      <div class="row orange">
+        <div class="row-bar"></div>
+        <div class="row-context">Core del negocio<br><small style="font-weight:400;color:#666">Si falla: dinero o confianza</small></div>
+        <div class="row-autonomy">Tú diseñas y supervisas código de módulos críticos</div>
+        <div class="row-gate">Mutation testing + security scan<br>PR con revisión humana</div>
+      </div>
+      <div class="row red">
+        <div class="row-bar"></div>
+        <div class="row-context">Mundo físico<br><small style="font-weight:400;color:#666">Si falla: daño real</small></div>
+        <div class="row-autonomy">Tú decides y supervisas a bajo nivel — la IA solo asiste</div>
+        <div class="row-gate">Tests con hardware real<br>Revisión de seguridad obligatoria</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9 — LO QUE CAMBIA                                       -->
+<!-- ============================================================ -->
+<section class="slide s9" data-label="Lo que cambia">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">09</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">La transformación</span>
+    </div>
+    <h2 class="h2">¿Qué cambia?</h2>
+    <div class="two-col">
+      <div>
+        <p class="col-title">Tu rol</p>
+        <ul class="change-list">
+          <li><span class="x">✕</span> Ya no te pagan por escribir código</li>
+          <li><span class="x">✕</span> Tampoco por usar IA</li>
+          <li><span class="ok">✓</span> Te pagan por decidir qué NO debe entrar en producción</li>
+          <li><span class="ok">✓</span> Te pagan por proteger el sistema</li>
+        </ul>
+      </div>
+      <div>
+        <p class="col-title">El entorno</p>
+        <ul class="change-list">
+          <li><span class="dot">→</span> La herramienta de escritura de código</li>
+          <li><span class="dot">→</span> La velocidad de generación</li>
+          <li><span class="dot">→</span> La barrera económica del testing riguroso</li>
+          <li><span class="dot">→</span> El formato de la documentación (CLAUDE.md, skills)</li>
+          <li><span class="dot">→</span> Quién escribe el código (humano vs. agente)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10 — LO QUE PERMANECE                                   -->
+<!-- ============================================================ -->
+<section class="slide s10" data-label="Lo que permanece">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">10</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Lo que importa</span>
+    </div>
+    <h2 class="h2">¿Qué permanece — y cobra más fuerza?</h2>
+    <div class="permanece">
+      <div class="perm-item">
+        <div class="perm-num">01</div>
+        <div class="perm-body">
+          <div class="perm-title">Arquitectura y diseño simple</div>
+          <p class="perm-text">La IA genera piezas. El reto es integrar y mantener a lo largo del tiempo.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-num">02</div>
+        <div class="perm-body">
+          <div class="perm-title">Pasos pequeños y seguros</div>
+          <p class="perm-text">El cuello de botella nunca fue generar código — fue acortar el ciclo de feedback.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-num">03</div>
+        <div class="perm-body">
+          <div class="perm-title">Definir el comportamiento antes de implementar</div>
+          <p class="perm-text">Si no lo defines tú, la IA hará unos tests perfectos para el código que ella misma decidió.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-num">04</div>
+        <div class="perm-body">
+          <div class="perm-title">Autonomía ajustada al riesgo</div>
+          <p class="perm-text">No todo necesita el mismo nivel de rigor. Pero cada nivel necesita sus guardarraíles.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-num">05</div>
+        <div class="perm-body">
+          <div class="perm-title">Trabajo en equipo y comunicación clara</div>
+          <p class="perm-text">La IA amplifica lo que hay. Si estamos desalineados, amplificará el caos.</p>
+        </div>
+      </div>
+      <div class="perm-item">
+        <div class="perm-num">06</div>
+        <div class="perm-body">
+          <div class="perm-title">We ARE uncovering</div>
+          <p class="perm-text">Esto no es una revolución que lo reemplaza todo. Es la siguiente iteración de un proceso que no termina.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT: NAVIGATION                                        -->
+<!-- ============================================================ -->
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const titleEl = document.getElementById('nav-title');
+  const counterEl = document.getElementById('nav-counter');
+  let current = 0;
+
+  function updateNav(idx) {
+    counterEl.textContent = (idx + 1) + ' de ' + slides.length;
+    current = idx;
+  }
+
+  function navigate(dir) {
+    const next = Math.max(0, Math.min(slides.length - 1, current + dir));
+    slides[next].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); navigate(1); }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); navigate(-1); }
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) updateNav(slides.indexOf(entry.target));
+    });
+  }, { threshold: 0.55 });
+
+  slides.forEach(s => observer.observe(s));
+  updateNav(0);
+</script>
+</body>
+</html>

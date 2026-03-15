@@ -8,7 +8,7 @@
 
 ---
 
-Hacer in menti con preguntas para ver tipo: (PENSAR PREGUNTAS)
+Para la intro Hacer in menti con preguntas para ver tipo: (PENSAR PREGUNTAS)
 - ¿ Cada cuánto usáis la IA para desarrollar?
 - ¿Qué herramientas de IA usáis para desarrollar?
 - ¿Cuántas Skills o Agentes tenéis configurados en vuestra IA favorita?
@@ -213,6 +213,45 @@ Recordad: el cuello de botella nunca ha sido las líneas por minuto. Siempre ha 
 
 
 
+## Resumen: las 5 ideas clave
+
+**1.** La IA es una herramienta poderosa, pero sin disciplina te ralentiza o te genera más problemas que soluciones.
+
+**2.** Tu ventaja competitiva ya no es escribir código, es entender el problema.
+
+**3.** Lo que genera la IA por defecto es un borrador que necesita configuración.
+
+**4.** Investigar → Planificar → Implementar → Validar. No hagas todo de golpe.
+
+**5.** Adoptar IA requiere formación, comunidad y métricas, no solo licencias.
 
 
 
+---
+
+# OPCIONAL
+
+## 13. Cómo adoptar desarrollo con IA en la organización
+
+Esto no es dar licencias y listo.
+
+### Capacitación
+
+- Coach técnico
+- Equipo Campeones / Early adopters
+
+👩‍🏫 **Capacitación = adopción**
+- Tienes que capacitar ese equipo de campeones para sacar el máximo partido a la herramienta.
+- Que vayan a casos concretos de tu flujo o procesos, no a ejemplos genéricos.
+
+### Comunidad
+
+🕺 **Comunidad de prácticas IA**
+- Compartir hallazgos
+- Se van a motivar y querer compartir esos hallazgos
+- Tiene que dar visibilidad de lo que se está consiguiendo
+- Workshops internos
+
+### Medir
+
+📝 **Mide el impacto**

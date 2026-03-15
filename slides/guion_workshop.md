@@ -4,7 +4,12 @@
 - Cada persona trae un ticket pequeño/mediano de su equipo.
 - Configurar Claude Code (en Wallbox, tendremos un script o similar, lo estoy hablando con ellos)
 - Claude.md
-- skills.
+- Skills:
+    - /story-splitting     → ¿Es una historia o 3 disfrazdas?
+    - /hamburger-method    → Corta en capas, genera opciones, elige uno que de feedback rápido
+    - /small-safe-steps    → Incrementos pequeñños, cada uno desplegable de forma independiente
+    - /complexity-review   → 30 dimensiones de complejidad. "¿Por qué Kafka y no una cola?"
+    - /code-simplifier   
 - agents 
 - Plugings 
 - hooks
