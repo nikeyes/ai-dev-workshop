@@ -51,6 +51,10 @@ body { background: #fff; }
 @media (max-height: 600px) {
   :root { --pad: clamp(0.75rem, 2.5vw, 2rem); --title: clamp(1.1rem, 2.8vw, 2.2rem); }
 }
+@media (max-height: 500px) {
+  :root { --pad: clamp(0.4rem, 2vw, 1rem); --title: clamp(1rem, 2.5vw, 1.8rem); --h2: clamp(0.9rem, 2.5vw, 1.5rem); --body: clamp(0.7rem, 1.2vw, 0.95rem); }
+  .nav-dots, .keyboard-hint { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.1ms !important; }
 }
@@ -192,6 +196,77 @@ body { background: #fff; }
   max-width: min(72vw, 860px);
 }
 
+/* ===== PROGRESS BAR ===== */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--accent);
+  z-index: 10001;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ===== NAV DOTS ===== */
+.nav-dots {
+  position: fixed;
+  right: clamp(0.6rem, 1.5vw, 1.2rem);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.6rem);
+  z-index: 9998;
+}
+.nav-dot {
+  width: clamp(8px, 1vw, 10px);
+  height: clamp(8px, 1vw, 10px);
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+  position: relative;
+}
+.nav-dot:hover { border-color: var(--accent); }
+.nav-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.3);
+}
+.nav-dot-label {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--f-sans);
+  font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+  font-weight: 700;
+  color: var(--text-3);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.nav-dot:hover .nav-dot-label { opacity: 1; }
+
+/* ===== KEYBOARD HINT ===== */
+.keyboard-hint {
+  position: fixed;
+  bottom: clamp(0.8rem, 2vh, 1.5rem);
+  right: clamp(0.8rem, 2vw, 1.5rem);
+  font-family: var(--f-mono);
+  font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+  color: rgba(0,0,0,0.25);
+  z-index: 9998;
+  animation: fadeIn 1s ease 2s both;
+  transition: opacity 0.5s ease;
+}
+.keyboard-hint.hidden { opacity: 0; pointer-events: none; }
+
 /* ===== NAV OVERLAY ===== */
 #nav {
   position: fixed;
@@ -208,7 +283,8 @@ body { background: #fff; }
   font-size: 0.75rem;
   color: #fff;
 }
-#nav-title { font-weight: 700; letter-spacing: 0.04em; }
+#nav-title { font-weight: 700; letter-spacing: 0.04em; display: flex; gap: 0.6em; align-items: center; }
+#nav-label { opacity: 0.5; font-weight: 400; font-size: 0.68rem; }
 .nav-controls { display: flex; gap: 0.4rem; align-items: center; }
 .nav-btn {
   background: rgba(255,255,255,0.12);
@@ -678,13 +754,27 @@ body { background: #fff; }
 /* ================================================================
    SLIDE 8 — GUARDARRAÍLES + CHECKLIST
    ================================================================ */
-.s8 .content { max-width: min(92vw, 1100px); }
+.s8 .content { max-width: min(92vw, 1100px); justify-content: center; }
 .s8 .two-col,
 .s11 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(1.5rem, 4vw, 4rem);
+  gap: clamp(1rem, 2.5vw, 2.5rem);
   animation: fadeIn 0.5s ease 0.3s both;
+}
+/* --- Column panels with distinct visual treatment --- */
+.s8 .col-panel {
+  padding: clamp(1rem, 2.5vh, 1.8rem) clamp(1rem, 2vw, 1.6rem);
+  position: relative;
+}
+.s8 .col-guardrails {
+  background: #fafafa;
+  border: 2px solid rgba(0,0,0,0.08);
+  border-left: 4px solid var(--accent);
+}
+.s8 .col-checklist {
+  background: rgba(255,51,0,0.03);
+  border: 2px solid rgba(255,51,0,0.12);
 }
 .s8 .col-title {
   font-family: var(--f-sans);
@@ -695,8 +785,10 @@ body { background: #fff; }
   display: flex;
   align-items: center;
   gap: 0.5em;
+  padding-bottom: clamp(0.4rem, 1vh, 0.7rem);
+  border-bottom: 2px solid rgba(0,0,0,0.08);
 }
-.s8 .col-title::before {
+.s8 .col-guardrails .col-title::before {
   content: '';
   display: inline-block;
   width: clamp(18px, 3vw, 28px);
@@ -704,11 +796,31 @@ body { background: #fff; }
   background: var(--accent);
   flex-shrink: 0;
 }
+.s8 .col-checklist .col-title {
+  border-color: rgba(255,51,0,0.15);
+}
+.s8 .col-checklist .col-title::before {
+  content: '';
+  display: inline-block;
+  width: clamp(18px, 3vw, 28px);
+  height: 3px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.s8 .col-icon {
+  font-family: var(--f-black);
+  font-size: clamp(0.65rem, 1vw, 0.8rem);
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+}
 .s8 .item-list, .s8 .check-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: clamp(0.4rem, 1vh, 0.8rem);
+  gap: clamp(0.5rem, 1.2vh, 0.9rem);
 }
 .s8 .item-list li, .s8 .check-list li {
   font-size: var(--small);
@@ -717,10 +829,34 @@ body { background: #fff; }
   line-height: 1.4;
   position: relative;
 }
-.s8 .item-list li { padding-left: 1.2em; }
+.s8 .item-list li {
+  padding-left: 1.6em;
+  padding-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.s8 .item-list li:last-child { border-bottom: none; padding-bottom: 0; }
 .s8 .item-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
-.s8 .check-list li { padding-left: 1.8em; }
+.s8 .check-list li {
+  padding-left: 2em;
+  padding-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+  border-bottom: 1px dashed rgba(255,51,0,0.12);
+}
+.s8 .check-list li:last-child { border-bottom: none; padding-bottom: 0; }
 .s8 .check-list li::before { content: '□'; position: absolute; left: 0; color: var(--accent); font-size: 1.1em; font-weight: 800; }
+/* --- Bottom takeaway --- */
+.s8 .oversight-takeaway {
+  margin-top: auto;
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.5rem, 1.2vh, 0.8rem);
+  animation: fadeIn 0.5s ease 0.65s both;
+}
+.s8 .oversight-takeaway em {
+  font-style: normal;
+  color: var(--accent);
+}
 
 /* ================================================================
    SLIDE 9 — SEGURIDAD DEL AGENTE
@@ -884,17 +1020,40 @@ body { background: #fff; }
 /* ================================================================
    SLIDE 11 — LO QUE CAMBIA
    ================================================================ */
-.s11 .content { max-width: min(92vw, 1060px); justify-content: flex-start; }
+.s11 .content { max-width: min(92vw, 1060px); justify-content: center; }
+.s11 .col-panel {
+  padding: clamp(1rem, 2.5vh, 1.8rem) clamp(1rem, 2vw, 1.6rem);
+}
+.s11 .col-role {
+  background: #fafafa;
+  border: 2px solid rgba(0,0,0,0.08);
+  border-top: 4px solid var(--accent);
+}
+.s11 .col-env {
+  background: #fff;
+  border: 2px solid rgba(0,0,0,0.08);
+  border-top: 4px solid var(--text-3);
+}
+.s11 .col-label {
+  font-family: var(--f-sans);
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: clamp(0.2rem, 0.5vh, 0.4rem);
+}
+.s11 .col-role .col-label { color: var(--accent); }
+.s11 .col-env .col-label { color: var(--text-3); }
 .s11 .col-title {
   font-family: var(--f-sans);
   font-size: var(--h3);
   font-weight: 800;
   color: var(--text);
   margin-bottom: clamp(0.6rem, 1.5vh, 1.2rem);
-  border-bottom: 3px solid var(--accent);
   padding-bottom: 0.4em;
+  border-bottom: 2px solid rgba(0,0,0,0.08);
 }
-.s11 .change-list { list-style: none; display: flex; flex-direction: column; gap: clamp(0.35rem, 0.9vh, 0.7rem); }
+.s11 .change-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
 .s11 .change-list li {
   font-size: var(--small);
   color: var(--text-2);
@@ -903,10 +1062,27 @@ body { background: #fff; }
   display: flex;
   align-items: flex-start;
   gap: 0.55em;
+  padding: clamp(0.35rem, 0.8vh, 0.6rem) 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
-.s11 .x { color: #ef4444; font-weight: 800; flex-shrink: 0; }
-.s11 .ok { color: #22c55e; font-weight: 800; flex-shrink: 0; }
-.s11 .dot { color: var(--accent); font-weight: 800; flex-shrink: 0; }
+.s11 .change-list li:last-child { border-bottom: none; }
+.s11 .x { color: #ef4444; font-weight: 800; flex-shrink: 0; font-size: 1.1em; }
+.s11 .ok { color: #22c55e; font-weight: 800; flex-shrink: 0; font-size: 1.1em; }
+.s11 .dot { color: var(--text-3); font-weight: 800; flex-shrink: 0; }
+/* --- Bottom takeaway --- */
+.s11 .change-takeaway {
+  margin-top: auto;
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.5rem, 1.2vh, 0.8rem);
+  animation: fadeIn 0.5s ease 0.65s both;
+}
+.s11 .change-takeaway em {
+  font-style: normal;
+  color: var(--accent);
+}
 
 /* ================================================================
    STEP-REVEAL — items that appear one click at a time
@@ -1003,14 +1179,17 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <!-- NAV OVERLAY                                                   -->
 <!-- ============================================================ -->
+<div class="progress-bar" id="progress-bar"></div>
 <div id="nav">
-  <span id="nav-title">Uncovering better ways of developing</span>
+  <span id="nav-title">Uncovering better ways of developing <span id="nav-label"></span></span>
   <div class="nav-controls">
-    <button class="nav-btn" onclick="navigate(-1)">← Previous</button>
-    <span id="nav-counter">1 of 10</span>
+    <button class="nav-btn" onclick="navigate(-1)">← Prev</button>
+    <span id="nav-counter">1 / 13</span>
     <button class="nav-btn" onclick="navigate(1)">Next →</button>
   </div>
 </div>
+<nav class="nav-dots" id="nav-dots"></nav>
+<div class="keyboard-hint" id="keyboard-hint">← → Space to navigate</div>
 
 <!-- ============================================================ -->
 <!-- SLIDE 1 — PORTADA                                             -->
@@ -1085,7 +1264,7 @@ body { background: #fff; }
         <span class="reveal-real-num">19% SLOWER</span>
       </div>
     </div>
-    <p class="source">Source: <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study" target="_blank" rel="noopener">METR — Early 2025 AI-Experienced OS Dev Study</a></p>
+    <p class="source">Source: <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR — Early 2025 AI-Experienced OS Dev Study</a></p>
   </div>
 </section>
 
@@ -1289,7 +1468,8 @@ body { background: #fff; }
     </div>
     <h2 class="h2">You can't review every line.<br>Design systems that catch mistakes.</h2>
     <div class="two-col">
-      <div>
+      <div class="col-panel col-guardrails reveal-item">
+        <div class="col-icon">Automated</div>
         <p class="col-title">Technical guardrails</p>
         <ul class="item-list">
           <li>Hooks: automatic linter on every tool use</li>
@@ -1299,7 +1479,8 @@ body { background: #fff; }
           <li>Agent permissions: define what it can do without approval — and what it can't</li>
         </ul>
       </div>
-      <div>
+      <div class="col-panel col-checklist reveal-item">
+        <div class="col-icon">Human judgement</div>
         <p class="col-title">Pre-merge checklist</p>
         <ul class="check-list">
           <li>Does this respect my domain or just sound right?</li>
@@ -1309,6 +1490,7 @@ body { background: #fff; }
         </ul>
       </div>
     </div>
+    <p class="oversight-takeaway reveal-item">Guardrails catch the <em>obvious</em>. The checklist catches what only <em>you</em> can see.</p>
   </div>
 </section>
 
@@ -1350,7 +1532,7 @@ body { background: #fff; }
       </div>
     </div>
     <div class="sec-footer">
-      <a href="https://www.veracode.com/blog/genai-code-security-report/" target="_blank" rel="noopener" class="sec-source">Source: Veracode — GenAI Code Security Report 2024</a>
+      <a href="https://www.veracode.com/blog/genai-code-security-report/" target="_blank" rel="noopener" class="sec-source">Source: Veracode — GenAI Code Security Report 2025</a>
     </div>
   </div>
 </section>
@@ -1417,7 +1599,8 @@ body { background: #fff; }
     </div>
     <h2 class="h2">What changes?</h2>
     <div class="two-col">
-      <div>
+      <div class="col-panel col-role reveal-item">
+        <div class="col-label">What you do</div>
         <p class="col-title">Your role</p>
         <ul class="change-list">
           <li><span class="x">✕</span> You're no longer paid for writing code</li>
@@ -1426,7 +1609,8 @@ body { background: #fff; }
           <li><span class="ok">✓</span> You're paid for protecting the system</li>
         </ul>
       </div>
-      <div>
+      <div class="col-panel col-env reveal-item">
+        <div class="col-label">What surrounds you</div>
         <p class="col-title">The environment</p>
         <ul class="change-list">
           <li><span class="dot">→</span> The code-writing tool</li>
@@ -1437,6 +1621,7 @@ body { background: #fff; }
         </ul>
       </div>
     </div>
+    <p class="change-takeaway reveal-item">The tools change. The responsibility <em>doesn't</em>.</p>
   </div>
 </section>
 
@@ -1542,29 +1727,70 @@ body { background: #fff; }
 <!-- JAVASCRIPT: NAVIGATION                                        -->
 <!-- ============================================================ -->
 <script>
+  /* ===========================================
+     SLIDE PRESENTATION CONTROLLER
+     Swiss Modern — enhanced navigation
+     =========================================== */
   const slides = Array.from(document.querySelectorAll('.slide'));
   const counterEl = document.getElementById('nav-counter');
+  const labelEl = document.getElementById('nav-label');
+  const progressBar = document.getElementById('progress-bar');
+  const dotsContainer = document.getElementById('nav-dots');
+  const hintEl = document.getElementById('keyboard-hint');
   let current = 0;
+  let interacted = false;
+
+  /* --- Build nav dots --- */
+  slides.forEach((s, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    const label = document.createElement('span');
+    label.className = 'nav-dot-label';
+    label.textContent = s.dataset.label || ('Slide ' + (i + 1));
+    dot.appendChild(label);
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
 
   function updateNav(idx) {
-    counterEl.textContent = (idx + 1) + ' of ' + slides.length;
+    counterEl.textContent = (idx + 1) + ' / ' + slides.length;
+    labelEl.textContent = slides[idx].dataset.label || '';
     current = idx;
+    /* Progress bar */
+    const pct = slides.length > 1 ? (idx / (slides.length - 1)) * 100 : 0;
+    progressBar.style.width = pct + '%';
+    /* Nav dots */
+    dotsContainer.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
   }
 
   function revealItems(slideEl) {
     return Array.from(slideEl.querySelectorAll('.reveal-item'));
   }
 
+  function goToSlide(idx) {
+    if (idx === current) return;
+    const dir = idx > current ? 1 : -1;
+    const targetItems = revealItems(slides[idx]);
+    if (dir > 0) {
+      targetItems.forEach(el => el.classList.remove('revealed'));
+    } else {
+      targetItems.forEach(el => el.classList.add('revealed'));
+    }
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+
   function navigate(dir) {
+    if (!interacted) { hintEl.classList.add('hidden'); interacted = true; }
     const slideEl = slides[current];
     const items = revealItems(slideEl);
 
     if (dir > 0) {
-      // Reveal next hidden item before leaving the slide
       const next = items.find(el => !el.classList.contains('revealed'));
       if (next) { next.classList.add('revealed'); return; }
     } else {
-      // Hide last revealed item before going back
       const revealed = items.filter(el => el.classList.contains('revealed'));
       if (revealed.length > 0) { revealed[revealed.length - 1].classList.remove('revealed'); return; }
     }
@@ -1572,7 +1798,6 @@ body { background: #fff; }
     const nextIdx = Math.max(0, Math.min(slides.length - 1, current + dir));
     if (nextIdx === current) return;
 
-    // When jumping to a slide: going forward → reset it; going back → reveal all
     const targetItems = revealItems(slides[nextIdx]);
     if (dir > 0) {
       targetItems.forEach(el => el.classList.remove('revealed'));
@@ -1583,11 +1808,35 @@ body { background: #fff; }
     slides[nextIdx].scrollIntoView({ behavior: 'smooth' });
   }
 
+  /* --- Keyboard navigation --- */
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); navigate(1); }
     else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); navigate(-1); }
+    else if (e.key === 'Home') { e.preventDefault(); goToSlide(0); }
+    else if (e.key === 'End') { e.preventDefault(); goToSlide(slides.length - 1); }
   });
 
+  /* --- Touch / swipe navigation --- */
+  let touchStartY = 0;
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    const absDy = Math.abs(dy);
+    const absDx = Math.abs(dx);
+    if (Math.max(absDy, absDx) < 40) return;
+    if (absDy > absDx) {
+      navigate(dy > 0 ? 1 : -1);
+    } else {
+      navigate(dx > 0 ? 1 : -1);
+    }
+  }, { passive: true });
+
+  /* --- Intersection observer --- */
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) updateNav(slides.indexOf(entry.target));
@@ -1596,6 +1845,9 @@ body { background: #fff; }
 
   slides.forEach(s => observer.observe(s));
   updateNav(0);
+
+  /* --- Auto-hide keyboard hint after first interaction --- */
+  setTimeout(() => { if (!interacted) hintEl.classList.add('hidden'); }, 8000);
 </script>
 </body>
 </html>
