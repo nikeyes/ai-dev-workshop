@@ -22,7 +22,6 @@ body { background: #fff; }
   overflow: hidden;
   scroll-snap-align: start;
   position: relative;
-  background: #ffffff;
   font-family: 'Nunito', sans-serif;
 }
 
@@ -35,12 +34,16 @@ body { background: #fff; }
   --bar-w:    clamp(7px, 1.1vw, 13px);
   --pad:      clamp(1.5rem, 5vw, 5rem);
   --gap:      clamp(0.8rem, 2vw, 2.2rem);
+  --content-gap: clamp(1rem, 2.5vh, 2rem);
   --title:    clamp(1.6rem, 5.5vw, 5.5rem);
   --h2:       clamp(1.2rem, 3.2vw, 3rem);
   --h3:       clamp(0.95rem, 2.2vw, 2rem);
   --body:     clamp(0.9rem, 1.8vw, 1.4rem);
   --note:     clamp(0.9rem, 1.7vw, 1.35rem);
   --small:    clamp(0.8rem, 1.5vw, 1.2rem);
+  --f-black:  'Archivo Black', sans-serif;
+  --f-sans:   'Archivo', sans-serif;
+  --f-mono:   'Space Mono', monospace;
 }
 @media (max-height: 700px) {
   :root { --pad: clamp(1rem, 3vw, 2.5rem); --title: clamp(1.3rem, 3.2vw, 2.8rem); --gap: clamp(0.35rem, 1vw, 0.9rem); }
@@ -85,7 +88,7 @@ body { background: #fff; }
 
 /* Watermark number */
 .wm {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: clamp(7rem, 18vw, 18rem);
   color: rgba(0,0,0,0.038);
   line-height: 1;
@@ -114,7 +117,7 @@ body { background: #fff; }
   animation: expandX 0.4s ease both;
 }
 .eyebrow-text {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: var(--small);
   font-weight: 800;
   letter-spacing: 0.2em;
@@ -130,12 +133,13 @@ body { background: #fff; }
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: var(--content-gap);
 }
 
 /* Main title */
 .title {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: var(--title);
   color: var(--text);
   line-height: 1.02;
@@ -147,7 +151,7 @@ body { background: #fff; }
 
 /* H2 subheading */
 .h2 {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: var(--h2);
   font-weight: 800;
   color: var(--text);
@@ -164,7 +168,7 @@ body { background: #fff; }
   animation: fadeIn 0.5s ease 0.5s both;
 }
 .attr {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: var(--body);
   font-weight: 800;
   color: var(--text);
@@ -200,7 +204,7 @@ body { background: #fff; }
   background: rgba(0,0,0,0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: 0.75rem;
   color: #fff;
 }
@@ -213,7 +217,7 @@ body { background: #fff; }
   cursor: pointer;
   padding: 0.25rem 0.7rem;
   border-radius: 3px;
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: 0.72rem;
   transition: background 0.15s;
 }
@@ -226,7 +230,7 @@ body { background: #fff; }
 .s1 .content { max-width: min(80vw, 900px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
 .s1 .title { font-size: clamp(2rem, 5.5vw, 5.2rem); margin-bottom: clamp(0.5rem, 1.5vh, 1.2rem); }
 .s1 .subtitle {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: clamp(1.2rem, 3vw, 2.8rem);
   color: var(--accent);
   line-height: 1;
@@ -234,7 +238,7 @@ body { background: #fff; }
 }
 .s1 .speaker {
   margin-top: clamp(2rem, 5vh, 5rem);
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: var(--small);
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -251,7 +255,7 @@ body { background: #fff; }
 /* ================================================================
    SLIDE 3 — METR
    ================================================================ */
-.s3 .content { max-width: min(88vw, 1100px); display: flex; flex-direction: column; }
+.s3 .content { max-width: min(88vw, 1100px); }
 .s3 .eyebrow  { order: 1; }
 .s3 .facts    { order: 2; }
 .s3 .reveal-block { order: 3; }
@@ -270,7 +274,7 @@ body { background: #fff; }
   align-self: flex-start;
 }
 .s3 .reveal-wrong-num {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: clamp(2.2rem, 6vw, 5rem);
   color: var(--text-3);
   line-height: 1;
@@ -291,11 +295,9 @@ body { background: #fff; }
 }
 .s3 .reveal-strike.revealed {
   width: 104%;
-  opacity: 1 !important;
-  transform: translateY(-50%) !important;
 }
 .s3 .reveal-real-num {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: clamp(4rem, 12vw, 10rem);
   color: var(--accent);
   line-height: 0.9;
@@ -313,7 +315,7 @@ body { background: #fff; }
   padding-top: clamp(0.5rem, 1.2vh, 1rem);
 }
 .s3 .fact-icon {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: var(--h3);
   color: var(--accent);
   margin-bottom: 0.25em;
@@ -325,8 +327,8 @@ body { background: #fff; }
   line-height: 1.45;
 }
 .s3 .source {
-  margin-top: clamp(0.8rem, 2vh, 1.8rem);
-  font-family: 'Space Mono', monospace;
+  margin-top: auto;
+  font-family: var(--f-mono);
   font-size: clamp(0.6rem, 0.9vw, 0.76rem);
   color: var(--text-3);
   animation: fadeIn 0.5s ease 0.8s both;
@@ -363,7 +365,7 @@ body { background: #fff; }
   opacity: 0.35;
 }
 .s4 .card-num {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: var(--small);
   font-weight: 800;
   color: var(--accent);
@@ -371,7 +373,7 @@ body { background: #fff; }
   margin-bottom: 0.4em;
 }
 .s4 .card-title {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: var(--h3);
   font-weight: 800;
   color: var(--text);
@@ -411,7 +413,7 @@ body { background: #fff; }
   z-index: 1;
 }
 .s5 .step-num {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: var(--small);
   font-weight: 800;
   color: var(--accent);
@@ -419,7 +421,7 @@ body { background: #fff; }
   margin-bottom: 0.3em;
 }
 .s5 .step-name {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: var(--h3);
   color: var(--text);
   line-height: 1.1;
@@ -435,7 +437,7 @@ body { background: #fff; }
   display: flex;
   align-items: center;
   padding: 0 clamp(4px, 0.6vw, 10px);
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: var(--h2);
   color: rgba(0,0,0,0.12);
   z-index: 2;
@@ -514,6 +516,7 @@ body { background: #fff; }
 }
 
 .s5 .pipeline-note {
+  margin-top: auto;
   font-size: var(--note);
   font-weight: 600;
   color: var(--text-2);
@@ -544,7 +547,7 @@ body { background: #fff; }
   height: clamp(22px, 3.5vw, 34px);
   background: var(--accent);
   color: #fff;
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: clamp(0.6rem, 0.9vw, 0.78rem);
   display: flex;
   align-items: center;
@@ -553,7 +556,7 @@ body { background: #fff; }
   margin-top: 0.1em;
 }
 .s6 .practice-title {
-  font-family: 'Archivo', sans-serif;
+  font-family: var(--f-sans);
   font-size: var(--h3);
   font-weight: 800;
   color: var(--text);
@@ -566,7 +569,7 @@ body { background: #fff; }
   line-height: 1.45;
 }
 .s6 .bottleneck {
-  margin-top: clamp(1rem, 2.5vh, 2rem);
+  margin-top: auto;
   border-top: 3px solid var(--accent);
   padding-top: clamp(0.6rem, 1.5vh, 1.2rem);
   font-size: var(--note);
@@ -576,17 +579,115 @@ body { background: #fff; }
 }
 
 /* ================================================================
-   SLIDE 7 — GUARDARRAÍLES + CHECKLIST
+   SLIDE 7 — TDD A NUEVA ESCALA
    ================================================================ */
-.s7 .content { max-width: min(92vw, 1100px); }
-.s7 .two-col {
+.s7 .content { max-width: min(92vw, 1060px); }
+.s7 .tdd-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s7 .tdd-panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vh, 0.7rem);
+}
+.s7 .tdd-panel-header {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-bottom: 0.4em;
+  border-bottom: 3px solid;
+}
+.s7 .tdd-expires .tdd-panel-header {
+  color: var(--text-3);
+  border-color: rgba(0,0,0,0.15);
+}
+.s7 .tdd-endures .tdd-panel-header {
+  color: #16a34a;
+  border-color: #22c55e;
+}
+.s7 .tdd-panel-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.s7 .tdd-panel-text s {
+  color: var(--text-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+}
+.s7 .tdd-cycle {
+  grid-column: 1 / -1;
+  background: #fafafa;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  padding: clamp(0.8rem, 1.8vh, 1.4rem) clamp(1rem, 2vw, 1.6rem);
+}
+.s7 .tdd-cycle-title {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: clamp(0.4rem, 1vh, 0.7rem);
+}
+.s7 .tdd-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  counter-reset: step;
+}
+.s7 .tdd-steps li {
+  font-size: var(--small);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.4;
+  padding-left: 1.8em;
+  position: relative;
+  counter-increment: step;
+}
+.s7 .tdd-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  font-family: var(--f-black);
+  font-size: 0.9em;
+  color: var(--accent);
+  width: 1.4em;
+  text-align: center;
+}
+.s7 .tdd-takeaway {
+  grid-column: 1 / -1;
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.5rem, 1.2vh, 0.8rem);
+}
+.s7 .tdd-takeaway em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* ================================================================
+   SLIDE 8 — GUARDARRAÍLES + CHECKLIST
+   ================================================================ */
+.s8 .content { max-width: min(92vw, 1100px); }
+.s8 .two-col,
+.s11 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(1.5rem, 4vw, 4rem);
   animation: fadeIn 0.5s ease 0.3s both;
 }
-.s7 .col-title {
-  font-family: 'Archivo', sans-serif;
+.s8 .col-title {
+  font-family: var(--f-sans);
   font-size: var(--h3);
   font-weight: 800;
   color: var(--text);
@@ -595,7 +696,7 @@ body { background: #fff; }
   align-items: center;
   gap: 0.5em;
 }
-.s7 .col-title::before {
+.s8 .col-title::before {
   content: '';
   display: inline-block;
   width: clamp(18px, 3vw, 28px);
@@ -603,104 +704,88 @@ body { background: #fff; }
   background: var(--accent);
   flex-shrink: 0;
 }
-.s7 .item-list { list-style: none; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vh, 0.8rem); }
-.s7 .item-list li {
+.s8 .item-list, .s8 .check-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vh, 0.8rem);
+}
+.s8 .item-list li, .s8 .check-list li {
   font-size: var(--small);
   color: var(--text-2);
   font-weight: 600;
   line-height: 1.4;
-  padding-left: 1.2em;
   position: relative;
 }
-.s7 .item-list li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-weight: 800;
-}
-.s7 .check-list { list-style: none; display: flex; flex-direction: column; gap: clamp(0.4rem, 1vh, 0.8rem); }
-.s7 .check-list li {
-  font-size: var(--small);
-  color: var(--text-2);
-  font-weight: 600;
-  line-height: 1.4;
-  padding-left: 1.8em;
-  position: relative;
-}
-.s7 .check-list li::before {
-  content: '□';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-size: 1.1em;
-  font-weight: 800;
-}
+.s8 .item-list li { padding-left: 1.2em; }
+.s8 .item-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+.s8 .check-list li { padding-left: 1.8em; }
+.s8 .check-list li::before { content: '□'; position: absolute; left: 0; color: var(--accent); font-size: 1.1em; font-weight: 800; }
 
 /* ================================================================
-   SLIDE 8 — SEGURIDAD DEL AGENTE
+   SLIDE 9 — SEGURIDAD DEL AGENTE
    ================================================================ */
-.s8 .content { max-width: min(92vw, 1060px); }
-.s8 .subtitle {
-  font-family: 'Archivo', sans-serif;
+.s9 .content { max-width: min(92vw, 1060px); }
+.s9 .subtitle {
+  font-family: var(--f-sans);
   font-size: clamp(0.95rem, 1.8vw, 1.3rem);
   font-weight: 600;
   color: var(--text-2);
   line-height: 1.45;
   margin-bottom: clamp(1.2rem, 3vh, 2rem);
 }
-.s8 .subtitle strong {
+.s9 .subtitle strong {
   color: var(--accent);
   font-weight: 800;
 }
-.s8 .sec-table {
+.s9 .sec-table {
   display: grid;
   grid-template-columns: 1fr clamp(2rem, 4vw, 4rem) 1fr;
   align-items: start;
   animation: fadeIn 0.5s ease 0.25s both;
 }
-.s8 .sec-col {
+.s9 .sec-col {
   padding: clamp(0.8rem, 1.8vh, 1.4rem) clamp(1rem, 2vw, 1.6rem);
 }
-.s8 .sec-col-ok {
+.s9 .sec-col-ok {
   background: rgba(34,197,94,0.06);
   border: 2px solid rgba(34,197,94,0.25);
 }
-.s8 .sec-col-danger {
+.s9 .sec-col-danger {
   background: rgba(239,68,68,0.06);
   border: 2px solid rgba(239,68,68,0.25);
 }
-.s8 .sec-divider {
+.s9 .sec-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Archivo Black', sans-serif;
+  font-family: var(--f-black);
   font-size: 1.5rem;
   color: rgba(0,0,0,0.1);
 }
-.s8 .sec-col-header {
-  font-family: 'Archivo', sans-serif;
+.s9 .sec-col-header {
+  font-family: var(--f-sans);
   font-size: var(--h3);
   font-weight: 800;
   margin-bottom: clamp(0.5rem, 1.2vh, 0.8rem);
   padding-bottom: 0.35em;
   border-bottom: 3px solid;
 }
-.s8 .sec-ok-header {
+.s9 .sec-ok-header {
   color: #16a34a;
   border-color: #22c55e;
 }
-.s8 .sec-danger-header {
+.s9 .sec-danger-header {
   color: #dc2626;
   border-color: #ef4444;
 }
-.s8 .sec-list {
+.s9 .sec-list {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: clamp(0.3rem, 0.8vh, 0.6rem);
 }
-.s8 .sec-list li {
+.s9 .sec-list li {
   font-size: var(--small);
   font-weight: 600;
   color: var(--text-2);
@@ -708,25 +793,25 @@ body { background: #fff; }
   padding-left: 1.4em;
   position: relative;
 }
-.s8 .sec-col-ok .sec-list li::before {
+.s9 .sec-col-ok .sec-list li::before {
   content: '✓';
   position: absolute;
   left: 0;
   font-weight: 800;
   color: #22c55e;
 }
-.s8 .sec-col-danger .sec-list li::before {
+.s9 .sec-col-danger .sec-list li::before {
   content: '✕';
   position: absolute;
   left: 0;
   font-weight: 800;
   color: #ef4444;
 }
-.s8 .sec-footer {
-  margin-top: clamp(0.6rem, 1.5vh, 1rem);
+.s9 .sec-footer {
+  margin-top: auto;
   text-align: right;
 }
-.s8 .sec-source {
+.s9 .sec-source {
   font-size: clamp(0.55rem, 0.9vw, 0.72rem);
   color: var(--accent);
   text-decoration: underline;
@@ -736,58 +821,57 @@ body { background: #fff; }
 /* ================================================================
    SLIDE 9 — AUTONOMÍA
    ================================================================ */
-.s9 .content { max-width: min(92vw, 1060px); justify-content: flex-start; gap: clamp(1rem, 2.5vh, 2rem); }
-.s9 .table {
+.s10 .content { max-width: min(92vw, 1060px); justify-content: flex-start; }
+.s10 .table {
   display: flex;
   flex-direction: column;
   gap: clamp(0.4rem, 1vh, 0.8rem);
   animation: fadeIn 0.5s ease 0.25s both;
 }
-.s9 .row {
+.s10 .table-header, .s10 .row {
   display: grid;
   grid-template-columns: 4px 1fr 1fr 1fr;
-  align-items: center;
   gap: clamp(0.6rem, 1.5vw, 1.4rem);
+}
+.s10 .row {
+  align-items: center;
   padding: clamp(0.55rem, 1.3vh, 1rem) clamp(0.6rem, 1.5vw, 1.2rem);
   border: 1.5px solid rgba(0,0,0,0.08);
   background: #fafafa;
 }
-.s9 .row-bar { height: 100%; border-radius: 2px; min-height: 40px; }
-.s9 .row.green .row-bar  { background: #22c55e; }
-.s9 .row.yellow .row-bar { background: #eab308; }
-.s9 .row.orange .row-bar { background: #f97316; }
-.s9 .row.red    .row-bar { background: #ef4444; }
-.s9 .row-context {
-  font-family: 'Archivo', sans-serif;
+.s10 .row-bar { height: 100%; border-radius: 2px; min-height: 40px; }
+.s10 .row.green .row-bar  { background: #22c55e; }
+.s10 .row.yellow .row-bar { background: #eab308; }
+.s10 .row.orange .row-bar { background: #f97316; }
+.s10 .row.red    .row-bar { background: #ef4444; }
+.s10 .row-context {
+  font-family: var(--f-sans);
   font-size: var(--small);
   font-weight: 800;
   color: var(--text);
   line-height: 1.3;
 }
-.s9 .row-autonomy {
+.s10 .row-autonomy {
   font-size: var(--small);
   color: var(--text-2);
   font-weight: 600;
   line-height: 1.4;
 }
-.s9 .row-gate {
+.s10 .row-gate {
   font-size: clamp(0.65rem, 1vw, 0.82rem);
   color: var(--text-3);
   font-weight: 600;
   line-height: 1.35;
-  font-family: 'Space Mono', monospace;
+  font-family: var(--f-mono);
 }
-.s9 .table-header {
-  display: grid;
-  grid-template-columns: 4px 1fr 1fr 1fr;
-  gap: clamp(0.6rem, 1.5vw, 1.4rem);
+.s10 .table-header {
   padding: clamp(0.4rem, 0.8vh, 0.6rem) clamp(0.6rem, 1.5vw, 1.2rem);
   border: 1.5px solid rgba(0,0,0,0.08);
   border-bottom: none;
   background: #fff;
 }
-.s9 .th {
-  font-family: 'Archivo', sans-serif;
+.s10 .th {
+  font-family: var(--f-sans);
   font-size: clamp(0.68rem, 1vw, 0.82rem);
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -798,17 +882,11 @@ body { background: #fff; }
 }
 
 /* ================================================================
-   SLIDE 10 — LO QUE CAMBIA
+   SLIDE 11 — LO QUE CAMBIA
    ================================================================ */
-.s10 .content { max-width: min(92vw, 1060px); justify-content: flex-start; gap: clamp(0.6rem, 1.5vh, 1.2rem); }
-.s10 .two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(1.5rem, 4vw, 4rem);
-  animation: fadeIn 0.5s ease 0.3s both;
-}
-.s10 .col-title {
-  font-family: 'Archivo', sans-serif;
+.s11 .content { max-width: min(92vw, 1060px); justify-content: flex-start; }
+.s11 .col-title {
+  font-family: var(--f-sans);
   font-size: var(--h3);
   font-weight: 800;
   color: var(--text);
@@ -816,8 +894,8 @@ body { background: #fff; }
   border-bottom: 3px solid var(--accent);
   padding-bottom: 0.4em;
 }
-.s10 .change-list { list-style: none; display: flex; flex-direction: column; gap: clamp(0.35rem, 0.9vh, 0.7rem); }
-.s10 .change-list li {
+.s11 .change-list { list-style: none; display: flex; flex-direction: column; gap: clamp(0.35rem, 0.9vh, 0.7rem); }
+.s11 .change-list li {
   font-size: var(--small);
   color: var(--text-2);
   font-weight: 600;
@@ -826,9 +904,9 @@ body { background: #fff; }
   align-items: flex-start;
   gap: 0.55em;
 }
-.s10 .x { color: #ef4444; font-weight: 800; flex-shrink: 0; }
-.s10 .ok { color: #22c55e; font-weight: 800; flex-shrink: 0; }
-.s10 .dot { color: var(--accent); font-weight: 800; flex-shrink: 0; }
+.s11 .x { color: #ef4444; font-weight: 800; flex-shrink: 0; }
+.s11 .ok { color: #22c55e; font-weight: 800; flex-shrink: 0; }
+.s11 .dot { color: var(--accent); font-weight: 800; flex-shrink: 0; }
 
 /* ================================================================
    STEP-REVEAL — items that appear one click at a time
@@ -844,22 +922,22 @@ body { background: #fff; }
 }
 
 /* ================================================================
-   SLIDE 11 — LO QUE PERMANECE
+   SLIDE 12 — LO QUE PERMANECE
    ================================================================ */
-.s11 .content { max-width: min(90vw, 1060px); }
-.s11 .permanece {
+.s12 .content { max-width: min(90vw, 1060px); }
+.s12 .permanece {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gap) clamp(1.5rem, 4vw, 4rem);
   animation: fadeIn 0.5s ease 0.3s both;
 }
-.s11 .perm-item {
+.s12 .perm-item {
   display: flex;
   gap: clamp(0.5rem, 1.2vw, 1rem);
   align-items: flex-start;
 }
-.s11 .perm-num {
-  font-family: 'Archivo Black', sans-serif;
+.s12 .perm-num {
+  font-family: var(--f-black);
   font-size: var(--h3);
   color: rgba(0,0,0,0.1);
   line-height: 1;
@@ -867,20 +945,55 @@ body { background: #fff; }
   width: 1.8em;
   text-align: right;
 }
-.s11 .perm-body { display: flex; flex-direction: column; }
-.s11 .perm-title {
-  font-family: 'Archivo', sans-serif;
+.s12 .perm-body { display: flex; flex-direction: column; }
+.s12 .perm-title {
+  font-family: var(--f-sans);
   font-size: var(--h3);
   font-weight: 800;
   color: var(--text);
   margin-bottom: 0.2em;
   line-height: 1.2;
 }
-.s11 .perm-text {
+.s12 .perm-text {
   font-size: var(--small);
   color: var(--text-2);
   font-weight: 600;
   line-height: 1.45;
+}
+
+/* ================================================================
+   SLIDE 13 — RESUMEN
+   ================================================================ */
+.s13 .content { max-width: min(88vw, 960px); }
+.s13 .key-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.5vh, 1.2rem);
+}
+.s13 .key-item {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.5rem);
+  align-items: flex-start;
+}
+.s13 .key-num {
+  font-family: var(--f-black);
+  font-size: var(--h2);
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 1.4em;
+  text-align: right;
+}
+.s13 .key-text {
+  font-size: var(--body);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.55;
+  padding-top: 0.15em;
+}
+.s13 .key-text strong {
+  color: var(--text);
+  font-weight: 800;
 }
 </style>
 </head>
@@ -1121,12 +1234,54 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 7 — GUARDARRAÍLES + CHECKLIST                           -->
+<!-- SLIDE 7 — TDD A NUEVA ESCALA                                   -->
 <!-- ============================================================ -->
-<section class="slide s7" data-label="Design for oversight">
+<section class="slide s7" data-label="TDD at new scale">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">07</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Same principles, new scale</span>
+    </div>
+    <h2 class="h2">TDD hasn't died. It changed scale.</h2>
+    <div class="tdd-layout">
+      <div class="tdd-panel tdd-expires reveal-item">
+        <div class="tdd-panel-header">What expires: the ritual</div>
+        <p class="tdd-panel-text">
+          <s>Write a tiny test &rarr; minimal implementation &rarr; refactor &rarr; repeat.</s><br>
+          Micro-cycles add steps and tokens the agent doesn't need.
+        </p>
+      </div>
+      <div class="tdd-panel tdd-endures reveal-item">
+        <div class="tdd-panel-header">What endures: the idea</div>
+        <p class="tdd-panel-text">
+          Define expected behavior BEFORE implementing.<br>
+          With AI this is more important, not less: the test is your verification contract.
+        </p>
+      </div>
+      <div class="tdd-cycle reveal-item">
+        <div class="tdd-cycle-title">The new cycle</div>
+        <ul class="tdd-steps">
+          <li>Define acceptance tests at a functional level</li>
+          <li>Let the agent implement everything at once</li>
+          <li>Run the tests</li>
+          <li>Iterate if they fail</li>
+        </ul>
+      </div>
+      <p class="tdd-takeaway reveal-item">Test-first, but at <em>macro granularity</em>. Not micro-steps — <em>verifiable macro-objectives</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8 — GUARDARRAÍLES + CHECKLIST                           -->
+<!-- ============================================================ -->
+<section class="slide s8" data-label="Design for oversight">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">08</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1158,12 +1313,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 8 — SEGURIDAD DEL AGENTE                                 -->
+<!-- SLIDE 9 — SEGURIDAD DEL AGENTE                                 -->
 <!-- ============================================================ -->
-<section class="slide s8" data-label="Agent security">
+<section class="slide s9" data-label="Agent security">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">08</div>
+  <div class="wm">09</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1201,12 +1356,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 9 — NIVEL DE AUTONOMÍA                                   -->
+<!-- SLIDE 10 — NIVEL DE AUTONOMÍA                                   -->
 <!-- ============================================================ -->
-<section class="slide s9" data-label="Autonomy level">
+<section class="slide s10" data-label="Autonomy level">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">09</div>
+  <div class="wm">10</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1249,12 +1404,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 10 — LO QUE CAMBIA                                      -->
+<!-- SLIDE 11 — LO QUE CAMBIA                                      -->
 <!-- ============================================================ -->
-<section class="slide s10" data-label="What changes">
+<section class="slide s11" data-label="What changes">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">10</div>
+  <div class="wm">11</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1286,12 +1441,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 11 — LO QUE PERMANECE                                   -->
+<!-- SLIDE 12 — LO QUE PERMANECE                                   -->
 <!-- ============================================================ -->
-<section class="slide s11" data-label="What endures">
+<section class="slide s12" data-label="What endures">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">11</div>
+  <div class="wm">12</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1340,6 +1495,44 @@ body { background: #fff; }
           <div class="perm-title">We ARE uncovering</div>
           <p class="perm-text">This is not a revolution that replaces everything. It's the next iteration of a process that never ends.</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13 — RESUMEN: LAS 5 IDEAS CLAVE                        -->
+<!-- ============================================================ -->
+<section class="slide s13" data-label="Resumen">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">13</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Resumen</span>
+    </div>
+    <h2 class="h2">Las 5 ideas clave</h2>
+    <div class="key-list">
+      <div class="key-item reveal-item">
+        <div class="key-num">1</div>
+        <p class="key-text">La IA es una herramienta poderosa, pero sin disciplina te ralentiza o te genera más problemas que soluciones.</p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">2</div>
+        <p class="key-text">Tu ventaja competitiva ya no es escribir código, es entender el problema.</p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">3</div>
+        <p class="key-text">Lo que genera la IA por defecto es un borrador que necesita configuración.</p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">4</div>
+        <p class="key-text"><strong>Investigar → Planificar → Implementar → Validar.</strong> No hagas todo de golpe.</p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">5</div>
+        <p class="key-text">Adoptar IA requiere formación, comunidad y métricas, no solo licencias.</p>
       </div>
     </div>
   </div>

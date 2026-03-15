@@ -88,6 +88,41 @@ Conocimiento empaquetado que se activa solo cuando es relevante. Progressive dis
 
 ---
 
+8. Rewind
+
+Si Claude se desvía, puedo hacer rewind instantáneamente con `Esc+Esc` o el comando `/rewind`.
+
+Tres modos de restauración:
+- **Conversation only**: Mantener cambios en código, revertir chat
+- **Code only**: Mantener conversación, revertir código
+- **Both**: Restauración completa al estado anterior
+
+**Tip del taller**: enseña que rewind no revierte cambios hechos por bash (por ejemplo `rm`, `mv`, `cp`).
+
+### Para refactors grandes
+
+1. Los checkpoints no rastrean comandos bash. Claude ejecutó un script de migración de base de datos que quería revertir. Los checkpoints solo rastrean ediciones de archivos, no operaciones bash.
+   - **Workaround**: Ahora hago que Claude escriba los comandos bash en scripts temporales en vez de ejecutarlos directamente. Luego puedo revisarlos antes de ejecutar.
+
+
+
+---
+
+### Verification Requirements en CLAUDE.md
+
+The fix — add verification requirements to CLAUDE.md:
+
+```markdown
+## Verification Requirements
+- Run `npm test` after code changes
+- Run `npm run typecheck` before marking complete
+- For API changes, test with `curl` or Postman
+- For UI changes, verify in browser before committing
+```
+
+Then Claude will actually run these checks. Not because you told it to in the prompt — because it's baked into project context.
+
+Dale a Claude una forma de verificar su trabajo.
 
 ---
 
