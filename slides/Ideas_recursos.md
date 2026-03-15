@@ -8,7 +8,7 @@ LSP:
 
 
 
-# Posibles plantillas
+# Posibles plantillas
 - https://slidesgo.com/es/tema/desarrollo-de-habilidades-sociales
 - https://slidesgo.com/es/tema/estrategia-de-transformacion-digital
 - https://slidesgo.com/es/tema/inteligencia-artificial
