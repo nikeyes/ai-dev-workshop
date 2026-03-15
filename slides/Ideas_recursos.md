@@ -5,3 +5,14 @@ LSP:
 - ejemplo de código para enseñar como funcioan LSP : https://medium.com/@joe.njenga/i-tested-all-available-claude-code-lsp-plugins-dont-waste-time-read-this-first-6896e992a540
 
 - Skills Creator: https://claude.com/plugins/skill-creator
+
+
+
+# Posibles plantillas
+- https://slidesgo.com/es/tema/desarrollo-de-habilidades-sociales
+- https://slidesgo.com/es/tema/estrategia-de-transformacion-digital
+- https://slidesgo.com/es/tema/inteligencia-artificial
+- https://slidesgo.com/es/tema/taller-de-conceptos-basicos-de-ia
+- https://slidesgo.com/es/tema/el-futuro-de-la-ia
+- https://slidesgo.com/es/tema/lanzamientos-de-tecnologia
+- https://slidesgo.com/es/tema/taller-introductorio-a-la-programacion
