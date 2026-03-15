@@ -179,9 +179,9 @@ Recordad: el cuello de botella nunca ha sido las líneas por minuto. Siempre ha 
 "Y cuando hay IA generando código, ¿qué nivel de autonomía le damos? La tabla
 
 
-### SLIDE 9 y 10— Lo que cambia y Lo que permanece
+### SLIDE 9 - Lo que cambia 
 
-**Título:** ¿Qué cambia y qué permanece?
+**Título:** ¿Qué cambia?
 
 **Cambia tu rol:**
 - ❌ Ya no te pagan por escribir código
@@ -196,20 +196,22 @@ Recordad: el cuello de botella nunca ha sido las líneas por minuto. Siempre ha 
 - El formato de la documentación (CLAUDE.md, skills)
 - Quién escribe el código (humano vs. agente)
 
-**Permanece y cobra más relevancia:**
-- El problema siempre ha sido integrar y mantener a lo largo del tiempo
-- Desarrollo iterativo en pasos pequeños y seguros
-- Definir comportamiento esperado antes de implementar
+
+### SLIDE 10 - Lo que permanece
+
+**Título:** ¿Qué permanece?
+
+
+**Permanece y cobra más fuerza:**
+- Arquitectura y diseño simple: La IA genera piezas, el problema es integrar y mantener a lo largo del tiempo
+- Desarrollo iterativo en pasos pequeños y seguros: El cuello de botella nunca fue generar código, fue acortar el ciclo de feedback para saber si estamos construyendo lo correcto.
+- Definir comportamiento esperado antes de implementar: La IA tiene que saber que verificar sino ella misma hará unos tests perfectos para el código que ella misma ha decidido implementar.
 - Ciclo de feedback como cuello de botella real
-- Arquitectura y diseño simple
-- Ajustar el nivel de autonomía al contexto, no buscar perfección.
-- Trabajo en equipo y comunicación clara
-- "We are uncovering better ways of developing software"
+- Ajustar la autonomía de la IA al riesgo, no todo necesita el mismo nivel de rigor técnico.
+- Trabajo en equipo y comunicación clara: La IA amplifica, si estamos desalineados, se amplificará el caos.
 
-**🎤 Notas de orador:**
-"Cambian las herramientas. Cambia la velocidad. Cambia quién escribe el código. Pero lo que permanece es lo mismo de siempre: desarrollo iterativo, definir qué esperas antes de construir, el ciclo de feedback como cuello de botella real, y pensar la arquitectura antes de acelerar."
 
-"El Manifiesto Ágil sigue vigente. No porque sea sagrado, sino porque captura algo atemporal: estamos siempre descubriendo mejores formas. La IA es la forma nueva. Los principios son los de siempre."
+
 
 
 
