@@ -1,19 +1,35 @@
-# PARA EL WORKSHOP
+# PARA EL WORKSHOP (2h)
 ---
+## Prerequisitos
+- Tener configurado Claude Code en Wallbox.
 
+## 30-45 min min con repo demo
+
+## 45 min libre con sus repos y nosotros ayudamos:
 - Cada persona trae un ticket pequeño/mediano de su equipo.
-- Configurar Claude Code (en Wallbox, tendremos un script o similar, lo estoy hablando con ellos)
-- Claude.md
-- Skills:
+
+## 20 min de retro para ver que va bien, que va mal, siguientes pasos.
+
+
+
+- Permisos:
+    - Ejemplos de allow y Deny en el settings.json (se puede hacer a nivel global, de usuario o de proyecto)
+    - Pidele que lea este fichero con cat. Te pregunta. 
+    - Añade el allow (No te pregunta)
+    - Deny en el settings no te deja leerlo.
+- CLAUDE.md and RULES.md
+- LSP for determinismo
+- Ejemplos de Skills:
     - /story-splitting     → ¿Es una historia o 3 disfrazdas?
     - /hamburger-method    → Corta en capas, genera opciones, elige uno que de feedback rápido
     - /small-safe-steps    → Incrementos pequeñños, cada uno desplegable de forma independiente
     - /complexity-review   → 30 dimensiones de complejidad. "¿Por qué Kafka y no una cola?"
     - /code-simplifier   
-- agents 
-- Plugings 
-- hooks
-- LSP 
+- Plugings: sample Skills creator: https://claude.com/plugins/skill-creator
+- Agents: sample Stepwise-dev deep-research o  research-codebase
+- Hooks: Ejempo Toni-Agent API: "command": "make lint-fix"
+
+
 
 
 

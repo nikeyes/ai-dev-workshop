@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uncovering better ways of developing</title>
+<title>Descubriendo mejores formas de desarrollar</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff3300'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='14' fill='white'>AI</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;700;800&family=Nunito:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -324,6 +325,80 @@ body { background: #fff; }
 }
 
 /* ================================================================
+   SLIDE 1b — AGILE MANIFESTO WEBSITE
+   ================================================================ */
+.s1b .bar, .s1b .grid-bg, .s1b .wm { display: none; }
+.s1b {
+  background: url('https://agilemanifesto.org/background.jpg') top center / cover no-repeat;
+}
+.s1b .am-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', serif;
+  padding: clamp(1rem, 3vw, 2rem) clamp(2rem, 10vw, 14rem);
+  gap: clamp(0.4rem, 1.2vh, 1rem);
+}
+.s1b .am-title {
+  font-size: clamp(0.95rem, 1.9vw, 1.5rem);
+  font-weight: bold;
+  color: #000;
+  margin-bottom: clamp(0.4rem, 1.5vh, 1rem);
+}
+.s1b .am-preamble {
+  font-size: clamp(0.7rem, 1.15vw, 0.92rem);
+  color: #000;
+  line-height: 1.65;
+}
+.s1b .am-values {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.05rem, 0.4vh, 0.3rem);
+  margin: clamp(0.4rem, 1.2vh, 0.8rem) 0;
+}
+.s1b .am-values p { line-height: 1.2; }
+.s1b .am-key {
+  font-size: clamp(1rem, 2.3vw, 1.85rem);
+  font-weight: bold;
+  color: #000;
+}
+.s1b .am-over {
+  font-size: clamp(0.65rem, 1.15vw, 0.92rem);
+  color: #000;
+}
+.s1b .am-note {
+  font-size: clamp(0.7rem, 1.15vw, 0.92rem);
+  color: #000;
+  line-height: 1.65;
+  margin-top: clamp(0.2rem, 0.8vh, 0.6rem);
+}
+.s1b .am-signatories {
+  display: flex;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  margin-top: clamp(0.6rem, 1.8vh, 1.2rem);
+  font-size: clamp(0.65rem, 1.1vw, 0.88rem);
+  color: #000;
+  line-height: 1.75;
+}
+.s1b .am-copyright {
+  font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+  color: #444;
+  line-height: 1.55;
+  margin-top: clamp(0.2rem, 0.6vh, 0.4rem);
+}
+.s1b .am-principles {
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  color: #0000cc;
+  text-decoration: underline;
+  cursor: default;
+}
+
+/* ================================================================
    SLIDE 2 — MANIFIESTO
    ================================================================ */
 .s2 .content { max-width: min(75vw, 920px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
@@ -351,7 +426,7 @@ body { background: #fff; }
 }
 .s3 .reveal-wrong-num {
   font-family: var(--f-black);
-  font-size: clamp(2.2rem, 6vw, 5rem);
+  font-size: clamp(1.4rem, 3.2vw, 2.8rem);
   color: var(--text-3);
   line-height: 1;
   display: block;
@@ -374,9 +449,9 @@ body { background: #fff; }
 }
 .s3 .reveal-real-num {
   font-family: var(--f-black);
-  font-size: clamp(4rem, 12vw, 10rem);
+  font-size: clamp(2.5rem, 6.5vw, 5.5rem);
   color: var(--accent);
-  line-height: 0.9;
+  line-height: 0.95;
   display: block;
 }
 .s3 .facts {
@@ -469,7 +544,6 @@ body { background: #fff; }
 .s5 .pipeline-wrap {
   position: relative;
   padding-bottom: clamp(2.8rem, 7vh, 4.5rem);
-  margin-bottom: clamp(1.2rem, 3vh, 2.5rem);
 }
 .s5 .pipeline {
   display: flex;
@@ -592,14 +666,15 @@ body { background: #fff; }
 }
 
 .s5 .pipeline-note {
-  margin-top: auto;
   font-size: var(--note);
   font-weight: 600;
   color: var(--text-2);
   line-height: 1.55;
-  border-top: 3px solid rgba(0,0,0,0.08);
-  padding-top: clamp(0.6rem, 1.5vh, 1.2rem);
-  max-width: min(70vw, 820px);
+  background: #fafafa;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-left: 4px solid var(--accent);
+  padding: clamp(0.7rem, 1.5vh, 1.1rem) clamp(1rem, 2vw, 1.5rem);
+  max-width: min(80vw, 960px);
 }
 .s5 .pipeline-note strong { color: var(--text); font-weight: 800; }
 
@@ -611,7 +686,6 @@ body { background: #fff; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--gap);
-  animation: fadeIn 0.5s ease 0.3s both;
 }
 .s6 .practice {
   display: flex;
@@ -651,7 +725,6 @@ body { background: #fff; }
   font-size: var(--note);
   font-weight: 700;
   color: var(--text);
-  animation: fadeIn 0.5s ease 0.65s both;
 }
 
 /* ================================================================
@@ -850,7 +923,6 @@ body { background: #fff; }
   color: var(--text);
   border-top: 3px solid var(--accent);
   padding-top: clamp(0.5rem, 1.2vh, 0.8rem);
-  animation: fadeIn 0.5s ease 0.65s both;
 }
 .s8 .oversight-takeaway em {
   font-style: normal;
@@ -894,6 +966,7 @@ body { background: #fff; }
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
   font-family: var(--f-black);
   font-size: 1.5rem;
   color: rgba(0,0,0,0.1);
@@ -1182,18 +1255,18 @@ body { background: #fff; }
 <div id="nav">
   <span id="nav-title">AI Dev Workshop · Wallbox 2026 <span id="nav-label"></span></span>
   <div class="nav-controls">
-    <button class="nav-btn" onclick="navigate(-1)">← Prev</button>
+    <button class="nav-btn" onclick="navigate(-1)">← Anterior</button>
     <span id="nav-counter">1 / 12</span>
-    <button class="nav-btn" onclick="navigate(1)">Next →</button>
+    <button class="nav-btn" onclick="navigate(1)">Siguiente →</button>
   </div>
 </div>
 <nav class="nav-dots" id="nav-dots"></nav>
-<div class="keyboard-hint" id="keyboard-hint">← → Space to navigate</div>
+<div class="keyboard-hint" id="keyboard-hint">← → Espacio para navegar</div>
 
 <!-- ============================================================ -->
 <!-- SLIDE 1 — PORTADA                                             -->
 <!-- ============================================================ -->
-<section class="slide s1" data-label="Cover">
+<section class="slide s1" data-label="Portada">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">01</div>
@@ -1202,104 +1275,139 @@ body { background: #fff; }
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">AI Dev Workshop · Wallbox 2026</span>
     </div>
-    <h1 class="title">Uncovering<br>better ways of<br>developing</h1>
-    <p class="subtitle">...yes, again.</p>
+    <h1 class="title">Descubriendo<br>mejores formas de<br>desarrollar</h1>
+    <p class="subtitle">...sí, otra vez.</p>
     <p class="speaker">Jorge Castro & Joan Leon</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 1b — AGILE MANIFESTO WEBSITE                            -->
+<!-- ============================================================ -->
+<section class="slide s1b" data-label="agilemanifesto.org">
+  <div class="am-content">
+    <h1 class="am-title">Manifesto for Agile Software Development</h1>
+    <p class="am-preamble">We are uncovering better ways of developing<br>
+      software by doing it and helping others do it.<br>
+      Through this work we have come to value:</p>
+    <div class="am-values">
+      <p><span class="am-key">Individuals and interactions</span> <span class="am-over">over processes and tools</span></p>
+      <p><span class="am-key">Working software</span> <span class="am-over">over comprehensive documentation</span></p>
+      <p><span class="am-key">Customer collaboration</span> <span class="am-over">over contract negotiation</span></p>
+      <p><span class="am-key">Responding to change</span> <span class="am-over">over following a plan</span></p>
+    </div>
+    <p class="am-note">That is, while there is value in the items on<br>
+      the right, we value the items on the left more.</p>
+    <div class="am-signatories">
+      <div class="am-col">
+        Kent Beck<br>Mike Beedle<br>Arie van Bennekum<br>Alistair Cockburn<br>Ward Cunningham<br>Martin Fowler
+      </div>
+      <div class="am-col">
+        James Grenning<br>Jim Highsmith<br>Andrew Hunt<br>Ron Jeffries<br>Jon Kern<br>Brian Marick
+      </div>
+      <div class="am-col">
+        Robert C. Martin<br>Steve Mellor<br>Ken Schwaber<br>Jeff Sutherland<br>Dave Thomas
+      </div>
+    </div>
+    <p class="am-copyright">© 2001, the above authors<br>
+      this declaration may be freely copied in any form,<br>
+      but only in its entirety through this notice.</p>
+    <p class="am-principles">Twelve Principles of Agile Software</p>
   </div>
 </section>
 
 <!-- ============================================================ -->
 <!-- SLIDE 2 — MANIFIESTO ÁGIL                                     -->
 <!-- ============================================================ -->
-<section class="slide s2" data-label="Agile Manifesto">
+<section class="slide s2" data-label="Manifiesto Ágil">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">02</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Agile Manifesto · 2001</span>
+      <span class="eyebrow-text">Manifiesto Ágil · 2001</span>
     </div>
-    <h1 class="title">"We <em>ARE</em> uncovering<br>better ways of<br>developing software"</h1>
+    <h1 class="title">"Estamos <em>DESCUBRIENDO</em><br>formas mejores de<br>desarrollar software"</h1>
     <div class="attr-row">
-      <span class="attr">— Agile Manifesto, 2001</span>
+      <span class="attr">— Manifiesto Ágil, 2001</span>
     </div>
-    <p class="note">It doesn't say "we have uncovered". It says "we ARE uncovering". Present continuous. A process that never ends.</p>
+    <p class="note">No dice "hemos descubierto". Dice "estamos descubriendo". Un proceso que no termina nunca.</p>
   </div>
 </section>
 
 <!-- ============================================================ -->
 <!-- SLIDE 3 — EL ESTUDIO METR                                     -->
 <!-- ============================================================ -->
-<section class="slide s3" data-label="The METR Study">
+<section class="slide s3" data-label="El estudio METR">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">03</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">METR Study · July 2025</span>
+      <span class="eyebrow-text">Estudio METR · Julio 2025</span>
     </div>
     <div class="facts">
       <div class="fact reveal-item">
         <div class="fact-icon">16</div>
-        <p class="fact-text">senior developers with &gt;5 years on their own repos</p>
+        <p class="fact-text">desarrolladores senior con +5 años en sus propios repositorios</p>
       </div>
       <div class="fact reveal-item">
         <div class="fact-icon">246</div>
-        <p class="fact-text">real tasks from their own projects</p>
+        <p class="fact-text">tareas reales de sus propios proyectos</p>
       </div>
       <div class="fact reveal-item">
         <div class="fact-icon">2026</div>
-        <p class="fact-text">METR already sees early signs of improvement in February update</p>
+        <p class="fact-text">METR ya ve primeras señales de mejora en la actualización de febrero</p>
       </div>
     </div>
     <div class="reveal-block">
       <div class="reveal-wrong reveal-item">
-        <span class="reveal-wrong-num">+20% faster</span>
+        <span class="reveal-wrong-num">Percepción: +20% más rápido</span>
         <div class="reveal-strike reveal-item"></div>
       </div>
       <div class="reveal-real reveal-item">
-        <span class="reveal-real-num">19% SLOWER</span>
+        <span class="reveal-real-num">19% MÁS LENTOS</span>
       </div>
     </div>
-    <p class="source">Source: <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR — Early 2025 AI-Experienced OS Dev Study</a></p>
+    <p class="source">Fuente: <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR — Early 2025 AI-Experienced OS Dev Study</a></p>
   </div>
 </section>
 
 <!-- ============================================================ -->
 <!-- SLIDE 4 — LOS 4 PROBLEMAS                                     -->
 <!-- ============================================================ -->
-<section class="slide s4" data-label="What AI does poorly">
+<section class="slide s4" data-label="Lo que la IA hace mal">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">04</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">The 4 problems</span>
+      <span class="eyebrow-text">Los 4 problemas</span>
     </div>
-    <h2 class="h2">What AI does poorly</h2>
+    <h2 class="h2">Lo que la IA hace mal</h2>
     <div class="cards">
       <div class="card reveal-item">
         <div class="card-num">01</div>
-        <div class="card-title">No context</div>
-        <p class="card-text">At the start of every session, the AI knows nothing about your codebase. Zero.</p>
+        <div class="card-title">No tiene contexto</div>
+        <p class="card-text">Al inicio de cada sesión, la IA no sabe nada de tu código. Cero.</p>
       </div>
       <div class="card reveal-item">
         <div class="card-num">02</div>
-        <div class="card-title">Hallucinations</div>
-        <p class="card-text">It invents APIs, methods, and dependencies that don't exist — and sounds completely sure.</p>
+        <div class="card-title">Alucinaciones</div>
+        <p class="card-text">Inventa APIs, métodos y dependencias que no existen... y te lo dice convencida.</p>
       </div>
       <div class="card reveal-item">
         <div class="card-num">03</div>
-        <div class="card-title">Non-determinism</div>
-        <p class="card-text">The same prompt can produce different results every time you run it.</p>
+        <div class="card-title">No es determinista</div>
+        <p class="card-text">El mismo prompt puede producir resultados diferentes cada vez que lo ejecutas.</p>
       </div>
       <div class="card reveal-item">
         <div class="card-num">04</div>
-        <div class="card-title">Hard to verify</div>
-        <p class="card-text">We generate code faster than our cognitive load allows us to review it.</p>
+        <div class="card-title">Difícil de revisar</div>
+        <p class="card-text">Generamos código más rápido de lo que nuestra carga cognitiva nos permite revisarlo.</p>
       </div>
     </div>
   </div>
@@ -1308,56 +1416,56 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <!-- SLIDE 5 — FLUJO DE DESARROLLO                                 -->
 <!-- ============================================================ -->
-<section class="slide s5" data-label="Development flow">
+<section class="slide s5" data-label="Flujo de desarrollo">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">05</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">The flow we already know</span>
+      <span class="eyebrow-text">El flujo que ya conocemos</span>
     </div>
-    <h2 class="h2">Separating phases is not optional with AI</h2>
+    <h2 class="h2">Separar las fases no es opcional con IA</h2>
     <div class="pipeline-wrap">
       <div class="pipeline">
         <div class="step reveal-item">
           <div class="step-num">01</div>
-          <div class="step-name">Research</div>
-          <div class="step-sub">Context, constraints, decisions</div>
+          <div class="step-name">Investigar</div>
+          <div class="step-sub">Contexto, restricciones, decisiones</div>
         </div>
         <div class="arrow reveal-item">→</div>
         <div class="step reveal-item">
           <div class="step-num">02</div>
-          <div class="step-name">Plan</div>
-          <div class="step-sub">Design, small steps, criteria</div>
+          <div class="step-name">Planificar</div>
+          <div class="step-sub">Diseño, pasos pequeños, criterios</div>
         </div>
         <div class="arrow reveal-item">→</div>
         <div class="step reveal-item">
           <div class="step-num">03</div>
-          <div class="step-name">Implement</div>
-          <div class="step-sub">Clean session, precise context</div>
+          <div class="step-name">Implementar</div>
+          <div class="step-sub">Sesión limpia, contexto preciso</div>
         </div>
         <div class="arrow reveal-item">→</div>
         <div class="step reveal-item">
           <div class="step-num">04</div>
-          <div class="step-name">Validate</div>
-          <div class="step-sub">Tests, review, real feedback</div>
+          <div class="step-name">Validar</div>
+          <div class="step-sub">Tests, revisión, feedback real</div>
         </div>
       </div>
       <div class="shortcut reveal-item" aria-hidden="true">
         <div class="sc-arc"></div>
-        <span class="sc-label">One session for everything</span>
+        <span class="sc-label">Una sola sesión para todo</span>
         <div class="sc-consequences">
-          <span>context overload</span>
-          <span>hallucinations</span>
-          <span>high indeterminism</span>
+          <span>sobrecarga de contexto</span>
+          <span>alucinaciones</span>
+          <span>alto indeterminismo</span>
         </div>
       </div>
       <div class="shortcut-x reveal-item" aria-hidden="true">✕</div>
     </div>
     <p class="pipeline-note reveal-item">
-      Each phase needs a clean context window. Mix them and the model loses the thread —
-      <strong>context pollution breeds hallucinations.</strong>
+      Cada fase necesita una ventana de contexto limpia. Mezclarlas hace que el modelo pierda el hilo.
+      <strong>Mantén el contexto limpio o tendrás problemas.</strong>
     </p>
   </div>
 </section>
@@ -1365,88 +1473,88 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <!-- SLIDE 6 — PRÁCTICAS QUE FUNCIONAN                            -->
 <!-- ============================================================ -->
-<section class="slide s6" data-label="Practices that work">
+<section class="slide s6" data-label="Prácticas que funcionan">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">06</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">We already know what works</span>
+      <span class="eyebrow-text">Ya sabemos lo qué funciona</span>
     </div>
-    <h2 class="h2">The bottleneck was never<br>lines of code per minute</h2>
+    <h2 class="h2">El cuello de botella nunca ha sido<br>líneas de código por minuto</h2>
     <div class="practices">
-      <div class="practice">
+      <div class="practice reveal-item">
         <div class="practice-bullet">01</div>
         <div>
           <div class="practice-title">Story Splitting</div>
-          <p class="practice-text">Break work into vertical, deployable slices. With AI this becomes even more critical.</p>
+          <p class="practice-text">Divide el trabajo en slices verticales desplegables. Con IA esto se vuelve aún más crítico.</p>
         </div>
       </div>
-      <div class="practice">
+      <div class="practice reveal-item">
         <div class="practice-bullet">02</div>
         <div>
-          <div class="practice-title">Hamburger Method</div>
-          <p class="practice-text">End-to-end value delivery before completing the full feature.</p>
+          <div class="practice-title">Método Hamburguesa</div>
+          <p class="practice-text">Entrega de valor end-to-end de forma contínua</p>
         </div>
       </div>
-      <div class="practice">
+      <div class="practice reveal-item">
         <div class="practice-bullet">03</div>
         <div>
-          <div class="practice-title">Small Safe Steps</div>
-          <p class="practice-text">Every step must be reversible. The agent generating a lot doesn't mean you deploy it all at once.</p>
+          <div class="practice-title">Pasos pequeños y seguros</div>
+          <p class="practice-text">Cada paso debe ser reversible. Que el agente pueda generar mucho y muy rápido no significa que lo llevemos a producción todo de golpe.</p>
         </div>
       </div>
-      <div class="practice">
+      <div class="practice reveal-item">
         <div class="practice-bullet">04</div>
         <div>
-          <div class="practice-title">Advanced testing</div>
-          <p class="practice-text">Mutation testing, Acceptance Testing, Architectural Testing — all expand the feedback loop.</p>
+          <div class="practice-title">Testing avanzado</div>
+          <p class="practice-text">Mutation testing, Acceptance Testing, Architectural Testing. todos amplían el bucle de feedback y ahora no hay excusas.</p>
         </div>
       </div>
     </div>
-    <p class="bottleneck">The feedback loop is what ensures we're <em>doing the right things</em> — and <em>doing them right</em>. With AI generating more code than ever, resist the giant PR.</p>
+    <p class="bottleneck reveal-item">Más código generado = más riesgo si no tienes un <em>bucle de feedback sólido.</em></p>
   </div>
 </section>
 
 <!-- ============================================================ -->
 <!-- SLIDE 7 — TDD A NUEVA ESCALA                                   -->
 <!-- ============================================================ -->
-<section class="slide s7" data-label="TDD at new scale">
+<section class="slide s7" data-label="TDD a nueva escala">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">07</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Same principles, new scale</span>
+      <span class="eyebrow-text">Mismos principios, nuevo nivel de abstracción</span>
     </div>
-    <h2 class="h2">TDD hasn't died. It changed scale.</h2>
+    <h2 class="h2">El TDD no ha muerto. Ha cambiado de nivel de abstracción</h2>
     <div class="tdd-layout">
       <div class="tdd-panel tdd-expires reveal-item">
-        <div class="tdd-panel-header">What expires: the ritual</div>
+        <div class="tdd-panel-header">Lo que caduca: cómo lo hacíamos</div>
         <p class="tdd-panel-text">
-          <s>Write a tiny test &rarr; minimal implementation &rarr; refactor &rarr; repeat.</s><br>
-          Micro-cycles add steps and tokens the agent doesn't need.
+          <s>Escribe un test mínimo &rarr; implementación mínima &rarr; refactor &rarr; repite.</s><br>
+          Los micro-ciclos añaden pasos y tokens que el agente no necesita.
         </p>
       </div>
       <div class="tdd-panel tdd-endures reveal-item">
-        <div class="tdd-panel-header">What endures: the idea</div>
+        <div class="tdd-panel-header">Lo que permanece: la idea de fondo  </div>
         <p class="tdd-panel-text">
-          Define expected behavior BEFORE implementing.<br>
-          With AI this is more important, not less: the test is your verification contract.
+          Define el comportamiento esperado ANTES de implementar.<br>
+          Con IA esto es más importante, no menos: el test es tu contrato de verificación.
         </p>
       </div>
       <div class="tdd-cycle reveal-item">
-        <div class="tdd-cycle-title">The new cycle</div>
+        <div class="tdd-cycle-title">El nuevo ciclo</div>
         <ul class="tdd-steps">
-          <li>Define acceptance tests at a functional level</li>
-          <li>Let the agent implement everything at once</li>
-          <li>Run the tests</li>
-          <li>Iterate if they fail</li>
+          <li>Escribe los tests de aceptación a nivel funcional</li>
+          <li>El agente implementa el código</li>
+          <li>Los tests son la fuente de verdad. No el código generado</li>
+          <li>Si fallan, el agente itera el código</li>
         </ul>
       </div>
-      <p class="tdd-takeaway reveal-item">Test-first, but at <em>macro granularity</em>. Not micro-steps — <em>verifiable macro-objectives</em>.</p>
+      <p class="tdd-takeaway reveal-item">Define el <em>qué y las reglas</em>, el agente se encarga del <em>cómo</em>.</p>
     </div>
   </div>
 </section>
@@ -1454,82 +1562,82 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <!-- SLIDE 8 — GUARDARRAÍLES + CHECKLIST                           -->
 <!-- ============================================================ -->
-<section class="slide s8" data-label="Design for oversight">
+<section class="slide s8" data-label="Diseño para la supervisión">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">08</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Design for oversight</span>
+      <span class="eyebrow-text">Diseña para supervisar</span>
     </div>
-    <h2 class="h2">You can't review every line.<br>Design systems that catch mistakes.</h2>
+    <h2 class="h2">No puedes revisar cada línea.<br>Diseña sistemas que capturen los errores.</h2>
     <div class="two-col">
       <div class="col-panel col-guardrails reveal-item">
-        <div class="col-icon">Automated</div>
-        <p class="col-title">Technical guardrails</p>
+        <div class="col-icon">Automatizado</div>
+        <p class="col-title">Guardarraíles técnicos</p>
         <ul class="item-list">
-          <li>Hooks: automatic linter on every tool use</li>
-          <li>Architecture tests: verify structure, not just functionality</li>
-          <li>Acceptance Testing: expected behavior defined upfront</li>
-          <li>Mature CI/CD: if it's not reliable with humans, it'll be chaos with agents</li>
-          <li>Agent permissions: define what it can do without approval — and what it can't</li>
+          <li>Hooks: linter automático en cada uso de herramienta</li>
+          <li>Tests de arquitectura: verifican estructura, no solo funcionalidad</li>
+          <li>Acceptance Testing: comportamiento esperado definido de antemano</li>
+          <li>CI/CD maduro: si no es fiable con humanos, será un caos con agentes</li>
+          <li>Permisos del agente: define qué puede hacer sin aprobación y qué no</li>
         </ul>
       </div>
       <div class="col-panel col-checklist reveal-item">
-        <div class="col-icon">Human judgement</div>
-        <p class="col-title">Pre-merge checklist</p>
+        <div class="col-icon">Juicio humano</div>
+        <p class="col-title">Checklist pre-merge</p>
         <ul class="check-list">
-          <li>Does this respect my domain or just sound right?</li>
-          <li>Do the tests actually verify something real?</li>
-          <li>Is there observability for this use case?</li>
-          <li>Could I delete this code without breaking anything?</li>
+          <li>¿Esto respeta mi dominio o solo suena bien?</li>
+          <li>¿Los tests verifican algo real de verdad?</li>
+          <li>¿Hay observabilidad para este caso de uso?</li>
+          <li>¿Podría borrar este código sin romper nada?</li>
         </ul>
       </div>
     </div>
-    <p class="oversight-takeaway reveal-item">Guardrails catch the <em>obvious</em>. The checklist catches what only <em>you</em> can see.</p>
+    <p class="oversight-takeaway reveal-item">Los guardarraíles capturan lo <em>obvio</em>. El checklist captura lo que solo <em>tú</em> puedes ver.</p>
   </div>
 </section>
 
 <!-- ============================================================ -->
 <!-- SLIDE 9 — SEGURIDAD DEL AGENTE                                 -->
 <!-- ============================================================ -->
-<section class="slide s9" data-label="Agent security">
+<section class="slide s9" data-label="Seguridad del agente">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">09</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Agent security</span>
+      <span class="eyebrow-text">Seguridad del agente</span>
     </div>
-    <h2 class="h2">What can the agent do without your permission?</h2>
-    <p class="subtitle reveal-item">AI generates the code. You ship it. You own it.<br><strong>You are responsible for every line that reaches production.</strong></p>
+    <h2 class="h2">¿Qué puede hacer el agente sin tu permiso?</h2>
+    <p class="subtitle reveal-item">La IA genera el código pero tú eres el responsable.<br><strong>Eres responsable de cada línea que llega a producción.</strong></p>
     <div class="sec-table">
       <div class="sec-col sec-col-ok reveal-item">
-        <div class="sec-col-header sec-ok-header">Without approval</div>
+        <div class="sec-col-header sec-ok-header">Sin aprobación</div>
         <ul class="sec-list">
-          <li>Edit code</li>
-          <li>Run tests</li>
-          <li>Generate docs</li>
-          <li>Create branches</li>
-          <li>Open draft PRs</li>
+          <li>Editar código</li>
+          <li>Ejecutar tests</li>
+          <li>Generar documentación</li>
+          <li>Crear ramas</li>
+          <li>Abrir PRs en borrador</li>
         </ul>
       </div>
-      <div class="sec-divider">vs</div>
+      <div class="sec-divider reveal-item">vs</div>
       <div class="sec-col sec-col-danger reveal-item">
-        <div class="sec-col-header sec-danger-header">Always with human approval</div>
+        <div class="sec-col-header sec-danger-header">Siempre con aprobación humana</div>
         <ul class="sec-list">
-          <li>Push to main</li>
-          <li>Modify CI/CD pipelines</li>
-          <li>Touch IAM / Terraform / infra</li>
-          <li>Access secrets or credentials</li>
-          <li>Self-approve its own PRs</li>
+          <li>Push a main</li>
+          <li>Modificar pipelines CI/CD</li>
+          <li>Tocar IAM / Terraform / infra</li>
+          <li>Acceder a secretos o credenciales</li>
+          <li>Autoaprobar sus propios PRs</li>
         </ul>
       </div>
     </div>
     <div class="sec-footer">
-      <a href="https://www.veracode.com/blog/genai-code-security-report/" target="_blank" rel="noopener" class="sec-source">Source: Veracode — GenAI Code Security Report 2025</a>
+      <a href="https://www.veracode.com/blog/genai-code-security-report/" target="_blank" rel="noopener" class="sec-source">Fuente: Veracode — GenAI Code Security Report 2025</a>
     </div>
   </div>
 </section>
@@ -1537,46 +1645,46 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <!-- SLIDE 10 — NIVEL DE AUTONOMÍA                                   -->
 <!-- ============================================================ -->
-<section class="slide s10" data-label="Autonomy level">
+<section class="slide s10" data-label="Nivel de autonomía">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">10</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">How much autonomy?</span>
+      <span class="eyebrow-text">¿Cuánta autonomía?</span>
     </div>
-    <h2 class="h2">Calibrate autonomy to risk</h2>
+    <h2 class="h2">Calibra la autonomía al riesgo</h2>
     <div class="table-header">
       <div></div>
-      <div class="th">Context</div>
-      <div class="th">Autonomy level</div>
-      <div class="th">Before merging</div>
+      <div class="th">Contexto</div>
+      <div class="th">Nivel de autonomía</div>
+      <div class="th">Antes de mergear</div>
     </div>
     <div class="table">
       <div class="row green">
         <div class="row-bar"></div>
-        <div class="row-context">Internal prototype<br><small style="font-weight:400;color:#666">If it fails: we lose time</small></div>
-        <div class="row-autonomy">You design, AI implements — don't worry about the code</div>
-        <div class="row-gate">Unit + integration tests<br>Straight to main</div>
+        <div class="row-context">Prototipo interno<br><small style="font-weight:400;color:#666">Si falla: perdemos tiempo</small></div>
+        <div class="row-autonomy">Tú diseñas, la IA implementa. No te preocupes por el código</div>
+        <div class="row-gate">Tests unitarios + integración<br>Directo a main</div>
       </div>
       <div class="row yellow">
         <div class="row-bar"></div>
-        <div class="row-context">Product with users<br><small style="font-weight:400;color:#666">If it fails: user impacted</small></div>
-        <div class="row-autonomy">You design, AI implements, you oversee architecture</div>
-        <div class="row-gate">Architecture + acceptance tests<br>Observability + AI-reviewed PR</div>
+        <div class="row-context">Producto con usuarios<br><small style="font-weight:400;color:#666">Si falla: usuario impactado</small></div>
+        <div class="row-autonomy">Tú diseñas, la IA implementa, tú supervisas la arquitectura</div>
+        <div class="row-gate">Tests de arquitectura + aceptación<br>Observabilidad + PR revisado por IA</div>
       </div>
       <div class="row orange">
         <div class="row-bar"></div>
-        <div class="row-context">Business core<br><small style="font-weight:400;color:#666">If it fails: money or trust</small></div>
-        <div class="row-autonomy">You design and review code in critical modules</div>
-        <div class="row-gate">Mutation testing + security scan<br>PR with human review</div>
+        <div class="row-context">Core de negocio<br><small style="font-weight:400;color:#666">Si falla: dinero o confianza</small></div>
+        <div class="row-autonomy">Tú diseñas y revisas código en módulos críticos</div>
+        <div class="row-gate">Mutation testing + security scan<br>PR con revisión humana</div>
       </div>
       <div class="row red">
         <div class="row-bar"></div>
-        <div class="row-context">Physical world<br><small style="font-weight:400;color:#666">If it fails: real harm</small></div>
-        <div class="row-autonomy">You decide and supervise at a low level — AI only assists</div>
-        <div class="row-gate">Tests on real hardware<br>Mandatory security review</div>
+        <div class="row-context">Mundo físico<br><small style="font-weight:400;color:#666">Si falla: daño real</small></div>
+        <div class="row-autonomy">Tú decides y supervisas a bajo nivel — la IA solo asiste</div>
+        <div class="row-gate">Tests en hardware real<br>Revisión de seguridad obligatoria</div>
       </div>
     </div>
   </div>
@@ -1585,82 +1693,84 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <!-- SLIDE 11 — CHANGES / ENDURES (MERGED)                         -->
 <!-- ============================================================ -->
-<section class="slide s11" data-label="Changes / Endures">
+<section class="slide s11" data-label="Cambia / Perdura">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">11</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">The transformation</span>
+      <span class="eyebrow-text">La transformación</span>
     </div>
-    <h2 class="h2">What changes — and what endures?</h2>
+    <h2 class="h2">¿Qué cambia y qué permanece?<br><span style="font-size:0.55em; font-weight:600; color:var(--text-3);">Las herramientas cambian. La responsabilidad, no.</span></h2>
     <div class="dual-col">
       <!-- LEFT: Changes -->
-      <div class="col-panel col-changes reveal-item" data-reveal-group="s11-cols">
-        <div class="col-label">Changes</div>
-        <p class="col-title">The environment &amp; your role</p>
+      <div class="col-panel col-changes reveal-item">
+        <div class="col-label">Cambia</div>
+        <p class="col-title">El entorno y tu rol</p>
         <ul class="change-list">
-          <li><span class="x">✕</span> You're no longer paid for writing code</li>
-          <li><span class="x">✕</span> Nor for using AI</li>
-          <li><span class="ok">✓</span> You're paid for deciding what should NOT go to production</li>
-          <li><span class="dot">→</span> The speed of generation</li>
-          <li><span class="dot">→</span> The economic barrier to rigorous testing</li>
-          <li><span class="dot">→</span> The format of documentation (CLAUDE.md, skills)</li>
-          <li><span class="dot">→</span> Who writes the code (human vs. agent)</li>
+          <li><span class="x">✕</span> Ya no te pagan por escribir código</li>
+          <li><span class="x">✕</span> Tampoco por usar IA</li>
+          <li><span class="ok">✓</span> Te pagan por decidir lo qué debe llegar a producción</li>
+          <li><span class="dot">→</span> La velocidad de generación</li>
+          <li><span class="dot">→</span> La barrera económica del testing riguroso</li>
+          <li><span class="dot">→</span> El formato de la documentación (CLAUDE.md, skills)</li>
+          <li><span class="dot">→</span> Quién escribe el código (humano vs. agente)</li>
         </ul>
       </div>
       <!-- RIGHT: Endures -->
-      <div class="col-panel col-endures reveal-item" data-reveal-group="s11-cols">
-        <div class="col-label">Endures — and grows stronger</div>
-        <p class="col-title">What matters more than ever</p>
+      <div class="col-panel col-endures reveal-item">
+        <div class="col-label">Permanece y se hace más importante</div>
+        <p class="col-title">Lo que importa más que nunca</p>
         <ul class="endure-list">
-          <li><span class="endure-num">01</span> <span class="endure-text"><strong>Simple architecture</strong> — AI generates pieces; you integrate them</span></li>
-          <li><span class="endure-num">02</span> <span class="endure-text"><strong>Small safe steps</strong> — the bottleneck was never generating code</span></li>
-          <li><span class="endure-num">03</span> <span class="endure-text"><strong>Define behavior first</strong> — or AI writes tests for its own decisions</span></li>
-          <li><span class="endure-num">04</span> <span class="endure-text"><strong>Autonomy calibrated to risk</strong> — every level needs guardrails</span></li>
-          <li><span class="endure-num">05</span> <span class="endure-text"><strong>Clear communication</strong> — AI amplifies what's there, including chaos</span></li>
-          <li><span class="endure-num">06</span> <span class="endure-text"><strong>We ARE uncovering</strong> — next iteration, not a revolution</span></li>
+          <li><span class="endure-num">01</span> <span class="endure-text"><strong>Arquitectura simple</strong> — la IA genera piezas; tú las ensamblas</span></li>
+          <li><span class="endure-num">02</span> <span class="endure-text"><strong>Pasos pequeños y seguros</strong> — el cuello de botella nunca fue generar código</span></li>
+          <li><span class="endure-num">03</span> <span class="endure-text"><strong>Definir comportamiento primero</strong> — o la IA escribirá tests para sus propias decisiones</span></li>
+          <li><span class="endure-num">04</span> <span class="endure-text"><strong>Autonomía vs riesgo</strong> — cada nivel necesita sus guardarraíles</span></li>
+          <li><span class="endure-num">05</span> <span class="endure-text"><strong>Comunicación clara</strong> — la IA amplifica lo que hay, incluyendo el caos</span></li>
         </ul>
       </div>
     </div>
-    <p class="change-takeaway">The tools change. The responsibility <em>doesn't</em>.</p>
   </div>
 </section>
 
 <!-- ============================================================ -->
 <!-- SLIDE 12 — RESUMEN: LAS 5 IDEAS CLAVE                        -->
 <!-- ============================================================ -->
-<section class="slide s12" data-label="Summary">
+<section class="slide s12" data-label="Resumen">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">12</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Summary</span>
+      <span class="eyebrow-text">Resumen</span>
     </div>
-    <h2 class="h2">5 key takeaways</h2>
+    <h2 class="h2">6 ideas para llevarte hoy</h2>
     <div class="key-list">
       <div class="key-item reveal-item">
         <div class="key-num">1</div>
-        <p class="key-text">AI is a powerful tool, but without discipline it slows you down or creates more problems than it solves.</p>
+        <p class="key-text">Tu valor está en <strong>entender el problema,</strong> no en teclear la solución.</p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">2</div>
-        <p class="key-text">Your competitive advantage is no longer writing code — it's understanding the problem.</p>
+        <p class="key-text">Un agente sin configuración es <strong>un junior sin onboarding.</strong></p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">3</div>
-        <p class="key-text">What AI generates is a draft. <strong>CLAUDE.md, hooks, agents, and skills</strong> turn it into something you can trust.</p>
+        <p class="key-text">El flujo importa más que la herramienta.</p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">4</div>
-        <p class="key-text"><strong>Research → Plan → Implement → Validate.</strong> Don't do everything at once.</p>
+        <p class="key-text">Decide qué puede hacer el agente por sí solo.</p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">5</div>
-        <p class="key-text">The knowledge you keep repeating to every new colleague — that's your first skill. <strong>Encode it.</strong></p>
+        <p class="key-text">Abre un CLAUDE.md y escribe lo que repetirías a un compañero nuevo.</p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">6</div>
+        <p class="key-text">Comparte lo que aprendas — <strong>siguamos descubriendo juntos.</strong></p>
       </div>
     </div>
   </div>
