@@ -2,6 +2,14 @@
 ---
 ## Prerequisitos
 - Tener configurado Claude Code en Wallbox.
+- 
+
+
+## PAblos
+- Modelo: cuando usar cada uno
+- Cómo reducir el uso de tokens
+- 
+
 
 ## 30-45 min min con repo demo
 
