@@ -1090,103 +1090,47 @@ body { background: #fff; }
 }
 
 /* ================================================================
-   SLIDE 11 — CHANGES / ENDURES (MERGED)
+   SLIDE 11 — SÍNTESIS
    ================================================================ */
-.s11 .content { max-width: min(95vw, 1160px); justify-content: center; }
-.s11 .dual-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(1rem, 2.5vw, 2.5rem);
-  animation: fadeIn 0.5s ease 0.3s both;
-}
-.s11 .col-panel {
-  padding: clamp(0.8rem, 2vh, 1.4rem) clamp(0.8rem, 1.8vw, 1.4rem);
-}
-.s11 .col-changes {
-  background: #fafafa;
-  border: 2px solid rgba(0,0,0,0.08);
-  border-top: 4px solid var(--accent);
-}
-.s11 .col-endures {
-  background: #fff;
-  border: 2px solid rgba(0,0,0,0.08);
-  border-top: 4px solid #22c55e;
-}
-.s11 .col-label {
-  font-family: var(--f-sans);
-  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: clamp(0.2rem, 0.5vh, 0.4rem);
-}
-.s11 .col-changes .col-label { color: var(--accent); }
-.s11 .col-endures .col-label { color: #16a34a; }
-.s11 .col-title {
-  font-family: var(--f-sans);
-  font-size: var(--h3);
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: clamp(0.5rem, 1.2vh, 0.9rem);
-  padding-bottom: 0.35em;
-  border-bottom: 2px solid rgba(0,0,0,0.08);
-}
-.s11 .change-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
-.s11 .change-list li {
-  font-size: var(--small);
-  color: var(--text-2);
-  font-weight: 600;
-  line-height: 1.35;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5em;
-  padding: clamp(0.25rem, 0.6vh, 0.45rem) 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-.s11 .change-list li:last-child { border-bottom: none; }
-.s11 .x { color: #ef4444; font-weight: 800; flex-shrink: 0; font-size: 1.05em; }
-.s11 .ok { color: #22c55e; font-weight: 800; flex-shrink: 0; font-size: 1.05em; }
-.s11 .dot { color: var(--text-3); font-weight: 800; flex-shrink: 0; }
-.s11 .endure-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
-.s11 .endure-list li {
-  font-size: var(--small);
-  color: var(--text-2);
-  font-weight: 600;
-  line-height: 1.35;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5em;
-  padding: clamp(0.25rem, 0.6vh, 0.45rem) 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-.s11 .endure-list li:last-child { border-bottom: none; }
-.s11 .endure-num {
+.s11 .content { max-width: min(88vw, 1000px); justify-content: center; gap: clamp(1.5rem, 3.5vh, 3rem); }
+.s11 .s11-statement {
   font-family: var(--f-black);
-  font-size: clamp(0.65rem, 0.9vw, 0.78rem);
-  color: rgba(0,0,0,0.15);
-  flex-shrink: 0;
-  width: 1.5em;
-  text-align: right;
-}
-.s11 .endure-text { flex: 1; }
-.s11 .endure-text strong {
+  font-size: clamp(1.8rem, 4.8vw, 4.2rem);
   color: var(--text);
-  font-weight: 800;
+  line-height: 1.05;
+  text-align: center;
 }
-/* --- Bottom takeaway --- */
-.s11 .change-takeaway {
-  margin-top: auto;
-  font-size: var(--note);
-  font-weight: 700;
-  color: var(--text);
-  border-top: 3px solid var(--accent);
-  padding-top: clamp(0.5rem, 1.2vh, 0.8rem);
-  animation: fadeIn 0.5s ease 0.65s both;
-}
-.s11 .change-takeaway em {
+.s11 .s11-statement em {
   font-style: normal;
   color: var(--accent);
 }
+.s11 .s11-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  width: 100%;
+}
+.s11 .s11-col-label {
+  font-family: var(--f-sans);
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: clamp(0.5rem, 1.2vh, 0.8rem);
+  padding-bottom: 0.4em;
+  border-bottom: 3px solid;
+}
+.s11 .s11-changes .s11-col-label { color: var(--accent); border-color: var(--accent); }
+.s11 .s11-endures .s11-col-label { color: #16a34a; border-color: #22c55e; }
+.s11 .s11-col-item {
+  font-size: var(--body);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.4;
+  padding: clamp(0.35rem, 0.9vh, 0.6rem) 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.s11 .s11-col-item:last-child { border-bottom: none; }
 
 /* ================================================================
    STEP-REVEAL — items that appear one click at a time
@@ -1702,33 +1646,19 @@ body { background: #fff; }
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">La transformación</span>
     </div>
-    <h2 class="h2">¿Qué cambia y qué permanece?<br><span style="font-size:0.55em; font-weight:600; color:var(--text-3);">Las herramientas cambian. La responsabilidad, no.</span></h2>
-    <div class="dual-col">
-      <!-- LEFT: Changes -->
-      <div class="col-panel col-changes reveal-item">
-        <div class="col-label">Cambia</div>
-        <p class="col-title">El entorno y tu rol</p>
-        <ul class="change-list">
-          <li><span class="x">✕</span> Ya no te pagan por escribir código</li>
-          <li><span class="x">✕</span> Tampoco por usar IA</li>
-          <li><span class="ok">✓</span> Te pagan por decidir lo qué debe llegar a producción</li>
-          <li><span class="dot">→</span> La velocidad de generación</li>
-          <li><span class="dot">→</span> La barrera económica del testing riguroso</li>
-          <li><span class="dot">→</span> El formato de la documentación (CLAUDE.md, skills)</li>
-          <li><span class="dot">→</span> Quién escribe el código (humano vs. agente)</li>
-        </ul>
+    <p class="s11-statement reveal-item">Las herramientas <em>cambian.</em><br>La responsabilidad, <em>no.</em></p>
+    <div class="s11-cols reveal-item">
+      <div class="s11-col s11-changes">
+        <div class="s11-col-label">Cambia</div>
+        <div class="s11-col-item">Quién escribe el código</div>
+        <div class="s11-col-item">La velocidad de generación</div>
+        <div class="s11-col-item">El formato del conocimiento</div>
       </div>
-      <!-- RIGHT: Endures -->
-      <div class="col-panel col-endures reveal-item">
-        <div class="col-label">Permanece y se hace más importante</div>
-        <p class="col-title">Lo que importa más que nunca</p>
-        <ul class="endure-list">
-          <li><span class="endure-num">01</span> <span class="endure-text"><strong>Arquitectura simple</strong> — la IA genera piezas; tú las ensamblas</span></li>
-          <li><span class="endure-num">02</span> <span class="endure-text"><strong>Pasos pequeños y seguros</strong> — el cuello de botella nunca fue generar código</span></li>
-          <li><span class="endure-num">03</span> <span class="endure-text"><strong>Definir comportamiento primero</strong> — o la IA escribirá tests para sus propias decisiones</span></li>
-          <li><span class="endure-num">04</span> <span class="endure-text"><strong>Autonomía vs riesgo</strong> — cada nivel necesita sus guardarraíles</span></li>
-          <li><span class="endure-num">05</span> <span class="endure-text"><strong>Comunicación clara</strong> — la IA amplifica lo que hay, incluyendo el caos</span></li>
-        </ul>
+      <div class="s11-col s11-endures">
+        <div class="s11-col-label">Perdura</div>
+        <div class="s11-col-item">Arquitectura simple</div>
+        <div class="s11-col-item">Pasos pequeños y seguros</div>
+        <div class="s11-col-item">Definir antes de delegar</div>
       </div>
     </div>
   </div>
@@ -1758,11 +1688,11 @@ body { background: #fff; }
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">3</div>
-        <p class="key-text">El flujo importa más que la herramienta.</p>
+        <p class="key-text">Un contexto contaminado genera alucinaciones. <strong>Separa las fases.</strong></p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">4</div>
-        <p class="key-text">Decide qué puede hacer el agente por sí solo.</p>
+        <p class="key-text">Sin permisos explícitos, el agente decide por ti. <strong>El agente tiene tanto poder como tú le des.</strong></p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">5</div>
