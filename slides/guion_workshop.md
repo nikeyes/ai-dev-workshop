@@ -5,6 +5,26 @@
 
 ## 30-45 min min con repo demo
 
+- Permisos:
+    - Ejemplos de allow y Deny en el settings.json (se puede hacer a nivel global, de usuario o de proyecto)
+    - Pidele que lea este fichero con cat. Te pregunta. 
+    - Añade el allow (No te pregunta)
+    - Deny en el settings no te deja leerlo.
+- CLAUDE.md and RULES.md
+    - no /init o solo como base
+    -
+- LSP para determinismo
+    - https://claude.com/plugins/ -> LSP
+    - Instalar plugins
+    
+- Ejemplos de Skills 
+    - Skills creator: https://claude.com/plugins/skill-creator 
+- Agents: 
+    - sample Stepwise-dev deep-research o  research-codebase
+- Hooks: 
+    - Ejempo Toni-Agent API: "command": "make lint-fix"
+
+
 ## 45 min libre con sus repos y nosotros ayudamos:
 - Cada persona trae un ticket pequeño/mediano de su equipo.
 
@@ -12,24 +32,14 @@
 
 
 
-- Permisos:
-    - Ejemplos de allow y Deny en el settings.json (se puede hacer a nivel global, de usuario o de proyecto)
-    - Pidele que lea este fichero con cat. Te pregunta. 
-    - Añade el allow (No te pregunta)
-    - Deny en el settings no te deja leerlo.
-- CLAUDE.md and RULES.md
-- LSP for determinismo
-- Ejemplos de Skills:
-    - /story-splitting     → ¿Es una historia o 3 disfrazdas?
-    - /hamburger-method    → Corta en capas, genera opciones, elige uno que de feedback rápido
-    - /small-safe-steps    → Incrementos pequeñños, cada uno desplegable de forma independiente
-    - /complexity-review   → 30 dimensiones de complejidad. "¿Por qué Kafka y no una cola?"
-    - /code-simplifier   
-- Plugings: sample Skills creator: https://claude.com/plugins/skill-creator
-- Agents: sample Stepwise-dev deep-research o  research-codebase
-- Hooks: Ejempo Toni-Agent API: "command": "make lint-fix"
 
 
+
+
+
+
+
+---
 
 
 
