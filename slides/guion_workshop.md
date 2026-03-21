@@ -17,6 +17,7 @@
 
 - configuración y básicos
 - rewind
+- add-dir
 - ojo compact
 - lsp
 - permisos
