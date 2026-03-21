@@ -11,7 +11,21 @@
 - 
 
 
-## 30-45 min min con repo demo
+## 1 hora con repo demo
+
+- ¿qué modelo elijo?
+
+- configuración 
+- lsp
+- permisos
+
+- memoria
+- claude.md, rules
+- automemory
+- skills/agents
+
+
+
 
 - Permisos:
     - Ejemplos de allow y Deny en el settings.json (se puede hacer a nivel global, de usuario o de proyecto)
@@ -33,7 +47,11 @@
     - Ejempo Toni-Agent API: "command": "make lint-fix"
 
 
-## 45 min libre con sus repos y nosotros ayudamos:
+## 1 hora libre con sus repos y nosotros ayudamos:
+
+- Apuntado que os va bien y qué os va mal para compartir luego.
+
+
 - Cada persona trae un ticket pequeño/mediano de su equipo.
 
 ## 20 min de retro para ver que va bien, que va mal, siguientes pasos.
