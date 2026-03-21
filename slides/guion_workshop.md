@@ -15,7 +15,9 @@
 
 - ¿qué modelo elijo?
 
-- configuración 
+- configuración y básicos
+- rewind
+- ojo compact
 - lsp
 - permisos
 
