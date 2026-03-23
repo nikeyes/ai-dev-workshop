@@ -1,184 +1,315 @@
-# PARA EL WORKSHOP (2h)
+# WORKSHOP: Desarrollo guiado por IA (2h)
+
+## Objetivo del workshop
+
+Aprender las bases para desarrollar con IA y no morir en el intento.
 ---
-## Prerequisitos
-- Tener configurado Claude Code en Wallbox.
-- 
 
+## Prerequisitos
 
-## PAblos
-- Modelo: cuando usar cada uno
-- Cómo reducir el uso de tokens
-- 
+- Claude Code instalado y configurado con Bedrock.
+- Haber ejecutado al menos una vez `claude` en terminal
+- Traer un ticket pequeño/mediano del equipo
 
+### Verificación de entorno (primeros 5 min)
 
-## 1 hora con repo demo
+Antes de empezar, todos ejecutan:
 
-- ¿qué modelo elijo?
+```bash
+claude --version
+claude "hola, di solo 'listo'"
+```
+No seguimos hasta que todos tengan Claude Code funcionando.
 
-- configuración y básicos
-- rewind
-- add-dir
-- ojo compact
-- lsp
-- permisos
-
-- memoria
-- claude.md, rules
-- automemory
-- skills/agents
-
-
-
-
-- Permisos:
-    - Ejemplos de allow y Deny en el settings.json (se puede hacer a nivel global, de usuario o de proyecto)
-    - Pidele que lea este fichero con cat. Te pregunta. 
-    - Añade el allow (No te pregunta)
-    - Deny en el settings no te deja leerlo.
-- CLAUDE.md and RULES.md
-    - no /init o solo como base
-    -
-- LSP para determinismo
-    - https://claude.com/plugins/ -> LSP
-    - Instalar plugins
-    
-- Ejemplos de Skills 
-    - Skills creator: https://claude.com/plugins/skill-creator 
-- Agents: 
-    - sample Stepwise-dev deep-research o  research-codebase
-- Hooks: 
-    - Ejempo Toni-Agent API: "command": "make lint-fix"
-
-
-## 1 hora libre con sus repos y nosotros ayudamos:
-
-- Apuntado que os va bien y qué os va mal para compartir luego.
-
-
-- Cada persona trae un ticket pequeño/mediano de su equipo.
-
-## 20 min de retro para ver que va bien, que va mal, siguientes pasos.
-
-
-
-
-
-
-
-
-
+Para ver el estado completo del entorno en cualquier momento:
+```
+/doctor
+/status
+```
 
 ---
 
+## Bloque 1: El journey guiado (1h)
 
+### Puente con la charla (5 min)
 
+En la charla vimos 4 problemas concretos. Ahora cada uno tiene una herramienta:
 
-# Lo que sí poner en CLAUDE.md
+| Problema (charla) | Herramienta (workshop) |
+|---|---|
+| No tiene contexto → alucinaciones | Memoria (Contexto, CLAUDE.md, Rules.md...) |
+| Contexto contaminado → indeterminismo | Separar fases con `/clear` |
+| Difícil de verificar | Hooks + Verification Requirements |
+| Difícil de revisar | Rewind + checklist pre-merge |
 
-**Título:** CLAUDE.md: el briefing, no la enciclopedia
-**Contenido (dos columnas):**
+---
 
-**❌ No hagas:**
-- Markdowns enormes con todo lo imaginable
-- Duplicar README o configs
-- Explicar principios que la IA ya conoce
-- Meter todos los comandos "por si acaso"
+### Paso 1: CLAUDE.md — el onboarding del agente (10 min)
 
-**✅ Haz esto:**
-- Escríbelo como para un compañero nuevo que no meta la pata
-- 40–300 líneas máximo
-- Solo lo que no se puede deducir del código
-- Convenciones que difieran del estándar del lenguaje
-- **Cómo verificar sus cambios** (lo más importante)
+Sin CLAUDE.md, el agente empieza cada sesión desde cero. Es como contratar a alguien nuevo cada día.
+
+**Demo en el repo:**
+1. Crea un CLAUDE.md mínimo con `/init` como base
+2. Borra lo que no sirve — `/init` genera demasiado por defecto. Objetivo: menos de 100 líneas
+   - Fuera: duplicar README, listar principios que la IA ya conoce, comandos "por si acaso"
+   - Dentro: convenciones propias del proyecto, comandos de verificación
+3. La sección más importante es **Verification Requirements**:
 
 ```markdown
 ## Verification Requirements
 - Run `npm test` after code changes
 - Run `npm run typecheck` before marking complete
 - For API changes, test with curl
-- For UI changes, verify in browser
 ```
 
-**🎤 Notas de orador:**
-"CLAUDE.md sigue siendo importante, pero para lo esencial. Lo que no se puede deducir del código, las convenciones propias, y sobre todo: cómo verificar. Si le das una forma de comprobar su trabajo, se autocorrige. Sin eso, eres tú quien revisa cada línea."
+Dale a Claude una forma de verificar su propio trabajo. Sin esto, eres tú quien revisa cada línea.
 
-"Todo lo demás — las prácticas especializadas, los workflows complejos, la experiencia acumulada — eso va en skills, no en CLAUDE.md."
-
-
-# De CLAUDE.md a Skills: experiencia codificada
-
-**Título:** No repitas instrucciones. Codifica tu experiencia.
-**Contenido:**
-
-**El problema de CLAUDE.md:**
-- Todo se carga siempre, sea relevante o no
-- Claude inyecta: *"Este contexto puede o no ser relevante. No respondas a él salvo que sea altamente relevante."*
-- Cuanta más basura, más probable que ignore lo importante
-
-**La solución: Skills**
-Conocimiento empaquetado que se activa solo cuando es relevante. Progressive disclosure para el contexto de la IA.
-
-**Ejemplo — pipeline de delivery (Eduardo Ferro / skill-factory):**
-```
-/story-splitting     → ¿Es esta historia realmente tres historias con un trench coat?
-/hamburger-method    → Corta la feature en capas, genera opciones, compón el slice más fino
-/small-safe-steps    → Incrementos de 1-3h, cada uno desplegable de forma independiente
-/complexity-review   → 30 dimensiones de complejidad. "¿Por qué Kafka y no una cola?"
-/code-simplifier     → Reduce complejidad sin cambiar comportamiento
-```
-
-**🎤 Notas de orador:**
-"Todos los que usáis Claude Code conocéis CLAUDE.md. Funciona. Pero tiene un problema: todo se carga siempre. Tus guías de TDD, tus prácticas de Docker, tu workflow de refactoring... todo compitiendo por la ventana de contexto, sea relevante o no."
-
-"Eduardo Ferro encontró algo mejor: las Skills. Conocimiento empaquetado que se activa solo cuando lo necesitas. Escribes `/mutation-testing` y la IA gana experiencia profunda en encontrar tests débiles. Escribes `/complexity-review` y se convierte en un revisor técnico que desafía tu propuesta contra 30 dimensiones de complejidad. El resto del tiempo, ese conocimiento está fuera del camino."
-
-"Pensadlo así: es progressive disclosure para el contexto de la IA. Le das lo que necesita, cuando lo necesita."
-
-"Pero lo más potente es que las skills se encadenan como un pipeline. Un ejemplo real: tienes una historia de usuario grande. Invocas `/story-splitting` y detecta que en realidad son tres historias disfrazadas. Coges la primera, invocas `/hamburger-method` para cortarla en capas y generar el slice más fino. Luego `/small-safe-steps` para planificar incrementos de 1-3 horas, cada uno desplegable de forma independiente."
-
-"No es una skill que lo hace todo. Son skills que componen. Eso es lo que las hace poderosas."
-
-**Transición:**
-"Y esto es open source. El skill-factory de Lada Kesseler tiene 315 commits de skills bien construidas. Eduardo añadió 11 más. Podéis forkearlo hoy y empezar a codificar vuestra experiencia."
+**Nota sobre la jerarquía de CLAUDE.md:**
+- `~/.claude/CLAUDE.md` — aplica a todos tus proyectos (convenciones personales)
+- `<raíz-del-proyecto>/CLAUDE.md` — aplica al proyecto completo
+- `<subdirectorio>/CLAUDE.md` — aplica solo a ese módulo (útil en monorepos)
 
 ---
 
-8. Rewind
+### Paso 2: Permisos — configura antes de empezar (5 min)
 
-Si Claude se desvía, puedo hacer rewind instantáneamente con `Esc+Esc` o el comando `/rewind`.
+**Demo rápida antes de tocar nada:**
+1. Pídele que lea un fichero sensitivo sin permisos → te pregunta
+2. Añade el `allow` en `.claude/settings.json` → ya puede sin preguntar
+3. Añade un `deny` → bloqueado aunque el usuario lo pida
 
-Tres modos de restauración:
-- **Conversation only**: Mantener cambios en código, revertir chat
-- **Code only**: Mantener conversación, revertir código
-- **Both**: Restauración completa al estado anterior
-
-**Tip del taller**: enseña que rewind no revierte cambios hechos por bash (por ejemplo `rm`, `mv`, `cp`).
-
-### Para refactors grandes
-
-1. Los checkpoints no rastrean comandos bash. Claude ejecutó un script de migración de base de datos que quería revertir. Los checkpoints solo rastrean ediciones de archivos, no operaciones bash.
-   - **Workaround**: Ahora hago que Claude escriba los comandos bash en scripts temporales en vez de ejecutarlos directamente. Luego puedo revisarlos antes de ejecutar.
-
-
-
----
-
-### Verification Requirements en CLAUDE.md
-
-The fix — add verification requirements to CLAUDE.md:
-
-```markdown
-## Verification Requirements
-- Run `npm test` after code changes
-- Run `npm run typecheck` before marking complete
-- For API changes, test with `curl` or Postman
-- For UI changes, verify in browser before committing
+```json
+// .claude/settings.json (nivel proyecto)
+{
+  "permissions": {
+    "allow": ["Read(.env.example)"],
+    "deny": ["Read(.env)"]
+  }
+}
 ```
 
-Then Claude will actually run these checks. Not because you told it to in the prompt — because it's baked into project context.
+**Dónde van los settings:**
+- Global: `~/.claude/settings.json` (todos los proyectos)
+- Proyecto: `.claude/settings.json` (solo aquí)
 
-Dale a Claude una forma de verificar su trabajo.
+Empieza restrictivo. Ve abriendo permisos a medida que ganas confianza.
 
 ---
 
+### Paso 3: Hooks — el guardarraíl que se configura una vez (5 min)
 
+Los hooks ejecutan comandos automáticamente en respuesta a acciones del agente. Son el "diseña para supervisar" de la charla hecho realidad.
+
+**Demo: linter automático después de cada edición:**
+
+```json
+// .claude/settings.json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [{ "type": "command", "command": "npm run lint --fix" }]
+      }
+    ]
+  }
+}
+```
+
+A partir de ahora, cada vez que el agente edite un fichero, el linter corre solo. Sin que tengas que pedirlo.
+
+Otros usos útiles: ejecutar tests después de cambios, formatear código, validar que no se rompa el build.
+
+---
+
+### Paso 4: Modelos y tokens — el coste importa (3 min)
+
+Referencia rápida — el detalle está en la hoja impresa al final:
+
+| Modelo | Cuándo usarlo |
+|--------|---------------|
+| Haiku | Tareas simples: renombrar, formatear, buscar |
+| Sonnet | El 80% del trabajo cotidiano |
+| Opus | Arquitectura, debugging difícil, decisiones críticas |
+
+**Regla**: empieza con Sonnet. Escribe `/cost` para ver el gasto. Sube a Opus solo si Sonnet no llega.
+
+---
+
+### Paso 5: Las 3 fases en acción (15 min)
+
+Cogemos una tarea del repo demo. El objetivo es ver en vivo por qué separar fases importa.
+
+**Antes de empezar las fases: prompt malo vs bueno (3 min)**
+
+La diferencia entre un prompt vago y uno preciso es la diferencia entre el estudio METR y el resultado que queremos.
+
+```
+❌ "Arregla el bug del login"
+
+✅ "En el fichero src/auth/login.ts, la función validateToken()
+   devuelve true para tokens expirados cuando el campo exp es null.
+   Repara solo esa función. No toques nada más. Los tests están en
+   src/auth/__tests__/login.test.ts."
+```
+
+La regla: si no puedes explicar en una frase el scope, el fichero y el criterio de éxito, el agente va a adivinar. Y cuando adivina, alucina.
+
+**Fase 1 — Investigar** (sesión limpia):
+```
+"Analiza el código de [feature X]. Solo quiero entender el estado actual.
+No hagas ningún cambio."
+```
+El agente investiga. Tú lees. Cuando terminas, limpias el contexto con:
+```
+/clear
+```
+`/clear` resetea la conversación sin cerrar el proceso — CLAUDE.md y los settings siguen activos.
+
+**Fase 2 — Planificar** (contexto limpio tras `/clear`):
+```
+"Basándote en lo que encontré [resumen], crea un plan detallado para [tarea].
+No implementes nada todavía."
+```
+Revisas el plan. Corriges lo que no tiene sentido. Si el problema es complejo, prueba:
+```
+"think harder: ¿qué podría salir mal con este plan?"
+```
+`think harder` o `think deeply about` fuerzan razonamiento más profundo — útil para decisiones de arquitectura o cuando la respuesta por defecto parece demasiado fácil.
+
+**Fase 3 — Implementar** (nuevo `/clear`):
+```
+"Implementa exactamente este plan: [plan aprobado]"
+```
+
+Cada `/clear` = ventana de contexto limpia = menos alucinaciones.
+
+> **¿Tuviste que parar a mitad?** Retoma con `claude --continue` para reanudar la última sesión, o `claude --resume` para elegir una sesión anterior.
+
+---
+
+### Paso 6: Ver y gestionar el contexto (5 min)
+
+El indicador de tokens aparece en la barra de estado. Aprende a leerlo antes de que sea tarde.
+
+- El porcentaje sube con cada mensaje, fichero añadido y resultado de herramienta
+- Cuando supera el 50-60%, la calidad empieza a bajar
+
+**`/compact`** — comprime el historial manteniendo el contexto esencial:
+```
+/compact
+```
+Úsalo antes de que el contexto llegue al límite, no después.
+
+⚠️ Ojo con los compacts automáticos: Claude los hace solo cuando no queda espacio. Pueden perder contexto crítico que no has guardado. Si ves que el agente "olvida" algo, puede ser esto.
+
+**Para monorepos** — si necesitas contexto de otro módulo sin abrir una sesión nueva:
+```
+/add-dir ../otro-servicio
+```
+
+---
+
+### Paso 7: Rewind — el seguro de vida (5 min)
+
+Claude se ha desviado. ¿Ahora qué?
+
+**Demo en vivo:**
+- Escribe un prompt intencionalmente ambiguo
+- Deja que el agente vaya en la dirección equivocada
+- `Esc+Esc` o `/rewind` → elige modo:
+  - **Conversation only**: mantén cambios en código, revierte el chat
+  - **Code only**: mantén conversación, revierte código
+  - **Both**: restauración completa
+
+⚠️ **Aviso importante**: rewind NO revierte comandos bash (`rm`, `mv`, scripts). Si quieres reversibilidad total, haz que Claude escriba los scripts en ficheros temporales antes de ejecutarlos — luego los revisas y ejecutas tú.
+
+---
+
+## Bloque 2: Tu ticket, tu repo (1h)
+
+### Briefing (5 min)
+
+Cada persona trabaja con su propio ticket/repo.
+
+**Objetivo**: llevar el ticket de inicio a fin aplicando lo que acabamos de ver.
+
+Checklist antes de empezar (solo dos cosas):
+- [ ] ¿Tengo CLAUDE.md con al menos una sección de Verification Requirements?
+- [ ] ¿Voy a separar las fases con `/clear` entre ellas?
+
+Lo demás (permisos, hooks) es bonus si el repo lo permite. No te atranques ahí.
+
+> **Para los facilitadores**: organizad las mesas en grupos de 4-5 con al menos una persona por mesa que ya haya usado Claude Code antes. Esa persona es el "mini-facilitador" de la mesa — con 100 personas no llega el soporte centralizado.
+
+Anota qué te funciona y qué no — lo compartiremos en la retro.
+
+> **Expectativa realista**: no intentéis terminar el ticket entero. El objetivo es practicar las fases correctamente, no entregar. Si llegáis al final de la Fase 2 con un plan sólido, habéis ganado.
+
+### Ejercicios de backup (para quien no trae ticket)
+
+Si no tienes ticket propio, elige uno de estos:
+
+**Ejercicio A — Feature simple:**
+En el repo demo, añade validación de email a un formulario. Usa las 3 fases (investigar → planificar → implementar) y asegúrate de que los tests pasen antes de dar la tarea por terminada.
+
+**Ejercicio B — Refactoring:**
+En el repo demo hay una función que hace demasiadas cosas. Refactorízala en funciones pequeñas con nombres claros. El comportamiento no puede cambiar — tienes los tests como red de seguridad.
+
+**Ejercicio C — Debugging:**
+En el repo demo hay un test roto (comentado). Descubre por qué falla, arréglalo con Claude, y documenta en el CLAUDE.md qué aprendiste para que no vuelva a pasar.
+
+---
+
+## Bloque 3: Retro (20 min)
+
+### ¿Qué ha funcionado mejor de lo esperado? (5 min)
+2 minutos por mesa para consensuar una respuesta. Luego 3-4 mesas comparten en voz alta. No ronda completa — con 100 personas son 100 minutos.
+
+### ¿Qué ha costado más de lo esperado? (5 min)
+Mismo formato: 2 min por mesa, 3-4 mesas comparten. Fricciones reales, no teóricas.
+
+### Patrones comunes (5 min)
+El facilitador recoge y sintetiza. ¿Coinciden con los 4 problemas de la charla?
+
+### Siguientes pasos como equipo (5 min)
+- ¿Qué CLAUDE.md necesitáis en vuestro repo principal?
+- ¿Qué hooks tiene sentido activar ya?
+- ¿Cómo compartís lo que vais aprendiendo? (canal de Slack, wiki, reunión quincenal)
+- **El siguiente nivel**: una vez domináis CLAUDE.md y las fases, el siguiente paso son las **Skills** (conocimiento empaquetado que se activa bajo demanda con `/nombre`) y los **subagentes** para tareas especializadas. No para hoy — pero ya sabéis por dónde crecer.
+
+---
+
+## Material de referencia rápida
+
+> 💡 **Imprimir esta sección en A4 y repartirla físicamente** reduce la fricción de "¿cuál era el comando?" cuando todo el mundo tiene la pantalla ocupada con Claude Code.
+
+### Comandos de sesión
+| Comando | Para qué |
+|---------|----------|
+| `/clear` | Resetear conversación manteniendo CLAUDE.md y settings |
+| `/compact` | Comprimir contexto sin perder el hilo |
+| `/rewind` | Deshacer cambios del agente |
+| `Esc+Esc` | Rewind rápido |
+| `/cost` | Ver gasto acumulado en la sesión |
+| `/status` | Modelo activo, tokens usados, permisos |
+| `/doctor` | Verificar instalación y entorno |
+| `/add-dir <ruta>` | Añadir directorio al contexto (monorepos) |
+
+### Flags de arranque
+| Flag | Para qué |
+|------|----------|
+| `--model <modelo>` | Elegir modelo al iniciar |
+| `--continue` | Reanudar la última sesión |
+| `--resume` | Elegir sesión anterior para reanudar |
+
+### Señales de que algo va mal
+- El agente lleva más de 5 pasos sin preguntar → interrumpe
+- El contexto supera el 60% → `/compact` o sesión nueva con `/clear`
+- El código "suena bien" pero no entiendes qué hace → para y revisa
+- El agente modifica cosas fuera del scope → rewind inmediato
+- El agente "olvidó" algo que dijiste antes → compact automático, recupera el contexto
+- El agente ejecutó un bash destructivo (`rm`, `mv`, migración) que no puedes revertir → la próxima vez, pídele que escriba el script en un fichero temporal antes de ejecutarlo
+
+### La regla de oro
+Si no puedes explicar en una frase qué tiene que hacer el agente, el agente tampoco lo va a saber.
