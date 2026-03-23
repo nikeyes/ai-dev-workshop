@@ -399,6 +399,187 @@ body { background: #fff; }
 }
 
 /* ================================================================
+   SLIDE 2-WHY — ¿POR QUÉ? (de charla-mejorada)
+   ================================================================ */
+.s2-why .content { max-width: min(80vw, 960px); justify-content: center; gap: clamp(1.2rem, 3vh, 2.5rem); }
+.s2-why .analogy {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: center;
+  animation: fadeIn 0.5s ease 0.3s both;
+}
+.s2-why .analogy-card {
+  background: #fafafa;
+  border: 2px solid rgba(0,0,0,0.08);
+  padding: clamp(1rem, 2.2vh, 1.6rem) clamp(1rem, 2vw, 1.5rem);
+  text-align: center;
+}
+.s2-why .analogy-icon {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin-bottom: 0.3em;
+  display: block;
+}
+.s2-why .analogy-title {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.2em;
+}
+.s2-why .analogy-sub {
+  font-size: var(--small);
+  color: var(--text-3);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.s2-why .analogy-arrow {
+  font-family: var(--f-black);
+  font-size: var(--h2);
+  color: rgba(0,0,0,0.12);
+}
+.s2-why .punchline {
+  font-family: var(--f-sans);
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.6rem, 1.5vh, 1rem);
+  max-width: min(72vw, 860px);
+}
+.s2-why .punchline em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* ================================================================
+   SLIDE 2b — NIVELES DE AUTOMATIZACIÓN
+   ================================================================ */
+.s2b .content { max-width: min(96vw, 1200px); justify-content: flex-start; gap: clamp(0.6rem, 1.5vh, 1.2rem); }
+.s2b .levels-table {
+  width: 100%;
+  border-collapse: collapse;
+  animation: fadeIn 0.5s ease 0.25s both;
+  font-size: clamp(0.65rem, 1.1vw, 0.88rem);
+}
+.s2b .levels-table th {
+  font-family: var(--f-sans);
+  font-weight: 800;
+  font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  padding: 0.4em 0.8em;
+  border-bottom: 2px solid rgba(0,0,0,0.12);
+  text-align: left;
+  white-space: nowrap;
+}
+.s2b .levels-table td {
+  padding: clamp(0.35rem, 0.9vh, 0.65rem) 0.8em;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  vertical-align: middle;
+  line-height: 1.35;
+  color: var(--text-2);
+  font-weight: 600;
+}
+.s2b .levels-table tr.current td {
+  background: rgba(255,51,0,0.04);
+}
+.s2b .levels-table tr.current td:first-child {
+  border-left: 3px solid var(--accent);
+}
+.s2b .col-level {
+  font-family: var(--f-black);
+  font-size: clamp(0.75rem, 1.2vw, 1rem);
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.s2b tr.current .col-level { color: var(--accent); }
+.s2b .col-approach {
+  font-family: var(--f-sans);
+  font-weight: 800;
+  color: var(--text);
+}
+.s2b .col-products {
+  color: var(--text-3);
+  font-size: clamp(0.6rem, 0.95vw, 0.8rem);
+}
+.s2b .col-maturity {
+  white-space: nowrap;
+  font-size: clamp(0.6rem, 0.9vw, 0.76rem);
+  color: var(--text-3);
+}
+.s2b .level-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--f-sans);
+  font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.15em 0.5em;
+  margin-left: 0.4em;
+  vertical-align: middle;
+}
+
+/* ================================================================
+   SLIDE 3b — PUENTE: POR QUÉ SOMOS MÁS LENTOS
+   ================================================================ */
+.s3b .content { max-width: min(88vw, 1000px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
+.s3b .failure-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.4vh, 1rem);
+  width: 100%;
+}
+.s3b .failure-item {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.5rem);
+  align-items: flex-start;
+  padding: clamp(0.6rem, 1.4vh, 1rem) clamp(1rem, 2vw, 1.5rem);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  background: #fafafa;
+}
+.s3b .failure-item-num {
+  font-family: var(--f-black);
+  font-size: var(--h2);
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.5;
+  width: 1.4em;
+  text-align: right;
+}
+.s3b .failure-item-body {}
+.s3b .failure-item-title {
+  font-family: var(--f-sans);
+  font-size: var(--body);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.2em;
+}
+.s3b .failure-item-text {
+  font-size: var(--small);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+.s3b .s3b-verdict {
+  font-family: var(--f-sans);
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.5rem, 1.2vh, 0.9rem);
+  line-height: 1.5;
+}
+.s3b .s3b-verdict em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* ================================================================
    SLIDE 2 — MANIFIESTO
    ================================================================ */
 .s2 .content { max-width: min(75vw, 920px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
@@ -929,8 +1110,9 @@ body { background: #fff; }
   color: var(--accent);
 }
 
+
 /* ================================================================
-   SLIDE 9 — SEGURIDAD DEL AGENTE
+   SLIDE 9 — PERMISOS Y AUTONOMÍA (fusión de s9 y s10)
    ================================================================ */
 .s9 .content { max-width: min(92vw, 1060px); }
 .s9 .subtitle {
@@ -1027,66 +1209,37 @@ body { background: #fff; }
 }
 
 /* ================================================================
-   SLIDE 9 — AUTONOMÍA
+   SLIDE 9 — RISK ROWS (parte de la fusión s9+s10)
    ================================================================ */
-.s10 .content { max-width: min(92vw, 1060px); justify-content: flex-start; }
-.s10 .table {
+.s9 .risk-rows {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.4rem, 1vh, 0.8rem);
-  animation: fadeIn 0.5s ease 0.25s both;
+  gap: clamp(0.4rem, 0.9vh, 0.7rem);
+  margin-top: auto;
+  animation: fadeIn 0.5s ease 0.6s both;
 }
-.s10 .table-header, .s10 .row {
-  display: grid;
-  grid-template-columns: 4px 1fr 1fr 1fr;
-  gap: clamp(0.6rem, 1.5vw, 1.4rem);
-}
-.s10 .row {
+.s9 .risk-row {
+  display: flex;
   align-items: center;
-  padding: clamp(0.55rem, 1.3vh, 1rem) clamp(0.6rem, 1.5vw, 1.2rem);
+  gap: clamp(0.8rem, 1.5vw, 1.2rem);
+  padding: clamp(0.4rem, 1vh, 0.7rem) clamp(0.8rem, 1.5vw, 1.2rem);
   border: 1.5px solid rgba(0,0,0,0.08);
-  background: #fafafa;
 }
-.s10 .row-bar { height: 100%; border-radius: 2px; min-height: 40px; }
-.s10 .row.green .row-bar  { background: #22c55e; }
-.s10 .row.yellow .row-bar { background: #eab308; }
-.s10 .row.orange .row-bar { background: #f97316; }
-.s10 .row.red    .row-bar { background: #ef4444; }
-.s10 .row-context {
+.s9 .risk-row.risk-green { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.25); }
+.s9 .risk-row.risk-red   { background: rgba(239,68,68,0.06);  border-color: rgba(239,68,68,0.25); }
+.s9 .risk-dot {
+  width: clamp(10px,1.2vw,14px);
+  height: clamp(10px,1.2vw,14px);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.s9 .risk-green .risk-dot { background: #22c55e; }
+.s9 .risk-red   .risk-dot { background: #ef4444; }
+.s9 .risk-label {
   font-family: var(--f-sans);
-  font-size: var(--small);
+  font-size: var(--body);
   font-weight: 800;
   color: var(--text);
-  line-height: 1.3;
-}
-.s10 .row-autonomy {
-  font-size: var(--small);
-  color: var(--text-2);
-  font-weight: 600;
-  line-height: 1.4;
-}
-.s10 .row-gate {
-  font-size: clamp(0.65rem, 1vw, 0.82rem);
-  color: var(--text-3);
-  font-weight: 600;
-  line-height: 1.35;
-  font-family: var(--f-mono);
-}
-.s10 .table-header {
-  padding: clamp(0.4rem, 0.8vh, 0.6rem) clamp(0.6rem, 1.5vw, 1.2rem);
-  border: 1.5px solid rgba(0,0,0,0.08);
-  border-bottom: none;
-  background: #fff;
-}
-.s10 .th {
-  font-family: var(--f-sans);
-  font-size: clamp(0.68rem, 1vw, 0.82rem);
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  padding-bottom: 0.35em;
-  border-bottom: 2px solid var(--accent);
 }
 
 /* ================================================================
@@ -1146,6 +1299,69 @@ body { background: #fff; }
 }
 
 /* ================================================================
+   SLIDE 10b — CALIBRA LA AUTONOMÍA AL RIESGO
+   ================================================================ */
+.s10b .content { max-width: min(92vw, 1060px); justify-content: flex-start; }
+.s10b .table {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vh, 0.8rem);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s10b .table-header, .s10b .row {
+  display: grid;
+  grid-template-columns: 4px 1fr 1fr 1fr;
+  gap: clamp(0.6rem, 1.5vw, 1.4rem);
+}
+.s10b .row {
+  align-items: center;
+  padding: clamp(0.55rem, 1.3vh, 1rem) clamp(0.6rem, 1.5vw, 1.2rem);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  background: #fafafa;
+}
+.s10b .row-bar { height: 100%; border-radius: 2px; min-height: 40px; }
+.s10b .row.green .row-bar  { background: #22c55e; }
+.s10b .row.yellow .row-bar { background: #eab308; }
+.s10b .row.orange .row-bar { background: #f97316; }
+.s10b .row.red    .row-bar { background: #ef4444; }
+.s10b .row-context {
+  font-family: var(--f-sans);
+  font-size: var(--small);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+}
+.s10b .row-autonomy {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.s10b .row-gate {
+  font-size: clamp(0.65rem, 1vw, 0.82rem);
+  color: var(--text-3);
+  font-weight: 600;
+  line-height: 1.35;
+  font-family: var(--f-mono);
+}
+.s10b .table-header {
+  padding: clamp(0.4rem, 0.8vh, 0.6rem) clamp(0.6rem, 1.5vw, 1.2rem);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-bottom: none;
+  background: #fff;
+}
+.s10b .th {
+  font-family: var(--f-sans);
+  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 0.35em;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* ================================================================
    SLIDE 12 — RESUMEN
    ================================================================ */
 .s12 .content {
@@ -1200,7 +1416,7 @@ body { background: #fff; }
   <span id="nav-title">AI Dev Workshop · Wallbox 2026 <span id="nav-label"></span></span>
   <div class="nav-controls">
     <button class="nav-btn" onclick="navigate(-1)">← Anterior</button>
-    <span id="nav-counter">1 / 12</span>
+    <span id="nav-counter">1 / 16</span>
     <button class="nav-btn" onclick="navigate(1)">Siguiente →</button>
   </div>
 </div>
@@ -1222,6 +1438,36 @@ body { background: #fff; }
     <h1 class="title">Descubriendo<br>mejores formas de<br>desarrollar</h1>
     <p class="subtitle">...sí, otra vez.</p>
     <p class="speaker">Jorge Castro & Joan Leon</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2-WHY — LA PREGUNTA DE FONDO (de charla-mejorada)      -->
+<!-- ============================================================ -->
+<section class="slide s2-why" data-label="¿Por qué?">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">02</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">La pregunta de fondo</span>
+    </div>
+    <h2 class="h2">Nuestro trabajo es resolver problemas,<br>no programar.</h2>
+    <div class="analogy">
+      <div class="analogy-card reveal-item">
+        <span class="analogy-icon">✒️</span>
+        <div class="analogy-title">Los monjes copistas</div>
+        <div class="analogy-sub">Dijeron lo mismo de la imprenta</div>
+      </div>
+      <div class="analogy-arrow reveal-item">→</div>
+      <div class="analogy-card reveal-item">
+        <span class="analogy-icon">⌨️</span>
+        <div class="analogy-title">Los devs de 2025</div>
+        <div class="analogy-sub">¿Diremos lo mismo de los agentes?</div>
+      </div>
+    </div>
+    <p class="punchline reveal-item">Programar ha sido nuestra mejor herramienta para resolver problemas. Si aparece una mejor, <em>¿por qué no usarla?</em> La pregunta correcta no es "si", es "cómo".</p>
   </div>
 </section>
 
@@ -1320,6 +1566,124 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
+<!-- SLIDE 3b — PUENTE: POR QUÉ SOMOS MÁS LENTOS                  -->
+<!-- ============================================================ -->
+<section class="slide s3b" data-label="Por qué somos más lentos">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">3b</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">El patrón que hay que romper</span>
+    </div>
+    <h2 class="h2">No es la IA. Es cómo la usamos.</h2>
+    <div class="failure-list">
+      <div class="failure-item reveal-item">
+        <div class="failure-item-num">01</div>
+        <div class="failure-item-body">
+          <div class="failure-item-title">Prompts vagos</div>
+          <p class="failure-item-text">Sin contexto claro, la IA adivina. Y cuando adivina, alucina.</p>
+        </div>
+      </div>
+      <div class="failure-item reveal-item">
+        <div class="failure-item-num">02</div>
+        <div class="failure-item-body">
+          <div class="failure-item-title">Sin CLAUDE.md</div>
+          <p class="failure-item-text">Cada sesión empieza desde cero. Es como contratar a alguien nuevo cada día.</p>
+        </div>
+      </div>
+      <div class="failure-item reveal-item">
+        <div class="failure-item-num">03</div>
+        <div class="failure-item-body">
+          <div class="failure-item-title">Sin workflow iterativo</div>
+          <p class="failure-item-text">Una sola sesión para investigar, planificar e implementar. El contexto se contamina.</p>
+        </div>
+      </div>
+      <div class="failure-item reveal-item">
+        <div class="failure-item-num">04</div>
+        <div class="failure-item-body">
+          <div class="failure-item-title">Sin revisión humana</div>
+          <p class="failure-item-text">El código llega a revisión sin supervisión. Nadie puede revisar todo lo que genera la IA.</p>
+        </div>
+      </div>
+    </div>
+    <p class="s3b-verdict reveal-item">La IA amplifica lo que le das. Si le das un proceso disciplinado, amplifica tu productividad. Si le das caos, <em>amplifica el caos.</em></p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2b — ¿DÓNDE ESTAMOS? NIVELES DE AUTOMATIZACIÓN          -->
+<!-- ============================================================ -->
+<section class="slide s2b" data-label="¿Dónde estamos?">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">2b</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">El mapa</span>
+    </div>
+    <h2 class="h2">¿Dónde estamos en la automatización?</h2>
+    <table class="levels-table">
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Approach</th>
+          <th>Example Products</th>
+          <th>Description</th>
+          <th>Maturity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="reveal-item">
+          <td class="col-level">L1</td>
+          <td class="col-approach">Code-level Completion</td>
+          <td class="col-products">Copilot (inline), Tabby, Codeium, Supermaven</td>
+          <td>Autocomplete in the editor. The human writes, the AI suggests.</td>
+          <td class="col-maturity">Mainstream</td>
+        </tr>
+        <tr class="reveal-item">
+          <td class="col-level">L2</td>
+          <td class="col-approach">Task-level Generation · Prompt to UI</td>
+          <td class="col-products">ChatGPT, Claude (chat), Cursor, Windsurf, Aider, Cline, bolt.new, Lovable, v0</td>
+          <td>The human defines a task, the AI generates code/UI. The human approves each step.</td>
+          <td class="col-maturity">Adopted</td>
+        </tr>
+        <tr class="current reveal-item">
+          <td class="col-level">Now <span class="level-tag">Aquí estamos</span></td>
+          <td class="col-approach">Task-level with Optional Autonomy</td>
+          <td class="col-products">Claude Code, Codex CLI, Cursor (Agent Mode), Copilot Edits, Windsurf (cascade)</td>
+          <td>L2 by default, configurable to chain autonomous actions (headless mode).</td>
+          <td class="col-maturity">Adopted (requires setup)</td>
+        </tr>
+        <tr class="reveal-item">
+          <td class="col-level">L3</td>
+          <td class="col-approach">Ticket to PR · Self-healing CI</td>
+          <td class="col-products">Claude Code (headless + CI), Codex (cloud agent), Copilot Coding Agent, Devin, Codegen</td>
+          <td>The agent receives an issue, generates code, creates a PR, iterates on CI failures. Escalates when out of scope.</td>
+          <td class="col-maturity">Early Adoption</td>
+        </tr>
+        <tr class="reveal-item">
+          <td class="col-level">L4</td>
+          <td class="col-approach">AI Software Engineer</td>
+          <td class="col-products">Devin (enterprise), Factory.ai, Genie</td>
+          <td>Full cycle: requirements → code → deploy → monitoring → rollback.</td>
+          <td class="col-maturity">Emerging</td>
+        </tr>
+        <tr class="reveal-item">
+          <td class="col-level">L5</td>
+          <td class="col-approach">AI Development Teams</td>
+          <td class="col-products">AutoDev, MetaGPT, MGX</td>
+          <td>Multiple specialized agents collaborating autonomously.</td>
+          <td class="col-maturity">Experimental</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- SLIDE 4 — LOS 4 PROBLEMAS                                     -->
 <!-- ============================================================ -->
 <section class="slide s4" data-label="Lo que la IA hace mal">
@@ -1336,7 +1700,7 @@ body { background: #fff; }
       <div class="card reveal-item">
         <div class="card-num">01</div>
         <div class="card-title">No tiene contexto</div>
-        <p class="card-text">Al inicio de cada sesión, la IA no sabe nada de tu código. Cero.</p>
+        <p class="card-text">Al inicio de cada sesión, la IA no sabe nada de tu código. Cero. Y no sabe cuándo no sabe suficiente.</p>
       </div>
       <div class="card reveal-item">
         <div class="card-num">02</div>
@@ -1432,14 +1796,14 @@ body { background: #fff; }
         <div class="practice-bullet">01</div>
         <div>
           <div class="practice-title">Story Splitting</div>
-          <p class="practice-text">Divide el trabajo en slices verticales desplegables. Con IA esto se vuelve aún más crítico.</p>
+          <p class="practice-text">Divide el trabajo en slices verticales desplegables. Con IA puedes generar mucho en poco tiempo — si el scope no está cortado, el caos escala igual de rápido.</p>
         </div>
       </div>
       <div class="practice reveal-item">
         <div class="practice-bullet">02</div>
         <div>
           <div class="practice-title">Método Hamburguesa</div>
-          <p class="practice-text">Entrega de valor end-to-end de forma contínua</p>
+          <p class="practice-text">Entrega de valor end-to-end de forma contínua. Corta la feature en capas, implementa el slice más fino.</p>
         </div>
       </div>
       <div class="practice reveal-item">
@@ -1458,48 +1822,6 @@ body { background: #fff; }
       </div>
     </div>
     <p class="bottleneck reveal-item">Más código generado = más riesgo si no tienes un <em>bucle de feedback sólido.</em></p>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SLIDE 7 — TDD A NUEVA ESCALA                                   -->
-<!-- ============================================================ -->
-<section class="slide s7" data-label="TDD a nueva escala">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">07</div>
-  <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Mismos principios, nuevo nivel de abstracción</span>
-    </div>
-    <h2 class="h2">El TDD no ha muerto. Ha cambiado de nivel de abstracción</h2>
-    <div class="tdd-layout">
-      <div class="tdd-panel tdd-expires reveal-item">
-        <div class="tdd-panel-header">Lo que caduca: cómo lo hacíamos</div>
-        <p class="tdd-panel-text">
-          <s>Escribe un test mínimo &rarr; implementación mínima &rarr; refactor &rarr; repite.</s><br>
-          Los micro-ciclos añaden pasos y tokens que el agente no necesita.
-        </p>
-      </div>
-      <div class="tdd-panel tdd-endures reveal-item">
-        <div class="tdd-panel-header">Lo que permanece: la idea de fondo  </div>
-        <p class="tdd-panel-text">
-          Define el comportamiento esperado ANTES de implementar.<br>
-          Con IA esto es más importante, no menos: el test es tu contrato de verificación.
-        </p>
-      </div>
-      <div class="tdd-cycle reveal-item">
-        <div class="tdd-cycle-title">El nuevo ciclo</div>
-        <ul class="tdd-steps">
-          <li>Escribe los tests de aceptación a nivel funcional</li>
-          <li>El agente implementa el código</li>
-          <li>Los tests son la fuente de verdad. No el código generado</li>
-          <li>Si fallan, el agente itera el código</li>
-        </ul>
-      </div>
-      <p class="tdd-takeaway reveal-item">Define el <em>qué y las reglas</em>, el agente se encarga del <em>cómo</em>.</p>
-    </div>
   </div>
 </section>
 
@@ -1544,9 +1866,9 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 9 — SEGURIDAD DEL AGENTE                                 -->
+<!-- SLIDE 9 — PERMISOS Y AUTONOMÍA (fusión s9+s10)                -->
 <!-- ============================================================ -->
-<section class="slide s9" data-label="Seguridad del agente">
+<section class="slide s9" data-label="Permisos y autonomía">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">09</div>
@@ -1555,11 +1877,10 @@ body { background: #fff; }
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Seguridad del agente</span>
     </div>
-    <h2 class="h2">¿Qué puede hacer el agente sin tu permiso?</h2>
-    <p class="subtitle reveal-item">La IA genera el código pero tú eres el responsable.<br><strong>Eres responsable de cada línea que llega a producción.</strong></p>
+    <h2 class="h2">Configura permisos.<br>Calibra autonomía al riesgo.</h2>
     <div class="sec-table">
       <div class="sec-col sec-col-ok reveal-item">
-        <div class="sec-col-header sec-ok-header">Sin aprobación</div>
+        <div class="sec-col-header sec-ok-header">El agente hace sin preguntar</div>
         <ul class="sec-list">
           <li>Editar código</li>
           <li>Ejecutar tests</li>
@@ -1570,7 +1891,7 @@ body { background: #fff; }
       </div>
       <div class="sec-divider reveal-item">vs</div>
       <div class="sec-col sec-col-danger reveal-item">
-        <div class="sec-col-header sec-danger-header">Siempre con aprobación humana</div>
+        <div class="sec-col-header sec-danger-header">Siempre con tu aprobación</div>
         <ul class="sec-list">
           <li>Push a main</li>
           <li>Modificar pipelines CI/CD</li>
@@ -1580,16 +1901,23 @@ body { background: #fff; }
         </ul>
       </div>
     </div>
-    <div class="sec-footer">
-      <a href="https://www.veracode.com/blog/genai-code-security-report/" target="_blank" rel="noopener" class="sec-source">Fuente: Veracode — GenAI Code Security Report 2025</a>
+    <div class="risk-rows">
+      <div class="risk-row risk-green reveal-item">
+        <div class="risk-dot"></div>
+        <div class="risk-label">Bajo riesgo → más autonomía. Empieza sin pedir permiso.</div>
+      </div>
+      <div class="risk-row risk-red reveal-item">
+        <div class="risk-dot"></div>
+        <div class="risk-label">Alto riesgo → más supervisión. Cuanto mayor el blast radius, más ojos humanos.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 10 — NIVEL DE AUTONOMÍA                                   -->
+<!-- SLIDE 10b — CITA: LOS QUE PROSPERARÁN                         -->
 <!-- ============================================================ -->
-<section class="slide s10" data-label="Nivel de autonomía">
+<section class="slide s10b" data-label="Los que prosperarán">
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">10</div>
@@ -1676,7 +2004,7 @@ body { background: #fff; }
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Resumen</span>
     </div>
-    <h2 class="h2">5 ideas para llevarte hoy</h2>
+    <h2 class="h2">4 ideas para llevarte hoy</h2>
     <div class="key-list">
       <div class="key-item reveal-item">
         <div class="key-num">1</div>
@@ -1684,18 +2012,14 @@ body { background: #fff; }
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">2</div>
-        <p class="key-text">Un agente sin configuración es <strong>un junior sin onboarding.</strong></p>
+        <p class="key-text">La IA no mejora tu proceso. Lo amplifica. Si es bueno, va más rápido. <strong>Si es malo, falla más rápido.</strong></p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">3</div>
-        <p class="key-text">Un contexto contaminado genera alucinaciones. <strong>Separa las fases.</strong></p>
+        <p class="key-text">Un agente sin configuración es <strong>un junior sin onboarding.</strong> Dale contexto, reglas y una forma de verificar su trabajo.</p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">4</div>
-        <p class="key-text">Sin permisos explícitos, el agente decide por ti. <strong>El agente tiene tanto poder como tú le des.</strong></p>
-      </div>
-      <div class="key-item reveal-item">
-        <div class="key-num">5</div>
         <p class="key-text">Comparte lo que aprendas — <strong>siguamos descubriendo juntos.</strong></p>
       </div>
     </div>
