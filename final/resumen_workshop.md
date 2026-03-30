@@ -6,11 +6,11 @@
 
 ## Bloque 1: Guiado (1h)
 
-1. **Verificar el entorno** — Yodos tienen Claude Code funcionando antes de empezar.
+1. **Verificar el entorno** — Todos tienen Claude Code funcionando antes de empezar.
 
 2. **Modelos y coste** — Cuándo usar Haiku / Sonnet / Opus.
 
-3. **Memoria de los agentes** — context, CLAUDE.md, RULES.md, 
+3. **Memoria de los agentes** — context, CLAUDE.md, RULES.md,
 
 4. **Permisos** — Configurar `allow`/`deny` en `settings.json` antes de empezar a trabajar o durante la sesión
 
@@ -18,7 +18,7 @@
 
 6. **Hooks** — Guardarraíles automáticos (linter, tests) que se ejecutan sin pedirlo.
 
-8. **Agents and Skills** - Gestionar el conocimiento compartido
+7. **Agents and Skills** - Gestionar el conocimiento compartido
 
 ---
 

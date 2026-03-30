@@ -2,8 +2,7 @@
 
 ## Objetivo del workshop
 
-Aprender las bases para desarrollar con IA y no morir en el intento.
----
+## Aprender las bases para desarrollar con IA y no morir en el intento.
 
 ## Prerequisitos
 
@@ -19,9 +18,11 @@ Antes de empezar, todos ejecutan:
 claude --version
 claude "hola, di solo 'listo'"
 ```
+
 No seguimos hasta que todos tengan Claude Code funcionando.
 
 Para ver el estado completo del entorno en cualquier momento:
+
 ```
 /doctor
 /status
@@ -35,12 +36,12 @@ Para ver el estado completo del entorno en cualquier momento:
 
 En la charla vimos 4 problemas concretos. Ahora cada uno tiene una herramienta:
 
-| Problema (charla) | Herramienta (workshop) |
-|---|---|
-| No tiene contexto → alucinaciones | Memoria (Contexto, CLAUDE.md, Rules.md...) |
-| Contexto contaminado → indeterminismo | Separar fases con `/clear` |
-| Difícil de verificar | Hooks + Verification Requirements |
-| Difícil de revisar | Rewind + checklist pre-merge |
+| Problema (charla)                     | Herramienta (workshop)                     |
+| ------------------------------------- | ------------------------------------------ |
+| No tiene contexto → alucinaciones     | Memoria (Contexto, CLAUDE.md, Rules.md...) |
+| Contexto contaminado → indeterminismo | Separar fases con `/clear`                 |
+| Difícil de verificar                  | Hooks + Verification Requirements          |
+| Difícil de revisar                    | Rewind + checklist pre-merge               |
 
 ---
 
@@ -49,6 +50,7 @@ En la charla vimos 4 problemas concretos. Ahora cada uno tiene una herramienta:
 Sin CLAUDE.md, el agente empieza cada sesión desde cero. Es como contratar a alguien nuevo cada día.
 
 **Demo en el repo:**
+
 1. Crea un CLAUDE.md mínimo con `/init` como base
 2. Borra lo que no sirve — `/init` genera demasiado por defecto. Objetivo: menos de 100 líneas
    - Fuera: duplicar README, listar principios que la IA ya conoce, comandos "por si acaso"
@@ -57,6 +59,7 @@ Sin CLAUDE.md, el agente empieza cada sesión desde cero. Es como contratar a al
 
 ```markdown
 ## Verification Requirements
+
 - Run `npm test` after code changes
 - Run `npm run typecheck` before marking complete
 - For API changes, test with curl
@@ -65,6 +68,7 @@ Sin CLAUDE.md, el agente empieza cada sesión desde cero. Es como contratar a al
 Dale a Claude una forma de verificar su propio trabajo. Sin esto, eres tú quien revisa cada línea.
 
 **Nota sobre la jerarquía de CLAUDE.md:**
+
 - `~/.claude/CLAUDE.md` — aplica a todos tus proyectos (convenciones personales)
 - `<raíz-del-proyecto>/CLAUDE.md` — aplica al proyecto completo
 - `<subdirectorio>/CLAUDE.md` — aplica solo a ese módulo (útil en monorepos)
@@ -74,6 +78,7 @@ Dale a Claude una forma de verificar su propio trabajo. Sin esto, eres tú quien
 ### Paso 2: Permisos — configura antes de empezar (5 min)
 
 **Demo rápida antes de tocar nada:**
+
 1. Pídele que lea un fichero sensitivo sin permisos → te pregunta
 2. Añade el `allow` en `.claude/settings.json` → ya puede sin preguntar
 3. Añade un `deny` → bloqueado aunque el usuario lo pida
@@ -89,6 +94,7 @@ Dale a Claude una forma de verificar su propio trabajo. Sin esto, eres tú quien
 ```
 
 **Dónde van los settings:**
+
 - Global: `~/.claude/settings.json` (todos los proyectos)
 - Proyecto: `.claude/settings.json` (solo aquí)
 
@@ -100,7 +106,10 @@ Empieza restrictivo. Ve abriendo permisos a medida que ganas confianza.
 
 Los hooks ejecutan comandos automáticamente en respuesta a acciones del agente. Son el "diseña para supervisar" de la charla hecho realidad.
 
-**Demo: linter automático después de cada edición:**
+Hay dos eventos clave con usos distintos:
+
+- **`PostToolUse` + matcher `Edit`** — se dispara después de cada edición. Ideal para el linter: corriges el fichero mientras aún está en foco.
+- **`Stop`** — se dispara cuando el agente termina su turno, sea cual sea el número de ediciones que haya hecho. Ideal para la build: esperas a que todos los cambios estén hechos antes de compilar.
 
 ```json
 // .claude/settings.json
@@ -111,14 +120,17 @@ Los hooks ejecutan comandos automáticamente en respuesta a acciones del agente.
         "matcher": "Edit",
         "hooks": [{ "type": "command", "command": "npm run lint --fix" }]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [{ "type": "command", "command": "npm run build" }]
+      }
     ]
   }
 }
 ```
 
-A partir de ahora, cada vez que el agente edite un fichero, el linter corre solo. Sin que tengas que pedirlo.
-
-Otros usos útiles: ejecutar tests después de cambios, formatear código, validar que no se rompa el build.
+A partir de ahora, el linter corre en cada fichero editado y la build corre una sola vez al terminar. Sin que tengas que pedirlo.
 
 ---
 
@@ -126,11 +138,11 @@ Otros usos útiles: ejecutar tests después de cambios, formatear código, valid
 
 Referencia rápida — el detalle está en la hoja impresa al final:
 
-| Modelo | Cuándo usarlo |
-|--------|---------------|
-| Haiku | Tareas simples: renombrar, formatear, buscar |
-| Sonnet | El 80% del trabajo cotidiano |
-| Opus | Arquitectura, debugging difícil, decisiones críticas |
+| Modelo | Cuándo usarlo                                        |
+| ------ | ---------------------------------------------------- |
+| Haiku  | Tareas simples: renombrar, formatear, buscar         |
+| Sonnet | El 80% del trabajo cotidiano                         |
+| Opus   | Arquitectura, debugging difícil, decisiones críticas |
 
 **Regla**: empieza con Sonnet. Escribe `/cost` para ver el gasto. Sube a Opus solo si Sonnet no llega.
 
@@ -156,28 +168,37 @@ La diferencia entre un prompt vago y uno preciso es la diferencia entre el estud
 La regla: si no puedes explicar en una frase el scope, el fichero y el criterio de éxito, el agente va a adivinar. Y cuando adivina, alucina.
 
 **Fase 1 — Investigar** (sesión limpia):
+
 ```
 "Analiza el código de [feature X]. Solo quiero entender el estado actual.
 No hagas ningún cambio."
 ```
+
 El agente investiga. Tú lees. Cuando terminas, limpias el contexto con:
+
 ```
 /clear
 ```
+
 `/clear` resetea la conversación sin cerrar el proceso — CLAUDE.md y los settings siguen activos.
 
 **Fase 2 — Planificar** (contexto limpio tras `/clear`):
+
 ```
 "Basándote en lo que encontré [resumen], crea un plan detallado para [tarea].
 No implementes nada todavía."
 ```
+
 Revisas el plan. Corriges lo que no tiene sentido. Si el problema es complejo, prueba:
+
 ```
 "think harder: ¿qué podría salir mal con este plan?"
 ```
+
 `think harder` o `think deeply about` fuerzan razonamiento más profundo — útil para decisiones de arquitectura o cuando la respuesta por defecto parece demasiado fácil.
 
 **Fase 3 — Implementar** (nuevo `/clear`):
+
 ```
 "Implementa exactamente este plan: [plan aprobado]"
 ```
@@ -196,14 +217,17 @@ El indicador de tokens aparece en la barra de estado. Aprende a leerlo antes de 
 - Cuando supera el 50-60%, la calidad empieza a bajar
 
 **`/compact`** — comprime el historial manteniendo el contexto esencial:
+
 ```
 /compact
 ```
+
 Úsalo antes de que el contexto llegue al límite, no después.
 
 ⚠️ Ojo con los compacts automáticos: Claude los hace solo cuando no queda espacio. Pueden perder contexto crítico que no has guardado. Si ves que el agente "olvida" algo, puede ser esto.
 
 **Para monorepos** — si necesitas contexto de otro módulo sin abrir una sesión nueva:
+
 ```
 /add-dir ../otro-servicio
 ```
@@ -215,6 +239,7 @@ El indicador de tokens aparece en la barra de estado. Aprende a leerlo antes de 
 Claude se ha desviado. ¿Ahora qué?
 
 **Demo en vivo:**
+
 - Escribe un prompt intencionalmente ambiguo
 - Deja que el agente vaya en la dirección equivocada
 - `Esc+Esc` o `/rewind` → elige modo:
@@ -235,12 +260,13 @@ Cada persona trabaja con su propio ticket/repo.
 **Objetivo**: llevar el ticket de inicio a fin aplicando lo que acabamos de ver.
 
 Checklist antes de empezar (solo dos cosas):
+
 - [ ] ¿Tengo CLAUDE.md con al menos una sección de Verification Requirements?
 - [ ] ¿Voy a separar las fases con `/clear` entre ellas?
 
 Lo demás (permisos, hooks) es bonus si el repo lo permite. No te atranques ahí.
 
-> **Para los facilitadores**: organizad las mesas en grupos de 4-5 con al menos una persona por mesa que ya haya usado Claude Code antes. Esa persona es el "mini-facilitador" de la mesa — con 100 personas no llega el soporte centralizado.
+> **Para los facilitadores**: organizad las mesas en grupos de 4-5. Con dos facilitadores para 40 personas el soporte centralizado llega — pasad por las mesas activamente en lugar de esperar que os llamen.
 
 Anota qué te funciona y qué no — lo compartiremos en la retro.
 
@@ -264,15 +290,19 @@ En el repo demo hay un test roto (comentado). Descubre por qué falla, arréglal
 ## Bloque 3: Retro (20 min)
 
 ### ¿Qué ha funcionado mejor de lo esperado? (5 min)
-2 minutos por mesa para consensuar una respuesta. Luego 3-4 mesas comparten en voz alta. No ronda completa — con 100 personas son 100 minutos.
+
+2 minutos por mesa para consensuar una respuesta. Luego ronda completa — con 8-10 mesas cabe en el tiempo.
 
 ### ¿Qué ha costado más de lo esperado? (5 min)
+
 Mismo formato: 2 min por mesa, 3-4 mesas comparten. Fricciones reales, no teóricas.
 
 ### Patrones comunes (5 min)
+
 El facilitador recoge y sintetiza. ¿Coinciden con los 4 problemas de la charla?
 
 ### Siguientes pasos como equipo (5 min)
+
 - ¿Qué CLAUDE.md necesitáis en vuestro repo principal?
 - ¿Qué hooks tiene sentido activar ya?
 - ¿Cómo compartís lo que vais aprendiendo? (canal de Slack, wiki, reunión quincenal)
@@ -285,25 +315,28 @@ El facilitador recoge y sintetiza. ¿Coinciden con los 4 problemas de la charla?
 > 💡 **Imprimir esta sección en A4 y repartirla físicamente** reduce la fricción de "¿cuál era el comando?" cuando todo el mundo tiene la pantalla ocupada con Claude Code.
 
 ### Comandos de sesión
-| Comando | Para qué |
-|---------|----------|
-| `/clear` | Resetear conversación manteniendo CLAUDE.md y settings |
-| `/compact` | Comprimir contexto sin perder el hilo |
-| `/rewind` | Deshacer cambios del agente |
-| `Esc+Esc` | Rewind rápido |
-| `/cost` | Ver gasto acumulado en la sesión |
-| `/status` | Modelo activo, tokens usados, permisos |
-| `/doctor` | Verificar instalación y entorno |
-| `/add-dir <ruta>` | Añadir directorio al contexto (monorepos) |
+
+| Comando           | Para qué                                               |
+| ----------------- | ------------------------------------------------------ |
+| `/clear`          | Resetear conversación manteniendo CLAUDE.md y settings |
+| `/compact`        | Comprimir contexto sin perder el hilo                  |
+| `/rewind`         | Deshacer cambios del agente                            |
+| `Esc+Esc`         | Rewind rápido                                          |
+| `/cost`           | Ver gasto acumulado en la sesión                       |
+| `/status`         | Modelo activo, tokens usados, permisos                 |
+| `/doctor`         | Verificar instalación y entorno                        |
+| `/add-dir <ruta>` | Añadir directorio al contexto (monorepos)              |
 
 ### Flags de arranque
-| Flag | Para qué |
-|------|----------|
-| `--model <modelo>` | Elegir modelo al iniciar |
-| `--continue` | Reanudar la última sesión |
-| `--resume` | Elegir sesión anterior para reanudar |
+
+| Flag               | Para qué                             |
+| ------------------ | ------------------------------------ |
+| `--model <modelo>` | Elegir modelo al iniciar             |
+| `--continue`       | Reanudar la última sesión            |
+| `--resume`         | Elegir sesión anterior para reanudar |
 
 ### Señales de que algo va mal
+
 - El agente lleva más de 5 pasos sin preguntar → interrumpe
 - El contexto supera el 60% → `/compact` o sesión nueva con `/clear`
 - El código "suena bien" pero no entiendes qué hace → para y revisa
@@ -312,4 +345,5 @@ El facilitador recoge y sintetiza. ¿Coinciden con los 4 problemas de la charla?
 - El agente ejecutó un bash destructivo (`rm`, `mv`, migración) que no puedes revertir → la próxima vez, pídele que escriba el script en un fichero temporal antes de ejecutarlo
 
 ### La regla de oro
+
 Si no puedes explicar en una frase qué tiene que hacer el agente, el agente tampoco lo va a saber.
