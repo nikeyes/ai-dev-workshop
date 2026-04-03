@@ -156,7 +156,7 @@ Rewind
 ⚠️ **Aviso importante**: En las últimas versiones también deshace comandos de bash, pero no os fiéis...
 
 
-### 6. **Hooks** — Guardarraíles automáticos (linter, tests) que se ejecutan sin pedirlo.
+### 6. **Hooks** — Guardarraíles automáticos (linter, tests) que se ejecutan sin pedirlo.
 
 Los hooks ejecutan comandos automáticamente en respuesta a acciones del agente. Son el "diseña para supervisar" de la charla hecho realidad.
 
