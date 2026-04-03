@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+:root { --brand: #c0522a; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: #fff; overflow: hidden; }
 
@@ -52,7 +53,7 @@ body {
 .eyebrow-rule {
   width: clamp(36px, 5vw, 70px);
   height: 4px;
-  background: #c0522a;
+  background: var(--brand);
   flex-shrink: 0;
 }
 .eyebrow-text {
@@ -60,7 +61,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #c0522a;
+  color: var(--brand);
 }
 
 h1 {
@@ -99,7 +100,7 @@ h2 {
   content: '';
   width: clamp(22px, 2.4vw, 32px);
   height: clamp(22px, 2.4vw, 32px);
-  border: 2.5px solid #c0522a;
+  border: 2.5px solid var(--brand);
   border-radius: 4px;
   flex-shrink: 0;
   margin-top: 0.18em;
@@ -116,14 +117,14 @@ h2 {
   color: #e8e8e8;
   border-radius: 10px;
   padding: clamp(0.8rem, 1.8vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Courier New', monospace;
   font-size: clamp(0.8rem, 1.3vw, 1.15rem);
   line-height: 1.7;
   white-space: pre;
 }
 
 .code-block .prompt {
-  color: #c0522a;
+  color: var(--brand);
   font-weight: 700;
   user-select: none;
 }
@@ -134,7 +135,7 @@ h2 {
 
 /* ── tip box ── */
 .tip-box {
-  border-left: 4px solid #c0522a;
+  border-left: 4px solid var(--brand);
   padding: clamp(0.6rem, 1.3vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
   background: #fdf4f1;
   border-radius: 0 6px 6px 0;
@@ -148,7 +149,7 @@ h2 {
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #c0522a;
+  color: var(--brand);
 }
 
 .tip-box p {
@@ -173,7 +174,7 @@ h2 {
 }
 
 .comp-table th {
-  background: #c0522a;
+  background: var(--brand);
   color: #fff;
   font-family: 'Archivo', sans-serif;
   font-weight: 800;
@@ -202,6 +203,11 @@ h2 {
 
 .comp-table tr:last-child td { border-bottom: none; }
 .comp-table tbody tr:hover td { background: #fdf4f1; }
+
+.comp-table td code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85em;
+}
 
 /* ── two-col layout ── */
 .two-col {
@@ -247,7 +253,7 @@ h2 {
 /* Prompt — fondo salmón, borde naranja */
 .demo-step[data-type="prompt"] {
   background: #fdf4f1;
-  border-left: 4px solid #c0522a;
+  border-left: 4px solid var(--brand);
 }
 
 /* Acción terminal — fondo oscuro, borde gris */
@@ -277,7 +283,7 @@ h2 {
 .step-num {
   font-family: 'Archivo Black', sans-serif;
   font-size: clamp(1rem, 2vw, 1.8rem);
-  color: #c0522a;
+  color: var(--brand);
   min-width: 1.5ch;
   flex-shrink: 0;
   line-height: 1;
@@ -294,7 +300,7 @@ h2 {
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #c0522a;
+  color: var(--brand);
 }
 
 .step-cmd {
@@ -318,8 +324,8 @@ h2 {
 
 .nav-btn {
   background: none;
-  border: 2px solid #c0522a;
-  color: #c0522a;
+  border: 2px solid var(--brand);
+  color: var(--brand);
   font-family: 'Archivo', sans-serif;
   font-weight: 800;
   font-size: 1rem;
@@ -335,7 +341,7 @@ h2 {
 }
 
 .nav-btn:hover {
-  background: #c0522a;
+  background: var(--brand);
   color: #fff;
 }
 
@@ -355,7 +361,6 @@ h2 {
 
 .slide-break h1 {
   color: #fff;
-  font-size: clamp(3.5rem, 10vw, 9rem);
 }
 
 .slide-break .subtitle {
@@ -363,7 +368,16 @@ h2 {
 }
 
 .slide-break .accent-bar {
-  background: #c0522a;
+  background: var(--brand);
+}
+
+.slide-break .eyebrow-rule {
+  background: #fff;
+}
+
+.slide-break .eyebrow-text {
+  color: #fff;
+  opacity: 0.6;
 }
 
 /* ── title slide accent ── */
@@ -371,6 +385,7 @@ h2 {
   background: #fff;
 }
 
+.slide-break h1,
 .slide-title h1 {
   font-size: clamp(3.5rem, 10vw, 9rem);
 }
@@ -385,7 +400,7 @@ h2 {
 .accent-bar {
   width: clamp(60px, 10vw, 130px);
   height: 6px;
-  background: #c0522a;
+  background: var(--brand);
   margin-top: 0.4rem;
 }
 </style>
@@ -400,9 +415,8 @@ h2 {
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">AI Dev Workshop · Wallbox 2026</span>
     </div>
-    <h1>Desarrollo<br>guiado por IA</h1>
+    <h1>Claude Code Workshop</h1>
     <div class="accent-bar"></div>
-    <p class="subtitle">Prerequisitos y verificación del entorno</p>
   </div>
 
   <!-- ── SLIDE 2: Prerequisitos ── -->
@@ -433,7 +447,7 @@ h2 {
 <span class="prompt">$</span><span class="cmd"> docker compose run --rm app uv run pytest</span></div>
     <div class="tip-box">
       <span class="tip-label">Check</span>
-      <p>Los tests tienen que pasar antes de empezar. Si algo falla, avisa ahora — no durante el workshop.</p>
+      <p>Los tests tienen que pasar antes de empezar.<br>Si algo falla, avisa ahora — no durante el workshop.</p>
     </div>
   </div>
 
@@ -483,7 +497,7 @@ h2 {
 <span class="prompt">$</span><span class="cmd"> claude --resume     </span><span style="color:#888"># Elige una sesión anterior</span></div>
     <div class="tip-box">
       <span class="tip-label">Recuerda</span>
-      <p>Las sesiones son <strong>por carpeta</strong>. Asegúrate de estar en <code>workshop-project</code> antes de reanudar.</p>
+      <p>Las sesiones son <strong>por carpeta</strong>.<br>Asegúrate de estar en <code>workshop-project</code> antes de reanudar.</p>
     </div>
     <div class="tip-box">
       <span class="tip-label">Regla de oro</span>
@@ -511,12 +525,12 @@ h2 {
         <tr>
           <td>Haiku</td>
           <td>Tareas simples: renombrar, formatear, buscar</td>
-          <td>Tu asistente de confianza. Velocidad y coste por encima de profundidad.</td>
+          <td>Tu asistente de confianza.<br>Velocidad y coste por encima de profundidad.</td>
         </tr>
         <tr>
           <td>Sonnet</td>
           <td>El 80% del trabajo cotidiano</td>
-          <td>Tu todo-terreno. La brecha con Opus se ha reducido mucho. <strong>Punto de partida por defecto.</strong></td>
+          <td>Tu todo-terreno.<br>La brecha con Opus se ha reducido mucho.<br><strong>Punto de partida por defecto.</strong></td>
         </tr>
         <tr>
           <td>Opus</td>
@@ -548,11 +562,11 @@ h2 {
     <h2>Memoria de los agentes</h2>
     <div class="tip-box">
       <span class="tip-label">Sin CLAUDE.md</span>
-      <p>El agente empieza cada sesión desde cero. Es como contratar a alguien nuevo cada día.</p>
+      <p>El agente empieza cada sesión desde cero.<br>Es como contratar a alguien nuevo cada día.</p>
     </div>
     <div class="tip-box">
       <span class="tip-label">Con CLAUDE.md</span>
-      <p>El agente tiene contexto persistente: convenciones del proyecto, cómo validar cambios, qué evitar. No tienes que repetirlo nunca más.</p>
+      <p>El agente tiene contexto persistente: convenciones del proyecto, cómo validar cambios, qué evitar.<br>No tienes que repetirlo nunca más.</p>
     </div>
     <div class="tip-box">
       <span class="tip-label">Con Rules</span>
@@ -646,26 +660,26 @@ h2 {
       </thead>
       <tbody>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">~/.claude/CLAUDE.md</code></td>
+          <td><code>~/.claude/CLAUDE.md</code></td>
           <td>Todos tus proyectos — convenciones personales</td>
         </tr>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">&lt;raíz&gt;/CLAUDE.md</code></td>
+          <td><code>&lt;raíz&gt;/CLAUDE.md</code></td>
           <td>El proyecto completo</td>
         </tr>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">&lt;subdirectorio&gt;/CLAUDE.md</code></td>
+          <td><code>&lt;subdirectorio&gt;/CLAUDE.md</code></td>
           <td>Solo ese módulo — útil en monorepos</td>
         </tr>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">.claude/rules/</code></td>
+          <td><code>.claude/rules/</code></td>
           <td>Reglas opcionales organizadas por fichero</td>
         </tr>
       </tbody>
     </table>
     <div class="tip-box">
       <span class="tip-label">Prioridad</span>
-      <p>Cuanto más cerca del código, más específico. El subdirectorio sobreescribe al proyecto, que sobreescribe al global.</p>
+      <p>Cuanto más cerca del código, más específico.<br>El subdirectorio sobreescribe al proyecto, que sobreescribe al global.</p>
     </div>
   </div>
 
@@ -680,11 +694,11 @@ h2 {
 <span class="prompt">></span><span class="cmd"> /compact</span></div>
     <div class="tip-box">
       <span class="tip-label">/context</span>
-      <p>Muestra cuánto contexto llevas consumido en la sesión actual. Puedes activarlo permanentemente en la status bar.</p>
+      <p>Muestra cuánto contexto llevas consumido en la sesión actual.<br>Puedes activarlo permanentemente en la status bar.</p>
     </div>
     <div class="tip-box">
       <span class="tip-label">⚠️ /compact — con cuidado</span>
-      <p>Claude lo ejecuta solo cuando no queda espacio. Puede perder contexto crítico que no has guardado. Si el agente "olvida" algo de repente, puede ser esto.</p>
+      <p>Claude lo ejecuta solo cuando no queda espacio.<br>Puede perder contexto crítico que no has guardado.<br>Si el agente "olvida" algo de repente, puede ser esto.</p>
     </div>
   </div>
 
@@ -698,7 +712,7 @@ h2 {
     <div class="code-block"><span class="prompt">></span><span class="cmd"> /add-dir ../otro-servicio</span></div>
     <div class="tip-box">
       <span class="tip-label">Cuándo usarlo</span>
-      <p>Cuando necesitas que el agente entienda código de otro módulo sin abrir una sesión nueva. Útil en monorepos o cuando un cambio cruza servicios.</p>
+      <p>Cuando necesitas que el agente entienda código de otro módulo sin abrir una sesión nueva.<br>Útil en monorepos o cuando un cambio cruza servicios.</p>
     </div>
     <div class="tip-box">
       <span class="tip-label">Alternativa</span>
@@ -722,15 +736,15 @@ h2 {
       </thead>
       <tbody>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">~/.claude/settings.json</code></td>
+          <td><code>~/.claude/settings.json</code></td>
           <td>Global — todos tus proyectos</td>
         </tr>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">.claude/settings.json</code></td>
+          <td><code>.claude/settings.json</code></td>
           <td>Proyecto — se commitea con el repo</td>
         </tr>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">.claude/settings.local.json</code></td>
+          <td><code>.claude/settings.local.json</code></td>
           <td>Solo tú — no se commitea</td>
         </tr>
       </tbody>
@@ -773,11 +787,11 @@ h2 {
     </div>
     <div class="tip-box">
       <span class="tip-label">Allow</span>
-      <p>Herramientas que Claude puede usar sin preguntar. Añádelas durante la sesión respondiendo "yes" o directamente en <code>settings.json</code>.</p>
+      <p>Herramientas que Claude puede usar sin preguntar.<br>Añádelas durante la sesión respondiendo "yes" o directamente en <code>settings.json</code>.</p>
     </div>
     <div class="tip-box">
       <span class="tip-label">Deny</span>
-      <p>Herramientas que Claude nunca puede usar, aunque se lo pidas. Útil para proteger comandos destructivos en producción.</p>
+      <p>Herramientas que Claude nunca puede usar, aunque se lo pidas.<br>Útil para proteger comandos destructivos en producción.</p>
     </div>
   </div>
 
@@ -829,7 +843,7 @@ h2 {
     <h2>Hooks — guardarraíles automáticos</h2>
     <div class="tip-box">
       <span class="tip-label">Qué son</span>
-      <p>Comandos que se ejecutan automáticamente en respuesta a acciones del agente. El agente no los pide — simplemente ocurren.</p>
+      <p>Comandos que se ejecutan automáticamente en respuesta a acciones del agente.<br>El agente no los pide — simplemente ocurren.</p>
     </div>
     <table class="comp-table">
       <thead>
@@ -841,12 +855,12 @@ h2 {
       </thead>
       <tbody>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">PostToolUse + Edit</code></td>
+          <td><code>PostToolUse + Edit</code></td>
           <td>Después de cada edición de fichero</td>
           <td>Linter / formatter — actúa mientras el fichero está en foco</td>
         </tr>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">Stop</code></td>
+          <td><code>Stop</code></td>
           <td>Cuando el agente termina su turno</td>
           <td>Build / tests — espera a que todos los cambios estén hechos</td>
         </tr>
@@ -895,15 +909,15 @@ h2 {
     <h2>Agents &amp; Skills</h2>
     <div class="tip-box">
       <span class="tip-label">El problema</span>
-      <p>Cada persona de tu equipo reinventa los mismos prompts. Las Skills son la forma de <strong>compartir conocimiento</strong> entre sesiones y entre personas.</p>
+      <p>Cada persona de tu equipo reinventa los mismos prompts.<br>Las Skills son la forma de <strong>compartir conocimiento</strong> entre sesiones y entre personas.</p>
     </div>
     <div class="tip-box">
       <span class="tip-label">Qué es una Skill</span>
-      <p>Un fichero de instrucciones que el agente carga cuando lo necesita. Vive en <code>.claude/skills/</code> y se activa con <code>/nombre</code>.</p>
+      <p>Un fichero de instrucciones que el agente carga cuando lo necesita.<br>Vive en <code>.claude/skills/</code> y se activa con <code>/nombre</code>.</p>
     </div>
     <div class="tip-box">
       <span class="tip-label">Agentes</span>
-      <p>Claude puede delegar subtareas a subagentes especializados. Cada agente tiene su propio contexto, herramientas y CLAUDE.md.</p>
+      <p>Claude puede delegar subtareas a subagentes especializados.<br>Cada agente tiene su propio contexto, herramientas y CLAUDE.md.</p>
     </div>
   </div>
 
@@ -1005,30 +1019,30 @@ h2 {
       </thead>
       <tbody>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">/story-splitting</code></td>
+          <td><code>/story-splitting</code></td>
           <td>Detecta si una historia es realmente 3 disfrazadas</td>
         </tr>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">/hamburger-method</code></td>
+          <td><code>/hamburger-method</code></td>
           <td>Corta en capas, genera opciones, elige la que da feedback más rápido</td>
         </tr>
         <tr>
-          <td><code style="font-family:monospace;font-size:0.85em">/small-safe-steps</code></td>
+          <td><code>/small-safe-steps</code></td>
           <td>Incrementos pequeños, cada uno desplegable de forma independiente</td>
         </tr>
       </tbody>
     </table>
     <div class="tip-box">
       <span class="tip-label">Si repites el mismo prompt más de 2 veces</span>
-      <p>Sácalo a una Skill. Así lo comparte todo el equipo sin esfuerzo.</p>
+      <p>Sácalo a una Skill.<br>Así lo comparte todo el equipo sin esfuerzo.</p>
     </div>
   </div>
 
   <!-- ── SLIDE 23: Transición Bloque 2 ── -->
   <div class="slide slide-break" id="slide-23">
     <div class="eyebrow">
-      <div class="eyebrow-rule" style="background:#fff"></div>
-      <span class="eyebrow-text" style="color:#fff;opacity:0.6">Bloque 2 — 1h</span>
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Bloque 2 — 1h</span>
     </div>
     <h1>Tu ticket, tu repo</h1>
     <div class="accent-bar"></div>
@@ -1045,7 +1059,7 @@ h2 {
       <li><span>Cada persona trabaja su <strong>propio ticket</strong>.</span></li>
       <li><span>El objetivo <strong>no es terminar</strong> el ticket entero.</span></li>
       <li><span>El objetivo es <strong>aprender a usar y configurar</strong> Claude Code con código real vuestro.</span></li>
-      <li><span>Al principio iréis inseguros y lentos. Cuando tengáis el repo configurado, <strong>iréis volando</strong>.</span></li>
+      <li><span>Al principio iréis inseguros y lentos.<br>Cuando tengáis el repo configurado, <strong>iréis volando</strong>.</span></li>
     </ul>
   </div>
 
@@ -1068,8 +1082,8 @@ h2 {
   <!-- ── SLIDE 26: Transición Bloque 3 ── -->
   <div class="slide slide-break" id="slide-26">
     <div class="eyebrow">
-      <div class="eyebrow-rule" style="background:#fff"></div>
-      <span class="eyebrow-text" style="color:#fff;opacity:0.6">Bloque 3 — 20 min</span>
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Bloque 3 — 20 min</span>
     </div>
     <h1>Retro</h1>
     <div class="accent-bar"></div>
@@ -1094,16 +1108,18 @@ h2 {
 
 <!-- ── Navigation ── -->
 <nav class="nav" aria-label="Slide navigation">
-  <button class="nav-btn" id="prev" aria-label="Anterior" onclick="changeSlide(-1)">&#8592;</button>
-  <span class="nav-counter" id="counter">1 / 27</span>
-  <button class="nav-btn" id="next" aria-label="Siguiente" onclick="changeSlide(1)">&#8594;</button>
+  <button class="nav-btn" id="prev" aria-label="Anterior">&#8592;</button>
+  <span class="nav-counter" id="counter"></span>
+  <button class="nav-btn" id="next" aria-label="Siguiente">&#8594;</button>
 </nav>
 
 <script>
-  const total = 27;
+  const total = document.querySelectorAll('.slide').length;
+  const counterEl = document.getElementById('counter');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
   let current = 1;
 
-  // Track revealed steps per slide: { slideId: revealedCount }
   const revealed = {};
 
   function getRevealData(slideEl) {
@@ -1123,24 +1139,21 @@ h2 {
   }
 
   function resetReveal(slideEl) {
-    const id = slideEl.id;
-    revealed[id] = 0;
+    revealed[slideEl.id] = 0;
     slideEl.querySelectorAll('.demo-step').forEach(s => s.classList.add('hidden'));
   }
 
   function show(n) {
     document.getElementById('slide-' + current).classList.remove('active');
     current = Math.max(1, Math.min(total, n));
-    const slideEl = document.getElementById('slide-' + current);
-    slideEl.classList.add('active');
-    document.getElementById('counter').textContent = current + ' / ' + total;
-    document.getElementById('prev').style.opacity = current === 1 ? '0.3' : '1';
-    document.getElementById('next').style.opacity = current === total ? '0.3' : '1';
+    document.getElementById('slide-' + current).classList.add('active');
+    counterEl.textContent = current + ' / ' + total;
+    prevBtn.style.opacity = current === 1 ? '0.3' : '1';
+    nextBtn.style.opacity = current === total ? '0.3' : '1';
   }
 
   function advance() {
     const slideEl = document.getElementById('slide-' + current);
-    // If this slide has reveal steps and there are more to show, reveal next
     if (parseInt(slideEl.dataset.reveal || '0') > 0) {
       if (revealNext(slideEl)) return;
     }
@@ -1149,7 +1162,6 @@ h2 {
 
   function back() {
     const slideEl = document.getElementById('slide-' + current);
-    // If this slide has reveals and some are shown, reset and go back
     const { max, count } = getRevealData(slideEl);
     if (max > 0 && count > 0) {
       resetReveal(slideEl);
@@ -1158,8 +1170,8 @@ h2 {
     if (current > 1) show(current - 1);
   }
 
-  document.getElementById('next').onclick = advance;
-  document.getElementById('prev').onclick = back;
+  prevBtn.onclick = back;
+  nextBtn.onclick = advance;
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') advance();
