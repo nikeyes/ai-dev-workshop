@@ -192,7 +192,12 @@ Haz el code review del main.py
 ```
 
 
-- Podemos enseñar los agentes y comandos del plugin para hacer desarrollo incremental de mi plugin
+- Podemos enseñar los agentes y comandos del plugin para hacer desarrollo incremental de mi plugin:
+    - Stepwise-dev: Flujo de desarrollo
+    - /story-splitting: ¿Es una historia o 3 disfrazdas?
+    - /hamburger-method: Corta en capas, genera opciones, elige uno que de feedback rápido
+    - /small-safe-steps: Incrementos pequeñños, cada uno desplegable de forma independiente
+
 
 
 ## Bloque 2: Tu ticket, tu repo (1h)
