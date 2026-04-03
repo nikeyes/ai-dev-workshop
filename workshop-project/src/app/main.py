@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 app = FastAPI(title='Tasks API')
 
+
 tasks: dict[int, dict] = {}
 _next_id = 1
 
@@ -26,7 +27,7 @@ def list_tasks():
 @app.post('/tasks', response_model=Task, status_code=201)
 def create_task(body: TaskCreate):
     global _next_id
-    task = {'id': _next_id, 'title': body.title, 'done': body.done}
+    task = {'id': _next_id, 'title': body.title, 'done': body.done}  # mal formato
     tasks[_next_id] = task
     _next_id += 1
     return task

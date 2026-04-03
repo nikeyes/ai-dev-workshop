@@ -109,10 +109,6 @@ Comprueba si el proyecto esta ready
 - `<subdirectorio>/CLAUDE.md` — aplica solo a ese módulo (útil en monorepos)
 
 
----------------------------------------------------------------
------------------------- PENDING ------------------------------
----------------------------------------------------------------
-
 ### 4. Contexto
 
 - /context
@@ -144,10 +140,20 @@ Enseñar mi ejemplo de settings para ToniAgent
 
 ### 5. **Rewind** — Deshacer cuando el agente se desvía. Enseñar limitaciones con comandos bash.
 
-Pon el mensaje de la home en japones -> Rewind
-Borra este fichero: -> Rewind.... 
+**PROMPT**
+```
+Crea un fichero de texto con una haiku en japonés
+```
 
-⚠️ **Aviso importante**: rewind NO revierte comandos bash (`rm`, `mv`, scripts). Si quieres reversibilidad total, haz que Claude escriba los scripts en ficheros temporales antes de ejecutarlos — luego los revisas y ejecutas tú.
+**PROMPT**
+```
+Borra el fichero del Haiku
+```
+
+Rewind
+
+
+⚠️ **Aviso importante**: En las últimas versiones también deshace comandos de bash, pero no os fiéis...
 
 
 ### 6. **Hooks** — Guardarraíles automáticos (linter, tests) que se ejecutan sin pedirlo.
@@ -159,26 +165,15 @@ Hay dos eventos clave con usos distintos:
 - **`PostToolUse` + matcher `Edit`** — se dispara después de cada edición. Ideal para el linter: corriges el fichero mientras aún está en foco.
 - **`Stop`** — se dispara cuando el agente termina su turno, sea cual sea el número de ediciones que haya hecho. Ideal para la build: esperas a que todos los cambios estén hechos antes de compilar.
 
-```json
-// .claude/settings.json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Edit",
-        "hooks": [{ "type": "command", "command": "npm run lint --fix" }]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [{ "type": "command", "command": "npm run build" }]
-      }
-    ]
-  }
-}
+Crear hooks para el linter y el formatter.
+**PROMPT**
+```
+Using the claude-code-guide agent, configure a hook in the settings.json of the project to run the format tool after every file edit.   
 ```
 
 A partir de ahora, el linter corre en cada fichero editado y la build corre una sola vez al terminar. Sin que tengas que pedirlo.
+
+Por si acaso he creado un ___settings.json con un Hook de format
 
 
 # 7. **Agents and Skills** - Gestionar el conocimiento compartido
@@ -191,8 +186,13 @@ Haz el code review del main.py
 
 Renombra la ___skills a skills
 
+**PROMPT**
+```
+Haz el code review del main.py 
+```
 
-- Puedo enseñar mis agentes y comandos del plugin para hacer desarrollo incremental...
+
+- Podemos enseñar los agentes y comandos del plugin para hacer desarrollo incremental de mi plugin
 
 
 ## Bloque 2: Tu ticket, tu repo (1h)

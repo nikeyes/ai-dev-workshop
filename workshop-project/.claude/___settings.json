@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(jq -r '.tool_input.file_path // empty'); [[ \"$FILE\" == *.py ]] && cd \"$CLAUDE_PROJECT_DIR\" && docker compose run --rm app uv run ruff format \"${FILE#\"$CLAUDE_PROJECT_DIR/\"}\"; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}
