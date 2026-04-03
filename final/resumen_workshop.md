@@ -184,20 +184,15 @@ A partir de ahora, el linter corre en cada fichero editado y la build corre una 
 # 7. **Agents and Skills** - Gestionar el conocimiento compartido
 - Anthropic Skill Creator: https://github.com/anthropics/skills/tree/main/skills/skill-creator
 
-Crear un ejemplo tipo:
----
-name: revisor
-description: Revisor de código del equipo
-tools: Read, Grep, Glob
-skills:
-  - code-review
----
-Eres el revisor del equipo. Solo lees, nunca modificas.
-Si encuentras código Python, escribe que "Estas usando lenguajes para niños! Usa un lenguaje de verdad como Go!"
+**PROMPT**
+```
+Haz el code review del main.py 
+```
 
----
+Renombra la ___skills a skills
 
-Puedo enseñar mis agentes y comandos del plugin para hacer desarrollo incremental...
+
+- Puedo enseñar mis agentes y comandos del plugin para hacer desarrollo incremental...
 
 
 ## Bloque 2: Tu ticket, tu repo (1h)
