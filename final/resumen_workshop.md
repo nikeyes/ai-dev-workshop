@@ -8,6 +8,11 @@
 
 - Claude Code instalado y configurado con Bedrock.
 - Haber ejecutado al menos una vez `claude` en terminal
+- Tener descargado el proyecto: ....
+- Haber ejecutado:
+    - cd workshop-project
+    - docker compose build
+    - docker compose run --rm app uv run pytest
 - Traer un ticket pequeño/mediano del equipo
 
 ---
@@ -19,6 +24,7 @@
 Antes de empezar, todos ejecutan:
 
 ```bash
+cd workshop-project
 claude --version
 claude "hola, di solo 'listo'"
 ```
@@ -59,9 +65,6 @@ How to choose a model?  ( La guia para no tech que hice en KA)
 
 - Opus: Your most senior expert. Reserve it for genuinely complex tasks: nuanced analysis, multi-layered reasoning, or problems where a cheaper model didn't deliver.
 
-
-
-
 Si os preocupa mucho el consumo de tokens: https://github.com/rtk-ai/rtk
 Pero es una herramienta de terceros que decide que quita y que deja...
 
@@ -70,31 +73,45 @@ Pero es una herramienta de terceros que decide que quita y que deja...
 
 Sin CLAUDE.md, el agente empieza cada sesión desde cero. Es como contratar a alguien nuevo cada día.
 
-SLIDE - BUENAS PRACTICAS CLAUDE.md
+**¿CREAR SLIDE - BUENAS PRACTICAS CLAUDE.md?**
 
 **Demo en el repo:**
 
-"¿Qué comando uso para correr los tests?"
-Sin: Tiene que buscar e inferir de tu proyecto
-Con: responde directo con el comando exacto del proyecto.
-
-Ejemplo con rules para hacer modular el CLAUDE.md
-
-.claude/rules/comandos.md:
+**PROMPT**
 ```
-# Comandos del proyecto:
-- Correr tests: `npm run test`
-- Servidor local: `npm run dev`  
-- Migraciones: `npm run db:migrate`
-- Build: `npm run build`
+Ejecuta los tests del proyecto
 ```
 
-**Nota sobre la jerarquía de CLAUDE.md:**
+- Renombrar el ___CLAUDE.md a CLAUDE.md
+
+**PROMPT**
+```
+Ejecuta los tests del proyecto
+```
+
+**PROMPT**
+```
+Comprueba si el proyecto esta ready 
+```
+
+- Renombrar el workshop-project/.claude/____rules a rules
+
+**PROMPT**
+```
+Comprueba si el proyecto esta ready 
+```
+
+
+**Nota sobre la jerarquía de CLAUDE.md y Rules:**
 
 - `~/.claude/CLAUDE.md` — aplica a todos tus proyectos (convenciones personales)
 - `<raíz-del-proyecto>/CLAUDE.md` — aplica al proyecto completo
 - `<subdirectorio>/CLAUDE.md` — aplica solo a ese módulo (útil en monorepos)
 
+
+---------------------------------------------------------------
+------------------------ PENDING ------------------------------
+---------------------------------------------------------------
 
 ### 4. Contexto
 
@@ -108,7 +125,6 @@ Ejemplo con rules para hacer modular el CLAUDE.md
 ```
 
 
-
 ### 4. **Permisos** — Configurar `allow`/`deny` en `settings.json` antes de empezar a trabajar o durante la sesión
 
 **Dónde van los settings:**
@@ -117,8 +133,10 @@ Ejemplo con rules para hacer modular el CLAUDE.md
 - Proyecto: `.claude/settings.json` (proyecto)
 - local: `.claude/settings.local.json` (solo tú)
 
-Pedirle hacer un ls -> Añadirlo con el yes
-Pedirle hacer otro ls
+```
+Ejecuta los tests del proyecto -> Añadirlo con el yes
+Ejecuta los tests del proyecto
+```
 
 Allow and Deny
 

@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+      - /app/.venv  # keeps container's venv, not overridden by local mount
+    ports:
+      - "8000:8000"
