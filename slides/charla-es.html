@@ -25,6 +25,9 @@ body { background: #fff; }
   position: relative;
   font-family: 'Nunito', sans-serif;
 }
+.slide[data-hidden] {
+  display: none;
+}
 
 /* === CSS VARIABLES === */
 :root {
@@ -1238,6 +1241,92 @@ body { background: #fff; }
 }
 
 /* ================================================================
+   SLIDE 9b — CASO REAL: DEL PLAN
+   ================================================================ */
+.s9b .content { max-width: min(88vw, 1020px); gap: clamp(0.8rem, 2vh, 1.6rem); }
+.s9b .chat {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.2vh, 0.9rem);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s9b .chat-row {
+  display: flex;
+  gap: clamp(0.5rem, 1.2vw, 0.9rem);
+  align-items: flex-start;
+}
+.s9b .chat-row.user-row { flex-direction: row-reverse; }
+.s9b .chat-avatar {
+  width: clamp(28px, 3vw, 38px);
+  height: clamp(28px, 3vw, 38px);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-black);
+  font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+  color: #fff;
+}
+.s9b .avatar-user { background: #333; }
+.s9b .avatar-ai   { background: var(--accent); }
+.s9b .chat-bubble {
+  max-width: 72%;
+  padding: clamp(0.5rem, 1.2vh, 0.8rem) clamp(0.7rem, 1.5vw, 1.1rem);
+  border-radius: 4px;
+  font-size: var(--small);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+}
+.s9b .user-row .chat-bubble {
+  background: #f0f0f0;
+  border: 1.5px solid rgba(0,0,0,0.1);
+}
+.s9b .ai-row .chat-bubble {
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,0.1);
+}
+.s9b .chat-bubble code {
+  font-family: var(--f-mono);
+  font-size: 0.88em;
+  background: rgba(0,0,0,0.06);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+}
+.s9b .action-bubble {
+  background: rgba(239,68,68,0.07) !important;
+  border-color: rgba(239,68,68,0.4) !important;
+  border-left: 4px solid #ef4444 !important;
+}
+.s9b .action-label {
+  font-size: clamp(0.55rem, 0.85vw, 0.68rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #ef4444;
+  margin-bottom: 0.3em;
+}
+.s9b .apology-bubble {
+  background: rgba(239,68,68,0.04) !important;
+  border-color: rgba(239,68,68,0.2) !important;
+}
+.s9b .lesson {
+  margin-top: auto;
+  padding: clamp(0.6rem, 1.4vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
+  background: #fafafa;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-left: 4px solid var(--accent);
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text-2);
+  line-height: 1.5;
+  animation: fadeIn 0.5s ease 0.7s both;
+}
+.s9b .lesson strong { color: var(--text); font-weight: 800; }
+.s9b .lesson em { font-style: normal; color: var(--accent); }
+
+/* ================================================================
    SLIDE 11 — SÍNTESIS
    ================================================================ */
 .s11 .content { max-width: min(88vw, 1000px); justify-content: center; gap: clamp(1.5rem, 3.5vh, 3rem); }
@@ -1279,6 +1368,68 @@ body { background: #fff; }
   border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 .s11 .s11-col-item:last-child { border-bottom: none; }
+
+/* ================================================================
+   SLIDE MENTI — PARTICIPACIÓN INTERACTIVA
+   ================================================================ */
+.s-menti { background: #fff; }
+.s-menti .content {
+  max-width: min(90vw, 600px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(1rem, 2.5vh, 1.8rem);
+  animation: scaleIn 0.45s ease 0.1s both;
+}
+.s-menti .menti-eyebrow {
+  font-family: var(--f-sans);
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+.s-menti .menti-headline {
+  font-family: var(--f-black);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  color: var(--text);
+  line-height: 1.05;
+}
+.s-menti .menti-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.8rem, 2vh, 1.2rem);
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3.5rem);
+  border: 2px solid rgba(0,0,0,0.06);
+}
+.s-menti .menti-qr {
+  width: clamp(140px, 22vw, 220px);
+  height: clamp(140px, 22vw, 220px);
+  display: block;
+}
+.s-menti .menti-domain {
+  font-family: var(--f-sans);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  color: var(--text-2);
+  letter-spacing: 0.06em;
+}
+.s-menti .menti-code {
+  font-family: var(--f-black);
+  font-size: clamp(2rem, 4.5vw, 3.8rem);
+  color: var(--text);
+  letter-spacing: 0.06em;
+}
+.s-menti .menti-hint {
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 600;
+  color: var(--text-3);
+  line-height: 1.5;
+}
 
 /* ================================================================
    STEP-REVEAL — items that appear one click at a time
@@ -1408,7 +1559,7 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <div class="progress-bar" id="progress-bar"></div>
 <div id="nav">
-  <span id="nav-title">AI Dev Workshop · Wallbox 2026 <span id="nav-label"></span></span>
+  <span id="nav-title">AI Dev Workshop · Wallbox 2026<span id="nav-label"></span></span>
   <div class="nav-controls">
     <button class="nav-btn" onclick="navigate(-1)">← Anterior</button>
     <span id="nav-counter">1 / 16</span>
@@ -1437,7 +1588,25 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 2-WHY — LA PREGUNTA DE FONDO (de charla-mejorada)      -->
+<!-- SLIDE 2 — MENTI: PARTICIPACIÓN INTERACTIVA                    -->
+<!-- ============================================================ -->
+<section class="slide s-menti" data-label="Menti">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="content">
+    <div class="menti-eyebrow">Preguntas sobre tu día a día</div>
+    <div class="menti-headline">¿Te atreves?</div>
+    <div class="menti-card">
+      <img class="menti-qr" src="mentimeter_qr_code.png" alt="QR Mentimeter">
+      <div class="menti-domain">menti.com</div>
+      <div class="menti-code">4889 5833</div>
+    </div>
+    <div class="menti-hint">Escanea el QR o entra en menti.com e introduce el código</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3 — LA PREGUNTA DE FONDO                                -->
 <!-- ============================================================ -->
 <section class="slide s2-why" data-label="¿Por qué?">
   <div class="bar"></div>
@@ -1448,26 +1617,28 @@ body { background: #fff; }
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">La pregunta de fondo</span>
     </div>
-    <h2 class="h2">Nuestro trabajo es resolver problemas,<br>no programar.</h2>
+    <h2 class="h2">Nuestro trabajo es resolver problemas,<br>no escribir código.</h2>
     <div class="analogy">
       <div class="analogy-card reveal-item">
-        <span class="analogy-icon">✒️</span>
-        <div class="analogy-title">Los monjes copistas</div>
-        <div class="analogy-sub">Dijeron lo mismo de la imprenta</div>
+        <span class="analogy-icon">🪚</span>
+        <div class="analogy-title">El ebanista que rechaza la fresadora</div>
+        <div class="analogy-sub">No es más artesano. Es más lento.</div>
       </div>
       <div class="analogy-arrow reveal-item">→</div>
       <div class="analogy-card reveal-item">
         <span class="analogy-icon">⌨️</span>
-        <div class="analogy-title">Los devs de 2025</div>
+        <div class="analogy-title">Los devs de 2026</div>
         <div class="analogy-sub">¿Diremos lo mismo de los agentes?</div>
       </div>
     </div>
-    <p class="punchline reveal-item">Programar ha sido nuestra mejor herramienta para resolver problemas. Si aparece una mejor, <em>¿por qué no usarla?</em> La pregunta correcta no es "si", es "cómo".</p>
+    
+    <p class="punchline reveal-item">La pregunta no es si usar la fresadora.
+    </br> <em>¿Cómo se usa la fresadora para hacerlo tan bien como lo hago yo?</em></p>
   </div>
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 1b — AGILE MANIFESTO WEBSITE                            -->
+<!-- SLIDE 4 — AGILE MANIFESTO WEBSITE                             -->
 <!-- ============================================================ -->
 <section class="slide s1b" data-label="agilemanifesto.org">
   <div class="am-content">
@@ -1502,7 +1673,7 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 2 — MANIFIESTO ÁGIL                                     -->
+<!-- SLIDE 5 — MANIFIESTO ÁGIL                                     -->
 <!-- ============================================================ -->
 <section class="slide s2" data-label="Manifiesto Ágil">
   <div class="bar"></div>
@@ -1522,7 +1693,7 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 3 — EL ESTUDIO METR                                     -->
+<!-- SLIDE 6 — EL ESTUDIO METR                                     -->
 <!-- ============================================================ -->
 <section class="slide s3" data-label="El estudio METR">
   <div class="bar"></div>
@@ -1561,7 +1732,7 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 3b — PUENTE: POR QUÉ SOMOS MÁS LENTOS                  -->
+<!-- SLIDE 7 — PUENTE: POR QUÉ SOMOS MÁS LENTOS                   -->
 <!-- ============================================================ -->
 <section class="slide s3b" data-label="Por qué somos más lentos">
   <div class="bar"></div>
@@ -1608,9 +1779,9 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 2b — ¿DÓNDE ESTAMOS? NIVELES DE AUTOMATIZACIÓN          -->
+<!-- SLIDE 8 — ¿DÓNDE ESTAMOS? NIVELES DE AUTOMATIZACIÓN           -->
 <!-- ============================================================ -->
-<section class="slide s2b" data-label="¿Dónde estamos?">
+<section class="slide s2b" data-label="¿Dónde estamos?" data-hidden>
   <div class="bar"></div>
   <div class="grid-bg"></div>
   <div class="wm">07</div>
@@ -1672,7 +1843,7 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 4 — LOS 4 PROBLEMAS                                     -->
+<!-- SLIDE 9 — LOS 4 PROBLEMAS                                     -->
 <!-- ============================================================ -->
 <section class="slide s4" data-label="Lo que la IA hace mal">
   <div class="bar"></div>
@@ -1710,7 +1881,7 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 5 — FLUJO DE DESARROLLO                                 -->
+<!-- SLIDE 10 — FLUJO DE DESARROLLO                                -->
 <!-- ============================================================ -->
 <section class="slide s5" data-label="Flujo de desarrollo">
   <div class="bar"></div>
@@ -1738,7 +1909,7 @@ body { background: #fff; }
         <div class="arrow reveal-item">→</div>
         <div class="step reveal-item">
           <div class="step-num">03</div>
-          <div class="step-name">Implementar</div>
+          <div class="step-name">Implementar por fases</div>
           <div class="step-sub">Sesión limpia, contexto preciso</div>
         </div>
         <div class="arrow reveal-item">→</div>
@@ -1760,14 +1931,14 @@ body { background: #fff; }
       <div class="shortcut-x reveal-item" aria-hidden="true">✕</div>
     </div>
     <p class="pipeline-note reveal-item">
-      Cada fase necesita una ventana de contexto limpia. Mezclarlas hace que el modelo pierda el hilo.
-      <strong>Mantén el contexto limpio o tendrás problemas.</strong>
+      Cada fase necesita una ventana de contexto limpia. 
+      </br><strong>Mantén el contexto limpio o tendrás problemas.</strong>
     </p>
   </div>
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 6 — PRÁCTICAS QUE FUNCIONAN                            -->
+<!-- SLIDE 11 — PRÁCTICAS QUE FUNCIONAN                            -->
 <!-- ============================================================ -->
 <section class="slide s6" data-label="Prácticas que funcionan">
   <div class="bar"></div>
@@ -1814,7 +1985,7 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 8 — GUARDARRAÍLES + CHECKLIST                           -->
+<!-- SLIDE 12 — GUARDARRAÍLES + CHECKLIST                          -->
 <!-- ============================================================ -->
 <section class="slide s8" data-label="Diseño para la supervisión">
   <div class="bar"></div>
@@ -1849,12 +2020,11 @@ body { background: #fff; }
         </ul>
       </div>
     </div>
-    <p class="oversight-takeaway reveal-item">Los guardarraíles capturan lo <em>obvio</em>. El checklist captura lo que solo <em>tú</em> puedes ver.</p>
   </div>
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 9 — PERMISOS Y AUTONOMÍA (fusión s9+s10)                -->
+<!-- SLIDE 13 — PERMISOS Y AUTONOMÍA                               -->
 <!-- ============================================================ -->
 <section class="slide s9" data-label="Permisos y autonomía">
   <div class="bar"></div>
@@ -1896,19 +2066,56 @@ body { background: #fff; }
       </div>
       <div class="risk-row risk-red reveal-item">
         <div class="risk-dot"></div>
-        <div class="risk-label">Alto riesgo → más supervisión. Cuanto mayor el blast radius, más ojos humanos.</div>
+        <div class="risk-label">Alto riesgo → más supervisión. Cuanto más difícil de deshacer, más ojos humanos.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 10b — CITA: LOS QUE PROSPERARÁN                         -->
+<!-- SLIDE 14 — CASO REAL: DEL PLAN                                -->
+<!-- ============================================================ -->
+<section class="slide s9b" data-label="Caso real: preguntas del plan">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">13</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Autonomía sin supervisión</span>
+    </div>
+    <h2 class="h2">Ejemplo real</h2>
+    <div class="chat">
+      <div class="chat-row user-row reveal-item">
+        <div class="chat-avatar avatar-user">YO</div>
+        <div class="chat-bubble">Del plan <code>.claude/plans/pending/2026…</code> tengo un par de dudas</div>
+      </div>
+      <div class="chat-row ai-row reveal-item">
+        <div class="chat-avatar avatar-ai">CC</div>
+        <div class="chat-bubble action-bubble">
+          <div class="action-label">Acción ejecutada</div>
+          Listo, archivo eliminado.
+        </div>
+      </div>
+      <div class="chat-row user-row reveal-item">
+        <div class="chat-avatar avatar-user">YO</div>
+        <div class="chat-bubble">¿Por qué has eliminado el archivo?</div>
+      </div>
+      <div class="chat-row ai-row reveal-item">
+        <div class="chat-avatar avatar-ai">CC</div>
+        <div class="chat-bubble apology-bubble">Me equivoqué. Interpreté "del" como el comando inglés <em>delete</em>, pero en realidad "del plan" es la preposición en español, estabas haciendo referencia al plan, no pidiéndome eliminarlo.<br><br>Lo siento mucho. ¿Tienes el contenido del archivo en otro lugar, o hay forma de recuperarlo?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 15 — CALIBRA LA AUTONOMÍA AL RIESGO                     -->
 <!-- ============================================================ -->
 <section class="slide s10b" data-label="Los que prosperarán">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">13</div>
+  <div class="wm">14</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1951,12 +2158,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 11 — CHANGES / ENDURES (MERGED)                         -->
+<!-- SLIDE 16 — CAMBIA / PERDURA                                   -->
 <!-- ============================================================ -->
 <section class="slide s11" data-label="Cambia / Perdura">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">14</div>
+  <div class="wm">15</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1981,12 +2188,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 12 — RESUMEN: LAS 5 IDEAS CLAVE                        -->
+<!-- SLIDE 17 — RESUMEN: LAS 5 IDEAS CLAVE                         -->
 <!-- ============================================================ -->
 <section class="slide s12" data-label="Resumen">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">15</div>
+  <div class="wm">16</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -2022,7 +2229,7 @@ body { background: #fff; }
      SLIDE PRESENTATION CONTROLLER
      Swiss Modern — enhanced navigation
      =========================================== */
-  const slides = Array.from(document.querySelectorAll('.slide'));
+  const slides = Array.from(document.querySelectorAll('.slide:not([data-hidden])'));
   const slideIndexMap = new Map(slides.map((s, i) => [s, i]));
   const counterEl = document.getElementById('nav-counter');
   const labelEl = document.getElementById('nav-label');

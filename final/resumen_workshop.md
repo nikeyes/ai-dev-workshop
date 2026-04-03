@@ -66,7 +66,7 @@ How to choose a model?  ( La guia para no tech que hice en KA)
 - Opus: Your most senior expert. Reserve it for genuinely complex tasks: nuanced analysis, multi-layered reasoning, or problems where a cheaper model didn't deliver.
 
 Si os preocupa mucho el consumo de tokens: https://github.com/rtk-ai/rtk
-Pero es una herramienta de terceros que decide que quita y que deja...
+Pero es una herramienta de terceros con decisiones opinionadas y con telemetría por defecto...
 
 
 ### 3. **Memoria de los agentes** — CLAUDE.md, RULES.md,
