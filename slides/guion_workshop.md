@@ -32,40 +32,17 @@ Para ver el estado completo del entorno en cualquier momento:
 
 ## Bloque 1: El journey guiado (1h)
 
-### Puente con la charla (5 min)
-
-En la charla vimos 4 problemas concretos. Ahora cada uno tiene una herramienta:
-
-| Problema (charla)                     | Herramienta (workshop)                     |
-| ------------------------------------- | ------------------------------------------ |
-| No tiene contexto → alucinaciones     | Memoria (Contexto, CLAUDE.md, Rules.md...) |
-| Contexto contaminado → indeterminismo | Separar fases con `/clear`                 |
-| Difícil de verificar                  | Hooks + Verification Requirements          |
-| Difícil de revisar                    | Rewind + checklist pre-merge               |
-
----
-
 ### Paso 1: CLAUDE.md — el onboarding del agente (10 min)
 
 Sin CLAUDE.md, el agente empieza cada sesión desde cero. Es como contratar a alguien nuevo cada día.
 
+SLIDE - BUENAS PRACTICAS CLAUDE.md
+
 **Demo en el repo:**
 
-1. Crea un CLAUDE.md mínimo con `/init` como base
-2. Borra lo que no sirve — `/init` genera demasiado por defecto. Objetivo: menos de 100 líneas
-   - Fuera: duplicar README, listar principios que la IA ya conoce, comandos "por si acaso"
-   - Dentro: convenciones propias del proyecto, comandos de verificación
-3. La sección más importante es **Verification Requirements**:
-
-```markdown
-## Verification Requirements
-
-- Run `npm test` after code changes
-- Run `npm run typecheck` before marking complete
-- For API changes, test with curl
-```
-
-Dale a Claude una forma de verificar su propio trabajo. Sin esto, eres tú quien revisa cada línea.
+"¿Qué comando uso para correr los tests?"
+Sin: Tiene que buscar e inferir de tu proyecto
+Con: responde directo con el comando exacto del proyecto.
 
 **Nota sobre la jerarquía de CLAUDE.md:**
 
