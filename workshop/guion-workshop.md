@@ -107,6 +107,7 @@ Comprueba si el proyecto esta ready
 - `~/.claude/CLAUDE.md` — aplica a todos tus proyectos (convenciones personales)
 - `<raíz-del-proyecto>/CLAUDE.md` — aplica al proyecto completo
 - `<subdirectorio>/CLAUDE.md` — aplica solo a ese módulo (útil en monorepos)
+- doc: https://code.claude.com/docs/en/memory#organize-rules-with-claude/rules/
 
 
 ### 4. Contexto

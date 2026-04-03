@@ -676,6 +676,14 @@ body { background: #fff; }
   text-decoration: underline;
   font-weight: 700;
 }
+.s3 .s3-aside {
+  order: 4;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: var(--text-2);
+  font-style: italic;
+  margin-top: 1.5rem;
+}
+.s3 .source { order: 5; }
 
 /* ================================================================
    SLIDE 4 — LOS 4 PROBLEMAS
@@ -1381,6 +1389,8 @@ body { background: #fff; }
   text-align: center;
   gap: clamp(1rem, 2.5vh, 1.8rem);
   animation: scaleIn 0.45s ease 0.1s both;
+  padding-top: var(--pad);
+  margin: 0 auto;
 }
 .s-menti .menti-eyebrow {
   font-family: var(--f-sans);
@@ -1727,6 +1737,7 @@ body { background: #fff; }
         <span class="reveal-real-num">19% MÁS LENTOS</span>
       </div>
     </div>
+    <p class="s3-aside reveal-item">Enero 2026 - Opus 4.6 completa tareas que los humanos tardamos ~12 horas, pero solo en el 50% de los casos.</p>
     <p class="source">Fuente: <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR — Early 2025 AI-Experienced OS Dev Study</a></p>
   </div>
 </section>
