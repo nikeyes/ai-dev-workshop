@@ -491,6 +491,9 @@ h2 {
   margin-top: 0.4rem;
 }
 
+/* ── hidden slides ── */
+.slide[data-hidden] { display: none; }
+
 /* ── links in checklist ── */
 .checklist a {
   color: #0066cc;
@@ -999,7 +1002,7 @@ h2 {
   </div>
 
   <!-- ── SLIDE 19: Agents & Skills — qué son ── -->
-  <div class="slide" id="slide-20">
+  <div class="slide" id="slide-20" data-hidden>
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8</span>
@@ -1132,7 +1135,7 @@ h2 {
       <tbody>
         <tr>
           <td><code>/story-splitting</code></td>
-          <td>Detecta si una historia es realmente 3 disfrazadas</td>
+          <td>Detecta si una historia son varias disfrazadas</td>
         </tr>
         <tr>
           <td><code>/hamburger-method</code></td>
@@ -1286,11 +1289,12 @@ h2 {
 </nav>
 
 <script>
-  const total = document.querySelectorAll('.slide').length;
+  const slides = Array.from(document.querySelectorAll('.slide:not([data-hidden])'));
+  const total = slides.length;
   const counterEl = document.getElementById('counter');
   const prevBtn = document.getElementById('prev');
   const nextBtn = document.getElementById('next');
-  let current = 1;
+  let current = 0;
 
   const revealed = {};
 
@@ -1316,30 +1320,30 @@ h2 {
   }
 
   function show(n) {
-    document.getElementById('slide-' + current).classList.remove('active');
-    current = Math.max(1, Math.min(total, n));
-    document.getElementById('slide-' + current).classList.add('active');
-    counterEl.textContent = current + ' / ' + total;
-    prevBtn.style.opacity = current === 1 ? '0.3' : '1';
-    nextBtn.style.opacity = current === total ? '0.3' : '1';
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, n));
+    slides[current].classList.add('active');
+    counterEl.textContent = (current + 1) + ' / ' + total;
+    prevBtn.style.opacity = current === 0 ? '0.3' : '1';
+    nextBtn.style.opacity = current === total - 1 ? '0.3' : '1';
   }
 
   function advance() {
-    const slideEl = document.getElementById('slide-' + current);
+    const slideEl = slides[current];
     if (parseInt(slideEl.dataset.reveal || '0') > 0) {
       if (revealNext(slideEl)) return;
     }
-    if (current < total) show(current + 1);
+    if (current < total - 1) show(current + 1);
   }
 
   function back() {
-    const slideEl = document.getElementById('slide-' + current);
+    const slideEl = slides[current];
     const { max, count } = getRevealData(slideEl);
     if (max > 0 && count > 0) {
       resetReveal(slideEl);
       return;
     }
-    if (current > 1) show(current - 1);
+    if (current > 0) show(current - 1);
   }
 
   prevBtn.onclick = back;
@@ -1350,7 +1354,7 @@ h2 {
     if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') back();
   });
 
-  show(1);
+  show(0);
 </script>
 </body>
 </html>
