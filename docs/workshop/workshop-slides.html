@@ -385,6 +385,16 @@ h2 {
   line-height: 1.45;
 }
 
+.step-desc code {
+  font-family: var(--font-mono);
+  background: rgba(0,0,0,0.08);
+  padding: 0.05em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-weight: 700;
+  color: var(--brand);
+}
+
 .demo-step[data-type="action"] .step-desc {
   color: #444;
 }
@@ -672,7 +682,7 @@ h2 {
         <span class="step-num">$</span>
         <div class="step-body">
           <span class="step-label">Coste</span>
-          <code class="step-cmd">/cost — ver el gasto acumulado de la sesión</code>
+          <p class="step-desc"><code>/cost</code> con Bedrock · <code>/usage</code> con suscripción — gasto acumulado de la sesión o la subscripción</p>
         </div>
       </div>
       <div class="demo-step hidden" data-step="5">
