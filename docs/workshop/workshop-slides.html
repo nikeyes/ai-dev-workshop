@@ -9,7 +9,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root { --brand: #c0522a; }
+:root {
+  --brand: #c0522a;
+  --beige: #e8e0d8;
+  --beige-dark: rgba(0,0,0,0.08);
+  --warn-bg: #fef3c7;
+  --warn-border: #d97706;
+  --warn-text: #92400e;
+  --warn-dark: #1c1917;
+  --font-mono: 'Courier New', monospace;
+}
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; background: #fff; overflow: hidden; }
 
@@ -113,11 +122,11 @@ h2 {
 
 /* ── code block ── */
 .code-block {
-  background: #e8e0d8;
+  background: var(--beige);
   color: #333;
   border-radius: 10px;
   padding: clamp(0.8rem, 1.8vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: clamp(0.8rem, 1.3vw, 1.15rem);
   line-height: 1.7;
   white-space: pre;
@@ -145,12 +154,12 @@ h2 {
 }
 
 .tip-box--warning {
-  border-left-color: #d97706;
-  background: #fef3c7;
+  border-left-color: var(--warn-border);
+  background: var(--warn-bg);
 }
 
 .tip-box--warning .tip-label {
-  color: #92400e;
+  color: var(--warn-text);
 }
 
 .tip-box .tip-label {
@@ -168,7 +177,7 @@ h2 {
 }
 
 .tip-box code {
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono);
   background: #f0e4df;
   padding: 0.05em 0.35em;
   border-radius: 3px;
@@ -234,9 +243,9 @@ h2 {
 }
 
 .cmd-pill {
-  background: #e8e0d8;
+  background: var(--beige);
   color: #333;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: clamp(1.2rem, 2.4vw, 2.2rem);
   font-weight: 700;
   padding: 0.3em 0.8em;
@@ -267,7 +276,7 @@ h2 {
 
 /* Acción terminal — beige */
 .demo-step[data-type="action"] {
-  background: #e8e0d8;
+  background: var(--beige);
   border-left: none;
   border-radius: 10px;
 }
@@ -282,30 +291,30 @@ h2 {
 
 .demo-step[data-type="action"] .step-cmd {
   color: #333;
-  background: rgba(0,0,0,0.08);
+  background: var(--beige-dark);
 }
 
 /* Warning — aviso amarillo ámbar */
 .demo-step[data-type="warning"] {
-  background: #fef3c7;
-  border-left: 4px solid #d97706;
+  background: var(--warn-bg);
+  border-left: 4px solid var(--warn-border);
 }
 
 .demo-step[data-type="warning"] .step-num {
-  color: #d97706;
+  color: var(--warn-border);
 }
 
 .demo-step[data-type="warning"] .step-label {
-  color: #92400e;
+  color: var(--warn-text);
 }
 
 .demo-step[data-type="warning"] .step-cmd {
-  color: #1c1917;
+  color: var(--warn-dark);
   background: rgba(0,0,0,0.06);
 }
 
 .demo-step[data-type="warning"] .step-desc {
-  color: #1c1917;
+  color: var(--warn-dark);
 }
 
 /* Highlight — brand color para ejemplo destacado */
@@ -357,7 +366,7 @@ h2 {
 }
 
 .step-cmd {
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: clamp(0.85rem, 1.5vw, 1.3rem);
   font-weight: 700;
   color: #111;
@@ -445,8 +454,18 @@ h2 {
 }
 
 .slide-break .eyebrow-text {
-  color: #fff;
-  opacity: 0.6;
+  color: rgba(255,255,255,0.6);
+}
+
+/* ── quote reveal ── */
+.slide-quote [data-step] {
+  display: block;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.slide-quote [data-step].hidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
 }
 
 /* ── quote slide ── */
@@ -465,11 +484,6 @@ h2 {
   border-left: 6px solid var(--brand);
   padding-left: clamp(1rem, 3vw, 2.5rem);
   text-align: left;
-}
-
-/* ── title slide accent ── */
-.slide-title {
-  background: #fff;
 }
 
 .slide-break h1,
@@ -493,6 +507,18 @@ h2 {
 
 /* ── hidden slides ── */
 .slide[data-hidden] { display: none; }
+
+/* ── inline code (outside tip-box) ── */
+.checklist code, .slide-quote code {
+  font-family: var(--font-mono);
+  background: #f0e4df;
+  padding: 0.05em 0.35em;
+  border-radius: 3px;
+  color: #8b3010;
+}
+
+/* ── code comment ── */
+.code-block .comment { color: #888; }
 
 /* ── links in checklist ── */
 .checklist a {
@@ -531,7 +557,7 @@ h2 {
     <h2>Prerequisitos</h2>
     <ul class="checklist">
       <li><span>Claude Code <strong>instalado y configurado</strong> con Bedrock</span></li>
-      <li><span>Haber ejecutado al menos una vez <code style="font-family:monospace;background:#f0e4df;padding:0.05em 0.35em;border-radius:3px;color:#8b3010">claude</code> en terminal</span></li>
+      <li><span>Haber ejecutado al menos una vez <code>claude</code> en terminal</span></li>
       <li><span>Tener descargado el <strong>proyecto del workshop</strong></span></li>
       <li><span>Haber ejecutado <strong>build y tests</strong> con Docker</span></li>
       <li><span>Traer un <strong>ticket pequeño/mediano</strong> del equipo</span></li>
@@ -596,8 +622,8 @@ h2 {
       <span class="eyebrow-text">Tips</span>
     </div>
     <h2>¿Claude Code se cerró en mitad de una tarea?</h2>
-    <div class="code-block"><span class="prompt">$</span><span class="cmd"> claude --continue   </span><span style="color:#888"># Reanuda la última sesión</span>
-<span class="prompt">$</span><span class="cmd"> claude --resume     </span><span style="color:#888"># Elige una sesión anterior</span></div>
+    <div class="code-block"><span class="prompt">$</span><span class="cmd"> claude --continue   </span><span class="comment"># Reanuda la última sesión</span>
+<span class="prompt">$</span><span class="cmd"> claude --resume     </span><span class="comment"># Elige una sesión anterior</span></div>
     <div class="tip-box">
       <span class="tip-label">Recuerda</span>
       <p>Las sesiones son <strong>por carpeta</strong>.<br>Asegúrate de estar en <code>workshop-project</code> antes de reanudar.</p>
@@ -605,8 +631,8 @@ h2 {
   </div>
 
   <!-- ── SLIDE 7: Regla de oro ── -->
-  <div class="slide slide-quote" id="slide-7">
-    <blockquote>Antes tardabas 2 horas en escribir código malo.<br>Ahora tardas 2 segundos.<br><br>Si no sabes explicar lo que quieres y no le das el contexto suficiente, el agente tampoco sabrá hacerlo bien.</blockquote>
+  <div class="slide slide-quote" id="slide-7" data-reveal="1">
+    <blockquote>Antes tardabas 2 horas en escribir código malo.<br>Ahora tardas 2 segundos.<span data-step="1" class="hidden"><br><br>Si no sabes explicar lo que quieres y no le das el contexto suficiente, el agente tampoco sabrá hacerlo bien.</span></blockquote>
   </div>
 
   <!-- ── SLIDE 8: Modelos — tabla ── -->
@@ -1316,7 +1342,7 @@ h2 {
 
   function resetReveal(slideEl) {
     revealed[slideEl.id] = 0;
-    slideEl.querySelectorAll('.demo-step').forEach(s => s.classList.add('hidden'));
+    slideEl.querySelectorAll('[data-step]').forEach(s => s.classList.add('hidden'));
   }
 
   function show(n) {
@@ -1330,9 +1356,7 @@ h2 {
 
   function advance() {
     const slideEl = slides[current];
-    if (parseInt(slideEl.dataset.reveal || '0') > 0) {
-      if (revealNext(slideEl)) return;
-    }
+    if (revealNext(slideEl)) return;
     if (current < total - 1) show(current + 1);
   }
 
@@ -1354,6 +1378,7 @@ h2 {
     if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') back();
   });
 
+  slides.forEach(s => s.classList.remove('active'));
   show(0);
 </script>
 </body>
