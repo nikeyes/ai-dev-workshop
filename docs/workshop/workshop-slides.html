@@ -162,6 +162,10 @@ h2 {
   color: var(--warn-text);
 }
 
+.tip-box--sm p {
+  font-size: clamp(0.9rem, 1.5vw, 1.3rem);
+}
+
 .tip-box .tip-label {
   font-size: clamp(0.75rem, 1.1vw, 1rem);
   font-weight: 800;
@@ -636,7 +640,7 @@ h2 {
   </div>
 
   <!-- ── SLIDE 8: Modelos — tabla ── -->
-  <div class="slide" id="slide-8" data-reveal="4">
+  <div class="slide" id="slide-8" data-reveal="5">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 2</span>
@@ -669,6 +673,12 @@ h2 {
         <div class="step-body">
           <span class="step-label">Coste</span>
           <code class="step-cmd">/cost — ver el gasto acumulado de la sesión</code>
+        </div>
+      </div>
+      <div class="demo-step hidden" data-step="5">
+        <div class="tip-box tip-box--warning tip-box--sm" style="width:100%">
+          <span class="tip-label">⚠️ Hay herramientas para reducir el consumo de tokens</span>
+          <p><a href="https://github.com/rtk-ai/rtk" target="_blank">github.com/rtk-ai/rtk</a> — pero es una herramienta de terceros y tiene la <strong>telemetría activada por defecto</strong>.</p>
         </div>
       </div>
     </div>

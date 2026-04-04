@@ -1096,12 +1096,23 @@ body { background: #fff; }
 .s8 .item-list li:last-child { border-bottom: none; padding-bottom: 0; }
 .s8 .item-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
 .s8 .check-list li {
-  padding-left: 2em;
   padding-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
   border-bottom: 1px dashed rgba(255,51,0,0.12);
+  display: grid;
+  grid-template-columns: clamp(4.5rem, 6vw, 6rem) 1fr;
+  gap: 0.6em;
+  align-items: baseline;
 }
 .s8 .check-list li:last-child { border-bottom: none; padding-bottom: 0; }
-.s8 .check-list li::before { content: '□'; position: absolute; left: 0; color: var(--accent); font-size: 1.1em; font-weight: 800; }
+.s8 .check-list li .cat {
+  font-family: var(--f-mono);
+  font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-top: 0.1em;
+}
 /* --- Bottom takeaway --- */
 .s8 .oversight-takeaway {
   margin-top: auto;
@@ -2024,10 +2035,10 @@ body { background: #fff; }
         <div class="col-icon">Juicio humano</div>
         <p class="col-title">Checklist pre-merge</p>
         <ul class="check-list">
-          <li>¿Esto respeta mi dominio o solo suena bien?</li>
-          <li>¿Los tests verifican algo real de verdad?</li>
-          <li>¿Hay observabilidad para este caso de uso?</li>
-          <li>¿Podría borrar este código sin romper nada?</li>
+          <li><span class="cat">Dominio</span><span>El código refleja conceptos del dominio, no jerga técnica</span></li>
+          <li><span class="cat">Calidad</span><span>¿Los tests fallan cuando el comportamiento falla?</span></li>
+          <li><span class="cat">Ops</span><span>¿Hay trazabilidad si esto falla en prod?</span></li>
+          <li><span class="cat">Deuda</span><span>¿Podría borrar esto y nadie lo notaría?</span></li>
         </ul>
       </div>
     </div>
