@@ -274,6 +274,25 @@ h2 {
   color: #e8e8e8;
 }
 
+/* Highlight — brand color para ejemplo destacado */
+.demo-step[data-type="highlight"] {
+  background: var(--brand);
+  border-left: 4px solid rgba(0,0,0,0.2);
+}
+
+.demo-step[data-type="highlight"] .step-num {
+  color: rgba(255,255,255,0.7);
+}
+
+.demo-step[data-type="highlight"] .step-label {
+  color: rgba(255,255,255,0.85);
+}
+
+.demo-step[data-type="highlight"] .step-cmd {
+  color: #fff;
+  background: rgba(0,0,0,0.15);
+}
+
 .demo-step.hidden {
   opacity: 0;
   pointer-events: none;
@@ -321,6 +340,10 @@ h2 {
 
 .demo-step[data-type="action"] .step-desc {
   color: #e8e8e8;
+}
+
+.demo-step[data-type="highlight"] .step-desc {
+  color: rgba(255,255,255,0.9);
 }
 
 /* ── navigation ── */
@@ -432,6 +455,19 @@ h2 {
   height: 6px;
   background: var(--brand);
   margin-top: 0.4rem;
+}
+
+/* ── links in checklist ── */
+.checklist a {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.checklist a:hover {
+  color: var(--brand);
+  text-decoration: underline;
 }
 </style>
 </head>
@@ -955,13 +991,13 @@ h2 {
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8</span>
     </div>
-    <h2>Skills, Prompts, Subagents &amp; MCP</h2>
+    <h2>Prompts, Skills, Subagents &amp; MCP</h2>
     <table class="comp-table">
       <thead>
         <tr>
           <th></th>
-          <th>Skills</th>
           <th>Prompts</th>
+          <th>Skills</th>
           <th>Subagents</th>
           <th>MCP</th>
         </tr>
@@ -969,31 +1005,45 @@ h2 {
       <tbody>
         <tr>
           <td>Qué aporta</td>
-          <td>Conocimiento procedimental</td>
-          <td>Instrucciones momento a momento</td>
-          <td>Delegación de tareas</td>
-          <td>Conectividad con herramientas</td>
+          <td>Instrucciones paso a paso</td>
+          <td> Procedimientos reutilizables entre sesiones</td>
+          <td>Delegación de tareas con contexto aislado</td>
+          <td>Conectividad con herramientas externas</td>
         </tr>
         <tr>
           <td>Persistencia</td>
+          <td>Una sola conversación</td>
           <td>Entre conversaciones</td>
-          <td>Una conversación</td>
           <td>Entre sesiones</td>
           <td>Conexión continua</td>
         </tr>
         <tr>
+          <td>Contiene</td>
+          <td>Lenguaje natural</td>
+          <td>Instrucciones + código + assets</td>
+          <td>Lógica completa de agente</td>
+          <td>Definiciones de herramientas</td>
+        </tr>
+        <tr>
           <td>Se carga</td>
-          <td>Dinámicamente, cuando hace falta</td>
           <td>Cada turno</td>
-          <td>Al invocarlo</td>
+          <td>Dinámicamente, cuando es relevante</td>
+          <td>Cuando se invoca</td>
           <td>Siempre disponible</td>
         </tr>
         <tr>
+          <td>Incluye código</td>
+          <td>No</td>
+          <td>Sí</td>
+          <td>Sí</td>
+          <td>Sí</td>
+        </tr>
+        <tr>
           <td>Ideal para</td>
-          <td>Expertise especializado</td>
-          <td>Peticiones rápidas</td>
-          <td>Tareas especializadas</td>
-          <td>Acceso a datos</td>
+          <td>Peticiones rápidas y puntuales</td>
+          <td>Conocimiento especializado y reutilizable </td>
+          <td>Tareas especializadas con permisos propios</td>
+          <td>Acceso a datos y sistemas externos</td>
         </tr>
       </tbody>
     </table>
@@ -1076,41 +1126,56 @@ h2 {
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8 · Plugins</span>
     </div>
-    <h2>Anatomía de un plugin con agentes</h2>
+    <h2>Plugina para agrupar skills, agentes, MCPs</h2>
     <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="prompt">
-        <span class="step-num">⌘</span>
+      <div class="demo-step hidden" data-step="1" data-type="highlight">
+        <span class="step-num">🔗</span>
         <div class="step-body">
-          <span class="step-label">Slash Commands</span>
-          <p class="step-desc">Workflows completos invocables con <code>/nombre</code>.<br>Ej: <code>/research_codebase</code>, <code>/create_plan</code>, <code>/deep_research</code></p>
+          <code class="step-cmd">github.com/nikeyes/stepwise-dev</code>
+          <span class="step-label">Plugin que agrupa research, plan, implement & validate</span>
         </div>
       </div>
       <div class="demo-step hidden" data-step="2" data-type="prompt">
+        <span class="step-num">⌘</span>
+        <div class="step-body">
+          <span class="step-label">Slash Commands</span>
+          <p class="step-desc">Workflows completos invocables con <code>/nombre</code>.<br>Ej: <code>/research_codebase</code>, <code>/create_plan</code>, <code>/iterate_plan</code>, <code>/implement_plan</code>, <code>/validate_plan</code>, <code>/deep_research</code></p>
+        </div>
+      </div>
+      <div class="demo-step hidden" data-step="3" data-type="prompt">
         <span class="step-num">🤖</span>
         <div class="step-body">
           <span class="step-label">Subagentes</span>
           <p class="step-desc">Agentes especializados que Claude delega automáticamente.<br>Ej: <code>codebase-analyzer</code>, <code>web-search-researcher</code>, <code>citation-analyst</code></p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="3" data-type="prompt">
+      <div class="demo-step hidden" data-step="4" data-type="prompt">
         <span class="step-num">📘</span>
         <div class="step-body">
           <span class="step-label">Skills</span>
-          <p class="step-desc">Conocimiento procedimental que se carga bajo demanda.<br>Ej: gestión de <code>thoughts/</code>, generación de informes con citas</p>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="4" data-type="action">
-        <span class="step-num">🔗</span>
-        <div class="step-body">
-          <span class="step-label">Ejemplo · stepwise-dev</span>
-          <code class="step-cmd">github.com/nikeyes/stepwise-dev</code>
+          <p class="step-desc">Conocimiento procedimental que se carga bajo demanda.<br>Ej: gestión de conocimiento en <code>thoughts/</code> o generación de informes con citas</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- __ SLIDE 25: Transición Bloque 2 ── -->
-  <div class="slide slide-break" id="slide-25">
+  <!-- ── SLIDE 25: Recursos útiles ── -->
+  <div class="slide" id="slide-25">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Recursos útiles</span>
+    </div>
+    <h2>Recursos para AI-Driven Development</h2>
+    <ul class="checklist">
+      <li><span><strong>📚 Documentación:</strong> <a href="https://code.claude.com/docs/en/best-practices" target="_blank">Best Practices</a>, <a href="https://code.claude.com/docs/en/common-workflows" target="_blank">Common Workflows</a>, <a href="https://www.humanlayer.dev/blog/writing-a-good-claude-md" target="_blank">writing good CLAUDE.md</a></span></li>
+      <li><span><strong>🔌 Plugins de Anthropic:</strong> <a href="https://claude.com/plugins#plugins" target="_blank">Claude Code plugins</a>, <a href="https://claude.com/plugins/pyright-lsp" target="_blank">Pyright LSP</a></span></li>
+      <li><span><strong>🛠️ Skills que yo uso:</strong> <a href="https://github.com/anthropics/skills" target="_blank">/simplify</a>, <a href="https://github.com/eferro/skill-factory" target="_blank">/test-desiderata, /hamburger-method, /small-safe-steps, /story-splitting</a></span></li>
+      <li><span><strong>🔧 Mi propio Plugin:</strong> <a href="https://github.com/nikeyes/stepwise-dev" target="_blank">stepwise-dev</a> para research, plan, implement, validate workflows</span></li>
+    </ul>
+  </div>
+
+  <!-- __ SLIDE 26: Transición Bloque 2 ── -->
+  <div class="slide slide-break" id="slide-26">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 2 — 1h</span>
@@ -1119,8 +1184,8 @@ h2 {
     <div class="accent-bar"></div>
   </div>
 
-  <!-- ── SLIDE 26: Bloque 2 — Tu ticket ── -->
-  <div class="slide" id="slide-26">
+  <!-- ── SLIDE 27: Bloque 2 — Tu ticket ── -->
+  <div class="slide" id="slide-27">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 2 · 1h</span>
@@ -1134,8 +1199,8 @@ h2 {
     </ul>
   </div>
 
-  <!-- ── SLIDE 27: Bloque 2 — guía durante la sesión ── -->
-  <div class="slide" id="slide-27">
+  <!-- ── SLIDE 28: Bloque 2 — guía durante la sesión ── -->
+  <div class="slide" id="slide-28">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 2 · Guía</span>
@@ -1150,8 +1215,8 @@ h2 {
     </ul>
   </div>
 
-  <!-- ── SLIDE 28: Transición Bloque 3 ── -->
-  <div class="slide slide-break" id="slide-28">
+  <!-- ── SLIDE 29: Transición Bloque 3 ── -->
+  <div class="slide slide-break" id="slide-29">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 3 — 20 min</span>
@@ -1160,8 +1225,8 @@ h2 {
     <div class="accent-bar"></div>
   </div>
 
-  <!-- ── SLIDE 29: Bloque 3 — Retro ── -->
-  <div class="slide" id="slide-29">
+  <!-- ── SLIDE 30: Bloque 3 — Retro ── -->
+  <div class="slide" id="slide-30">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 3 · 20 min</span>
