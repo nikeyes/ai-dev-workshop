@@ -113,8 +113,8 @@ h2 {
 
 /* ── code block ── */
 .code-block {
-  background: #111;
-  color: #e8e8e8;
+  background: #e8e0d8;
+  color: #333;
   border-radius: 10px;
   padding: clamp(0.8rem, 1.8vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
   font-family: 'Courier New', monospace;
@@ -130,7 +130,7 @@ h2 {
 }
 
 .code-block .cmd {
-  color: #e8e8e8;
+  color: #333;
 }
 
 /* ── tip box ── */
@@ -142,6 +142,15 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+}
+
+.tip-box--warning {
+  border-left-color: #d97706;
+  background: #fef3c7;
+}
+
+.tip-box--warning .tip-label {
+  color: #92400e;
 }
 
 .tip-box .tip-label {
@@ -225,8 +234,8 @@ h2 {
 }
 
 .cmd-pill {
-  background: #111;
-  color: #e8e8e8;
+  background: #e8e0d8;
+  color: #333;
   font-family: 'Courier New', monospace;
   font-size: clamp(1.2rem, 2.4vw, 2.2rem);
   font-weight: 700;
@@ -256,22 +265,47 @@ h2 {
   border-left: 4px solid var(--brand);
 }
 
-/* Acción terminal — fondo oscuro, borde gris */
+/* Acción terminal — beige */
 .demo-step[data-type="action"] {
-  background: #111;
-  border-left: 4px solid #555;
+  background: #e8e0d8;
+  border-left: none;
+  border-radius: 10px;
 }
 
 .demo-step[data-type="action"] .step-num {
-  color: #888;
+  color: #666;
 }
 
 .demo-step[data-type="action"] .step-label {
-  color: #888;
+  color: #666;
 }
 
 .demo-step[data-type="action"] .step-cmd {
-  color: #e8e8e8;
+  color: #333;
+  background: rgba(0,0,0,0.08);
+}
+
+/* Warning — aviso amarillo ámbar */
+.demo-step[data-type="warning"] {
+  background: #fef3c7;
+  border-left: 4px solid #d97706;
+}
+
+.demo-step[data-type="warning"] .step-num {
+  color: #d97706;
+}
+
+.demo-step[data-type="warning"] .step-label {
+  color: #92400e;
+}
+
+.demo-step[data-type="warning"] .step-cmd {
+  color: #1c1917;
+  background: rgba(0,0,0,0.06);
+}
+
+.demo-step[data-type="warning"] .step-desc {
+  color: #1c1917;
 }
 
 /* Highlight — brand color para ejemplo destacado */
@@ -339,7 +373,7 @@ h2 {
 }
 
 .demo-step[data-type="action"] .step-desc {
-  color: #e8e8e8;
+  color: #444;
 }
 
 .demo-step[data-type="highlight"] .step-desc {
@@ -513,7 +547,7 @@ h2 {
 <span class="prompt">$</span><span class="cmd"> docker compose run --rm app uv run pytest</span></div>
     <div class="tip-box">
       <span class="tip-label">Check</span>
-      <p>Los tests tienen que pasar antes de empezar.<br>Si algo falla, avisa ahora, no durante el workshop.</p>
+      <p>Los tests tienen que pasar antes de empezar.<br>Si algo falla, avisa ahora.</p>
     </div>
   </div>
 
@@ -529,7 +563,7 @@ h2 {
 <span class="prompt">$</span><span class="cmd"> claude "hola, di solo 'listo'"</span></div>
     <div class="tip-box">
       <span class="tip-label">Regla</span>
-      <p>No seguimos hasta que <strong>todos</strong> tengan Claude Code funcionando.</p>
+      <p>No seguimos hasta que <strong>todos</strong> tengáis Claude Code funcionando.</p>
     </div>
   </div>
 
@@ -539,7 +573,7 @@ h2 {
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 1</span>
     </div>
-    <h2>Ver el estado en cualquier momento</h2>
+    <h2>Ver el estado de Claude Code</h2>
     <div class="code-block"><span class="prompt">></span><span class="cmd"> /doctor</span></div>
     <div class="tip-box">
       <span class="tip-label">Doctor</span>
@@ -569,7 +603,7 @@ h2 {
 
   <!-- ── SLIDE 7: Regla de oro ── -->
   <div class="slide slide-quote" id="slide-7">
-    <blockquote>Si no puedes explicar en una frase qué tiene que hacer el agente,<br>el agente tampoco lo va a saber.</blockquote>
+    <blockquote>Antes tardabas 2 horas en escribir código malo.<br>Ahora tardas 2 segundos.<br><br>Si no sabes explicar lo que quieres y no le das el contexto suficiente, el agente tampoco sabrá hacerlo bien.</blockquote>
   </div>
 
   <!-- ── SLIDE 8: Modelos — tabla ── -->
@@ -611,29 +645,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 8: CLAUDE.md — qué es ── -->
-  <div class="slide" id="slide-9">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 3</span>
-    </div>
-    <h2>Memoria de los agentes</h2>
-    <div class="tip-box">
-      <span class="tip-label">Sin CLAUDE.md</span>
-      <p>El agente empieza cada sesión desde cero.<br>Es como contratar a alguien nuevo cada día.</p>
-    </div>
-    <div class="tip-box">
-      <span class="tip-label">Con CLAUDE.md</span>
-      <p>El agente tiene contexto persistente: convenciones del proyecto, cómo validar cambios, qué evitar.<br>No tienes que repetirlo nunca más.</p>
-    </div>
-    <div class="tip-box">
-      <span class="tip-label">Con Rules</span>
-      <p>Reglas específicas que el agente aplica siempre, organizadas por módulo o tipo de tarea.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 9: CLAUDE.md — demo ── -->
-  <div class="slide" id="slide-10" data-reveal="6">
+  <!-- ── SLIDE 8: CLAUDE.md — demo ── -->
+  <div class="slide" id="slide-9" data-reveal="6">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 3 · Demo</span>
@@ -682,6 +695,27 @@ h2 {
           <code class="step-cmd">Comprueba si el proyecto está ready</code>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 9b: CLAUDE.md — qué es ── -->
+  <div class="slide" id="slide-10">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Bloque 1 · Paso 3</span>
+    </div>
+    <h2>Memoria de los agentes</h2>
+    <div class="tip-box">
+      <span class="tip-label">Sin CLAUDE.md</span>
+      <p>El agente empieza cada sesión desde cero.<br>Es como contratar a alguien nuevo cada día.</p>
+    </div>
+    <div class="tip-box">
+      <span class="tip-label">Con CLAUDE.md</span>
+      <p>El agente tiene contexto persistente: convenciones del proyecto, cómo validar cambios, qué evitar.<br>No tienes que repetirlo nunca más.</p>
+    </div>
+    <div class="tip-box">
+      <span class="tip-label">Con Rules</span>
+      <p>Reglas específicas que el agente aplica siempre, organizadas por módulo o tipo de tarea.</p>
     </div>
   </div>
 
@@ -754,7 +788,7 @@ h2 {
       <p>Muestra cuánto contexto llevas consumido en la sesión actual.<br>Puedes activarlo permanentemente en la status bar.</p>
     </div>
     <div class="code-block"><span class="prompt">></span><span class="cmd"> /compact</span></div>
-    <div class="tip-box">
+    <div class="tip-box tip-box--warning">
       <span class="tip-label">⚠️ /compact — con cuidado</span>
       <p>Claude lo ejecuta solo cuando no queda espacio.<br>Puede perder contexto crítico que no has guardado.<br>Puedes ejecutarlo manualemente.</p>
     </div>
@@ -778,8 +812,54 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 14: Permisos — jerarquía settings ── -->
-  <div class="slide" id="slide-15">
+  <!-- ── SLIDE 14: Permisos — allow / deny ── -->
+  <div class="slide" id="slide-15" data-reveal="5">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Bloque 1 · Paso 5 · Demo</span>
+    </div>
+    <h2>Allow &amp; Deny</h2>
+    <div class="demo-steps">
+      <div class="demo-step hidden" data-step="1" data-type="prompt">
+        <span class="step-num">✓</span>
+        <div class="step-body">
+          <span class="step-label">Allow</span>
+          <p class="step-desc">Herramientas que Claude puede usar sin preguntar.<br>Añádelas durante la sesión respondiendo "yes, always" o directamente en <code>settings.json</code>.</p>
+        </div>
+      </div>
+      <div class="demo-step hidden" data-step="2" data-type="prompt">
+        <span class="step-num">✗</span>
+        <div class="step-body">
+          <span class="step-label">Deny</span>
+          <p class="step-desc">Herramientas que Claude nunca puede usar, aunque se lo pidas.<br>Útil para proteger comandos destructivos en producción.</p>
+        </div>
+      </div>
+      <div class="demo-step hidden" data-step="3" data-type="prompt">
+        <span class="step-num">1</span>
+        <div class="step-body">
+          <span class="step-label">Prompt</span>
+          <code class="step-cmd">Ejecuta los tests del proyecto</code>
+        </div>
+      </div>
+      <div class="demo-step hidden" data-step="4" data-type="action">
+        <span class="step-num">→</span>
+        <div class="step-body">
+          <span class="step-label">Claude pide permiso</span>
+          <code class="step-cmd">Acepta con "yes, always" para añadirlo al allow</code>
+        </div>
+      </div>
+      <div class="demo-step hidden" data-step="5" data-type="prompt">
+        <span class="step-num">2</span>
+        <div class="step-body">
+          <span class="step-label">Prompt — esta vez no pregunta</span>
+          <code class="step-cmd">Ejecuta los tests del proyecto</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 15b: Permisos — jerarquía settings ── -->
+  <div class="slide" id="slide-16">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 5</span>
@@ -813,52 +893,6 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 15: Permisos — allow / deny ── -->
-  <div class="slide" id="slide-16" data-reveal="5">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 5 · Demo</span>
-    </div>
-    <h2>Allow &amp; Deny</h2>
-    <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="prompt">
-        <span class="step-num">✓</span>
-        <div class="step-body">
-          <span class="step-label">Allow</span>
-          <p class="step-desc">Herramientas que Claude puede usar sin preguntar.<br>Añádelas durante la sesión respondiendo "yes, always" o directamente en <code>settings.json</code>.</p>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="2" data-type="action">
-        <span class="step-num">✗</span>
-        <div class="step-body">
-          <span class="step-label">Deny</span>
-          <p class="step-desc">Herramientas que Claude nunca puede usar, aunque se lo pidas.<br>Útil para proteger comandos destructivos en producción.</p>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="3" data-type="prompt">
-        <span class="step-num">1</span>
-        <div class="step-body">
-          <span class="step-label">Prompt</span>
-          <code class="step-cmd">Ejecuta los tests del proyecto</code>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="4" data-type="action">
-        <span class="step-num">→</span>
-        <div class="step-body">
-          <span class="step-label">Claude pide permiso</span>
-          <code class="step-cmd">Acepta con "yes, always" para añadirlo al allow</code>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="5" data-type="prompt">
-        <span class="step-num">2</span>
-        <div class="step-body">
-          <span class="step-label">Prompt — esta vez no pregunta</span>
-          <code class="step-cmd">Ejecuta los tests del proyecto</code>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- ── SLIDE 16: Rewind ── -->
   <div class="slide" id="slide-17" data-reveal="4">
     <div class="eyebrow">
@@ -888,7 +922,7 @@ h2 {
           <code class="step-cmd">Deshace el último turno del agente</code>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="4" data-type="action">
+      <div class="demo-step hidden" data-step="4" data-type="warning">
         <span class="step-num">⚠️</span>
         <div class="step-body">
           <span class="step-label">Aviso</span>
@@ -1193,9 +1227,9 @@ h2 {
     <h2>Tu ticket, tu repo</h2>
     <ul class="checklist">
       <li><span>Cada persona trabaja su <strong>propio ticket</strong>.</span></li>
-      <li><span>El objetivo <strong>no es terminar</strong> el ticket entero.</span></li>
-      <li><span>El objetivo es <strong>aprender a usar y configurar</strong> Claude Code con código real vuestro.</span></li>
-      <li><span>Al principio iréis inseguros y lentos.<br>Cuando tengáis el repo configurado, <strong>iréis volando</strong>.</span></li>
+      <li><span>El objetivo <strong>no es terminar</strong> el ticket.</span></li>
+      <li><span>El objetivo es <strong>aprender a usar y configurar</strong> Claude Code con vuestros repos.</span></li>
+      <li><span>Al principio iréis inseguros y lentos. Cuando tengáis el repo configurado, <strong>iréis volando</strong>.</span></li>
     </ul>
   </div>
 
@@ -1207,11 +1241,13 @@ h2 {
     </div>
     <h2>Mientras trabajas</h2>
     <ul class="checklist">
+      <li><span>Si no tienes un workflow de desarrollo con IA, empieza con <em>Plan Mode</em>.</span></li>
       <li><span>Configura los <strong>permisos</strong> que necesitas para tu ticket de forma iterativa.</span></li>
       <li><span>Si Claude Code no se comporta como esperas, añádelo al <strong>CLAUDE.md o a las Rules</strong>.</span></li>
       <li><span>Si escribes el mismo prompt más de 2 veces: <strong>sácalo a una Skill</strong>.</span></li>
       <li><span>Fíjate en cómo se va <strong>llenando el contexto</strong>.</span></li>
       <li><span>Añade <strong>hooks</strong> para el linter, formatter u otras validaciones.</span></li>
+      
     </ul>
   </div>
 
