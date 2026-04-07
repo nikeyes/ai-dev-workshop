@@ -1,4 +1,6 @@
 __pycache__/
 .pytest_cache/
 .coverage
+.mutmut-cache
+mutants/
 .venv/

@@ -14,6 +14,7 @@ dev = [
     "pytest-cov>=6.0.0",
     "httpx>=0.27.0",
     "ruff>=0.8.0",
+    "mutmut>=3.0.0",
 ]
 
 [tool.pytest.ini_options]
@@ -29,6 +30,9 @@ quote-style = "single"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/app"]
+
+[tool.mutmut]
+paths_to_mutate = ["src/"]
 
 [build-system]
 requires = ["hatchling"]

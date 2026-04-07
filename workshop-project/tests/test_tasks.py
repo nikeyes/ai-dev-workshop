@@ -13,6 +13,20 @@ def reset_state():
     main_module._next_id = 1
 
 
+def test_summarize_tasks_counts_total():
+    from app.main import summarize_tasks
+
+    task_list = [
+        {'id': 1, 'title': 'Done task', 'done': True},
+        {'id': 2, 'title': 'Pending task', 'done': False},
+        {'id': 3, 'title': 'Another pending', 'done': False},
+    ]
+
+    result = summarize_tasks(task_list)
+
+    assert result['total'] == 3
+
+
 def test_list_tasks_returns_empty_list_initially():
     response = client.get('/tasks')
     assert response.status_code == 200

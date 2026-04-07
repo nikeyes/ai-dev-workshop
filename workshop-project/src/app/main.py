@@ -19,6 +19,14 @@ class Task(BaseModel):
     done: bool
 
 
+def summarize_tasks(task_list: list[dict]) -> dict:
+    total = len(task_list)
+    done = len([t for t in task_list if t['done']])
+    pending = total - done
+    progress = (done * 100) // total if total > 0 else 0
+    return {'total': total, 'done': done, 'pending': pending, 'progress': progress}
+
+
 @app.get('/tasks', response_model=list[Task])
 def list_tasks():
     return list(tasks.values())
