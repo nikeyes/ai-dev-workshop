@@ -372,6 +372,15 @@ wheels = [
 ]
 
 [[package]]
+name = "networkx"
+version = "3.6.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/6a/51/63fe664f3908c97be9d2e4f1158eb633317598cfa6e1fc14af5383f17512/networkx-3.6.1.tar.gz", hash = "sha256:26b7c357accc0c8cde558ad486283728b65b6a95d85ee1cd66bafab4c8168509", size = 2517025, upload-time = "2025-12-08T17:02:39.908Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4/networkx-3.6.1-py3-none-any.whl", hash = "sha256:d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762", size = 2068504, upload-time = "2025-12-08T17:02:38.159Z" },
+]
+
+[[package]]
 name = "packaging"
 version = "26.0"
 source = { registry = "https://pypi.org/simple" }
@@ -521,6 +530,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/b1/51/a849f96e117386044471c8ec2bd6cfebacda285da9525c9106aeb28da671/pytest_cov-7.1.0.tar.gz", hash = "sha256:30674f2b5f6351aa09702a9c8c364f6a01c27aae0c1366ae8016160d1efc56b2", size = 55592, upload-time = "2026-03-21T20:11:16.284Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/9d/7a/d968e294073affff457b041c2be9868a40c1c71f4a35fcc1e45e5493067b/pytest_cov-7.1.0-py3-none-any.whl", hash = "sha256:a0461110b7865f9a271aa1b51e516c9a95de9d696734a2f71e3e78f46e1d4678", size = 22876, upload-time = "2026-03-21T20:11:14.438Z" },
+]
+
+[[package]]
+name = "pytestarch"
+version = "4.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "networkx" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/42/a2/88b37e1133457c224155c29ae3619915977063e44fbf0d1780012aeb6a3e/pytestarch-4.0.1.tar.gz", hash = "sha256:2f288eb8a8a818d3d89a45180d1756c4db2885a7a1281c4ac019665ed97db6b9", size = 42727, upload-time = "2025-08-08T12:54:43.928Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ac/6e/8b6079324672f03fd4b914345ecd2df95a04caf658faf4d7f7e7fa97d543/pytestarch-4.0.1-py3-none-any.whl", hash = "sha256:4dd5adc363b3e1fde72d4b34564f03e62f715cc5e38f1c3a347b0f1cc92168fe", size = 61982, upload-time = "2025-08-08T12:54:42.818Z" },
 ]
 
 [[package]]
@@ -944,6 +965,7 @@ dev = [
     { name = "mutmut" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "pytestarch" },
     { name = "ruff" },
 ]
 
@@ -959,5 +981,6 @@ dev = [
     { name = "mutmut", specifier = ">=3.0.0" },
     { name = "pytest", specifier = ">=8.0.0" },
     { name = "pytest-cov", specifier = ">=6.0.0" },
+    { name = "pytestarch", specifier = ">=4.0.0" },
     { name = "ruff", specifier = ">=0.8.0" },
 ]

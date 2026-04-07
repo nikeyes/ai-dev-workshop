@@ -1,0 +1,5 @@
+@startuml
+[src.app.main] --> [src.app.routes]
+[src.app.routes] --> [src.app.service]
+[src.app.routes] --> [src.app.models]
+@enduml

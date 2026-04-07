@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-import app.main as main_module
+import app.service as service_module
 from app.main import app
 
 client = TestClient(app)
@@ -9,12 +9,12 @@ client = TestClient(app)
 
 @pytest.fixture(autouse=True)
 def reset_state():
-    main_module.tasks.clear()
-    main_module._next_id = 1
+    service_module.tasks.clear()
+    service_module._next_id = 1
 
 
 def test_summarize_tasks_counts_total():
-    from app.main import summarize_tasks
+    from app.service import summarize_tasks
 
     task_list = [
         {'id': 1, 'title': 'Done task', 'done': True},

@@ -8,3 +8,4 @@
 - Mutation testing: `docker compose run --rm app uv run mutmut run`
 - Mutation browse:  `docker compose run --rm app uv run mutmut browse`
 - Apply mutant:     `docker compose run --rm app uv run mutmut apply <mutant>`
+- Arch tests:       `docker compose run --rm app uv run pytest tests/test_architecture.py`
