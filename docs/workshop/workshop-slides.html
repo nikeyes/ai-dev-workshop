@@ -568,34 +568,24 @@ h2 {
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Antes de empezar</span>
     </div>
-    <h2>Prerequisitos</h2>
+    <h2>Prerrequisitos</h2>
     <ul class="checklist">
       <li><span>Claude Code <strong>instalado y configurado</strong> con Bedrock</span></li>
       <li><span>Haber ejecutado al menos una vez <code>claude</code> en terminal</span></li>
-      <li><span>Tener descargado el <strong>proyecto del workshop</strong></span></li>
-      <li><span>Haber ejecutado <strong>build y tests</strong> con Docker</span></li>
+      <li><span><strong>Docker</strong> instalado y funcionando</span></li>
+      <li><span>Clonar el <a href="https://github.com/nikeyes/ai-dev-workshop" target="_blank">repo del workshop</a> y levantar el proyecto:</span></li>
+    </ul>
+    <div class="code-block"><span class="prompt">$</span><span class="cmd"> git clone https://github.com/nikeyes/ai-dev-workshop.git</span>
+<span class="prompt">$</span><span class="cmd"> cd ai-dev-workshop</span>
+<span class="prompt">$</span><span class="cmd"> docker compose build</span>
+<span class="prompt">$</span><span class="cmd"> docker compose run --rm app uv run pytest</span></div>
+    <ul class="checklist">
       <li><span>Traer un <strong>ticket pequeño/mediano</strong> del equipo</span></li>
     </ul>
   </div>
 
-  <!-- ── SLIDE 3: Setup Docker ── -->
+  <!-- ── SLIDE 3: Verificar el entorno ── -->
   <div class="slide" id="slide-3">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Prerequisitos · Setup</span>
-    </div>
-    <h2>Levantar el proyecto</h2>
-    <div class="code-block"><span class="prompt">$</span><span class="cmd"> cd workshop-project</span>
-<span class="prompt">$</span><span class="cmd"> docker compose build</span>
-<span class="prompt">$</span><span class="cmd"> docker compose run --rm app uv run pytest</span></div>
-    <div class="tip-box">
-      <span class="tip-label">Check</span>
-      <p>Los tests tienen que pasar antes de empezar.<br>Si algo falla, avisa ahora.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 4: Verificar el entorno ── -->
-  <div class="slide" id="slide-4">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 1</span>
@@ -610,8 +600,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 5: Estado del entorno ── -->
-  <div class="slide" id="slide-5">
+  <!-- ── SLIDE 4: Estado del entorno ── -->
+  <div class="slide" id="slide-4">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 1</span>
@@ -629,8 +619,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 6: Tips de sesión ── -->
-  <div class="slide" id="slide-6">
+  <!-- ── SLIDE 5: Tips de sesión ── -->
+  <div class="slide" id="slide-5">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Tips</span>
@@ -644,13 +634,13 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 7: Regla de oro ── -->
-  <div class="slide slide-quote" id="slide-7" data-reveal="1">
+  <!-- ── SLIDE 6: Regla de oro ── -->
+  <div class="slide slide-quote" id="slide-6" data-reveal="1">
     <blockquote>Antes tardabas 2 horas en escribir código malo.<br>Ahora tardas 2 segundos.<span data-step="1" class="hidden"><br><br>Si no sabes explicar lo que quieres y no le das el contexto suficiente, el agente tampoco sabrá hacerlo bien.</span></blockquote>
   </div>
 
-  <!-- ── SLIDE 8: Modelos — tabla ── -->
-  <div class="slide" id="slide-8" data-reveal="5">
+  <!-- ── SLIDE 7: Modelos — tabla ── -->
+  <div class="slide" id="slide-7" data-reveal="5">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 2</span>
@@ -694,8 +684,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 8: CLAUDE.md — demo ── -->
-  <div class="slide" id="slide-9" data-reveal="6">
+  <!-- ── SLIDE 7: CLAUDE.md — demo ── -->
+  <div class="slide" id="slide-8" data-reveal="6">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 3 · Demo</span>
@@ -748,7 +738,7 @@ h2 {
   </div>
 
   <!-- ── SLIDE 9b: CLAUDE.md — qué es ── -->
-  <div class="slide" id="slide-10">
+  <div class="slide" id="slide-9">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 3</span>
@@ -768,8 +758,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 10: CLAUDE.md — buenas prácticas ── -->
-  <div class="slide" id="slide-11">
+  <!-- ── SLIDE 9: CLAUDE.md — buenas prácticas ── -->
+  <div class="slide" id="slide-10">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 3 · Buenas prácticas</span>
@@ -785,8 +775,8 @@ h2 {
     </ul>
   </div>
 
-  <!-- ── SLIDE 11: CLAUDE.md — jerarquía ── -->
-  <div class="slide" id="slide-12">
+  <!-- ── SLIDE 10: CLAUDE.md — jerarquía ── -->
+  <div class="slide" id="slide-11">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 3 · Jerarquía</span>
@@ -824,8 +814,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 12: Contexto ── -->
-  <div class="slide" id="slide-13">
+  <!-- ── SLIDE 11: Contexto ── -->
+  <div class="slide" id="slide-12">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 4</span>
@@ -843,8 +833,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 13: Contexto — add-dir ── -->
-  <div class="slide" id="slide-14">
+  <!-- ── SLIDE 12: Contexto — add-dir ── -->
+  <div class="slide" id="slide-13">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 4</span>
@@ -861,8 +851,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 14: Permisos — allow / deny ── -->
-  <div class="slide" id="slide-15" data-reveal="5">
+  <!-- ── SLIDE 13: Permisos — allow / deny ── -->
+  <div class="slide" id="slide-14" data-reveal="5">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 5 · Demo</span>
@@ -908,7 +898,7 @@ h2 {
   </div>
 
   <!-- ── SLIDE 15b: Permisos — jerarquía settings ── -->
-  <div class="slide" id="slide-16">
+  <div class="slide" id="slide-15">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 5</span>
@@ -942,8 +932,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 16: Rewind ── -->
-  <div class="slide" id="slide-17" data-reveal="4">
+  <!-- ── SLIDE 15: Rewind ── -->
+  <div class="slide" id="slide-16" data-reveal="4">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 6</span>
@@ -981,8 +971,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 17: Hooks — qué son ── -->
-  <div class="slide" id="slide-18">
+  <!-- ── SLIDE 16: Hooks — qué son ── -->
+  <div class="slide" id="slide-17">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 7</span>
@@ -1015,8 +1005,8 @@ h2 {
     </table>
   </div>
 
-  <!-- ── SLIDE 18: Hooks — demo ── -->
-  <div class="slide" id="slide-19" data-reveal="3">
+  <!-- ── SLIDE 17: Hooks — demo ── -->
+  <div class="slide" id="slide-18" data-reveal="3">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 7 · Demo</span>
@@ -1047,8 +1037,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 19: Agents & Skills — qué son ── -->
-  <div class="slide" id="slide-20" data-hidden>
+  <!-- ── SLIDE 18: Agents & Skills — qué son ── -->
+  <div class="slide" id="slide-19" data-hidden>
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8</span>
@@ -1068,8 +1058,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 20: Skills vs Prompts vs Subagents vs MCP ── -->
-  <div class="slide" id="slide-21">
+  <!-- ── SLIDE 19: Skills vs Prompts vs Subagents vs MCP ── -->
+  <div class="slide" id="slide-20">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8</span>
@@ -1132,8 +1122,8 @@ h2 {
     </table>
   </div>
 
-  <!-- ── SLIDE 22: Skills — demo ── -->
-  <div class="slide" id="slide-22" data-reveal="3">
+  <!-- ── SLIDE 21: Skills — demo ── -->
+  <div class="slide" id="slide-21" data-reveal="3">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8 · Demo</span>
@@ -1164,8 +1154,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 23: Skills del equipo ── -->
-  <div class="slide" id="slide-23">
+  <!-- ── SLIDE 22: Skills del equipo ── -->
+  <div class="slide" id="slide-22">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8 · Skills útiles</span>
@@ -1203,8 +1193,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 24: Plugins — anatomía ── -->
-  <div class="slide" id="slide-24" data-reveal="4">
+  <!-- ── SLIDE 23: Plugins — anatomía ── -->
+  <div class="slide" id="slide-23" data-reveal="4">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8 · Plugins</span>
@@ -1242,8 +1232,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 25: Recursos útiles ── -->
-  <div class="slide" id="slide-25">
+  <!-- ── SLIDE 24: Recursos útiles ── -->
+  <div class="slide" id="slide-24">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Recursos útiles</span>
@@ -1257,8 +1247,8 @@ h2 {
     </ul>
   </div>
 
-  <!-- __ SLIDE 26: Transición Bloque 2 ── -->
-  <div class="slide slide-break" id="slide-26">
+  <!-- __ SLIDE 25: Transición Bloque 2 ── -->
+  <div class="slide slide-break" id="slide-25">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 2 — 1h</span>
@@ -1267,8 +1257,8 @@ h2 {
     <div class="accent-bar"></div>
   </div>
 
-  <!-- ── SLIDE 27: Bloque 2 — Tu ticket ── -->
-  <div class="slide" id="slide-27">
+  <!-- ── SLIDE 26: Bloque 2 — Tu ticket ── -->
+  <div class="slide" id="slide-26">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 2 · 1h</span>
@@ -1282,8 +1272,8 @@ h2 {
     </ul>
   </div>
 
-  <!-- ── SLIDE 28: Bloque 2 — guía durante la sesión ── -->
-  <div class="slide" id="slide-28">
+  <!-- ── SLIDE 27: Bloque 2 — guía durante la sesión ── -->
+  <div class="slide" id="slide-27">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 2 · Guía</span>
@@ -1300,8 +1290,8 @@ h2 {
     </ul>
   </div>
 
-  <!-- ── SLIDE 29: Transición Bloque 3 ── -->
-  <div class="slide slide-break" id="slide-29">
+  <!-- ── SLIDE 28: Transición Bloque 3 ── -->
+  <div class="slide slide-break" id="slide-28">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 3 — 20 min</span>
@@ -1310,8 +1300,8 @@ h2 {
     <div class="accent-bar"></div>
   </div>
 
-  <!-- ── SLIDE 30: Bloque 3 — Retro ── -->
-  <div class="slide" id="slide-30">
+  <!-- ── SLIDE 29: Bloque 3 — Retro ── -->
+  <div class="slide" id="slide-29">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 3 · 20 min</span>
