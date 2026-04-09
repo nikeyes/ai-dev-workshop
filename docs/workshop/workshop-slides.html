@@ -619,28 +619,8 @@ h2 {
     </div>
   </div>
 
-  <!-- ── SLIDE 5: Tips de sesión ── -->
-  <div class="slide" id="slide-5">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Tips</span>
-    </div>
-    <h2>¿Claude Code se cerró en mitad de una tarea?</h2>
-    <div class="code-block"><span class="prompt">$</span><span class="cmd"> claude --continue   </span><span class="comment"># Reanuda la última sesión</span>
-<span class="prompt">$</span><span class="cmd"> claude --resume     </span><span class="comment"># Elige una sesión anterior</span></div>
-    <div class="tip-box">
-      <span class="tip-label">Recuerda</span>
-      <p>Las sesiones son <strong>por carpeta</strong>.<br>Asegúrate de estar en <code>workshop-project</code> antes de reanudar.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 6: Regla de oro ── -->
-  <div class="slide slide-quote" id="slide-6" data-reveal="1">
-    <blockquote>Antes tardabas 2 horas en escribir código malo.<br>Ahora tardas 2 segundos.<span data-step="1" class="hidden"><br><br>Si no sabes explicar lo que quieres y no le das el contexto suficiente, el agente tampoco sabrá hacerlo bien.</span></blockquote>
-  </div>
-
-  <!-- ── SLIDE 7: Modelos — tabla ── -->
-  <div class="slide" id="slide-7" data-reveal="5">
+  <!-- ── SLIDE 5: Modelos — tabla ── -->
+  <div class="slide" id="slide-5" data-reveal="5">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 2</span>
@@ -672,7 +652,7 @@ h2 {
         <span class="step-num">$</span>
         <div class="step-body">
           <span class="step-label">Coste</span>
-          <p class="step-desc"><code>/cost</code> con Bedrock · <code>/usage</code> con suscripción — gasto acumulado de la sesión o la subscripción</p>
+          <p class="step-desc"><code>/cost</code> con Bedrock · <code>/usage</code> con suscripción. Ver el gasto acumulado de la sesión o la subscripción</p>
         </div>
       </div>
       <div class="demo-step hidden" data-step="5">
@@ -682,6 +662,26 @@ h2 {
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- ── SLIDE 6: Tips de sesión ── -->
+  <div class="slide" id="slide-6">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Tips</span>
+    </div>
+    <h2>¿Claude Code se cerró en mitad de una tarea?</h2>
+    <div class="code-block"><span class="prompt">$</span><span class="cmd"> claude --continue   </span><span class="comment"># Reanuda la última sesión</span>
+<span class="prompt">$</span><span class="cmd"> claude --resume     </span><span class="comment"># Elige una sesión anterior</span></div>
+    <div class="tip-box">
+      <span class="tip-label">Recuerda</span>
+      <p>Las sesiones son <strong>por carpeta</strong>.<br>Asegúrate de estar en <code>workshop-project</code> antes de reanudar.</p>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 7: Regla de oro ── -->
+  <div class="slide slide-quote" id="slide-7" data-reveal="1">
+    <blockquote>Antes tardabas 2 horas en escribir código malo.<br>Ahora tardas 2 segundos.<span data-step="1" class="hidden"><br><br>Si no sabes explicar lo que quieres y no le das el contexto suficiente, el agente tampoco sabrá hacerlo bien.</span></blockquote>
   </div>
 
   <!-- ── SLIDE 7: CLAUDE.md — demo ── -->
@@ -980,7 +980,7 @@ h2 {
     <h2>Hooks — guardarraíles automáticos</h2>
     <div class="tip-box">
       <span class="tip-label">Qué son</span>
-      <p>Comandos que se ejecutan automáticamente en respuesta a acciones del agente.<br>El agente no los pide — simplemente ocurren.</p>
+      <p>Comandos que se ejecutan automáticamente en respuesta a acciones del agente.<br>El agente no los pide, simplemente ocurren.</p>
     </div>
     <table class="comp-table">
       <thead>
@@ -1181,6 +1181,14 @@ h2 {
           <td><code>/small-safe-steps</code></td>
           <td>Incrementos pequeños, cada uno desplegable de forma independiente</td>
         </tr>
+        <tr>
+          <td><code>/test-desiderata</code></td>
+          <td>Analiza y mejora la calidad de los tests usando los desiderata de Kent Beck</td>
+        </tr>
+        <tr>
+          <td><code>/simplify</code></td>
+          <td>Revisa el código recién escrito y lo simplifica sin perder funcionalidad</td>
+        </tr>
       </tbody>
     </table>
     <div class="tip-box">
@@ -1199,7 +1207,7 @@ h2 {
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Bloque 1 · Paso 8 · Plugins</span>
     </div>
-    <h2>Plugina para agrupar skills, agentes, MCPs</h2>
+    <h2>Plugins para agrupar skills, agentes, MCPs</h2>
     <div class="demo-steps">
       <div class="demo-step hidden" data-step="1" data-type="highlight">
         <span class="step-num">🔗</span>
