@@ -1,1425 +1,1727 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Dev Workshop — Prerequisitos & Entorno</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c0522a'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='14' fill='white'>AI</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --brand: #c0522a;
-  --beige: #e8e0d8;
-  --beige-dark: rgba(0,0,0,0.08);
-  --warn-bg: #fef3c7;
-  --warn-border: #d97706;
-  --warn-text: #92400e;
-  --warn-dark: #1c1917;
-  --font-mono: 'Courier New', monospace;
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; background: #fff; overflow: hidden; }
-
-body {
-  width: 100vw;
-  height: 100vh;
-  font-family: 'Archivo', sans-serif;
-}
-
-/* ── slide container ── */
-.slides-wrapper {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.slide {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 4vh 7vw 7vh;
-  gap: clamp(1.2rem, 2.8vh, 2.8rem);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-.slide.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* ── eyebrow ── */
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.5rem, 1.2vw, 1rem);
-}
-.eyebrow-rule {
-  width: clamp(36px, 5vw, 70px);
-  height: 4px;
-  background: var(--brand);
-  flex-shrink: 0;
-}
-.eyebrow-text {
-  font-size: clamp(0.7rem, 1.1vw, 1rem);
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--brand);
-}
-
-h1 {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: clamp(2.8rem, 8vw, 7rem);
-  color: #000;
-  line-height: 1.0;
-}
-
-h2 {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: clamp(2rem, 5vw, 4.2rem);
-  color: #000;
-  line-height: 1.05;
-}
-
-/* ── checklist ── */
-.checklist {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.5rem, 1.3vh, 1rem);
-}
-
-.checklist li {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(0.8rem, 1.5vw, 1.4rem);
-  font-size: clamp(1.1rem, 2.2vw, 1.9rem);
-  font-weight: 400;
-  color: #222;
-  line-height: 1.4;
-}
-
-.checklist li::before {
-  content: '';
-  width: clamp(22px, 2.4vw, 32px);
-  height: clamp(22px, 2.4vw, 32px);
-  border: 2.5px solid var(--brand);
-  border-radius: 4px;
-  flex-shrink: 0;
-  margin-top: 0.18em;
-}
-
-.checklist li strong {
-  font-weight: 800;
-  color: #111;
-}
-
-/* ── code block ── */
-.code-block {
-  background: var(--beige);
-  color: #333;
-  border-radius: 10px;
-  padding: clamp(0.8rem, 1.8vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
-  font-family: var(--font-mono);
-  font-size: clamp(0.8rem, 1.3vw, 1.15rem);
-  line-height: 1.7;
-  white-space: pre;
-}
-
-.code-block .prompt {
-  color: var(--brand);
-  font-weight: 700;
-  user-select: none;
-}
-
-.code-block .cmd {
-  color: #333;
-}
-
-/* ── tip box ── */
-.tip-box {
-  border-left: 4px solid var(--brand);
-  padding: clamp(0.6rem, 1.3vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
-  background: #fdf4f1;
-  border-radius: 0 6px 6px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.tip-box--warning {
-  border-left-color: var(--warn-border);
-  background: var(--warn-bg);
-}
-
-.tip-box--warning .tip-label {
-  color: var(--warn-text);
-}
-
-.tip-box--sm p {
-  font-size: clamp(0.9rem, 1.5vw, 1.3rem);
-}
-
-.tip-box .tip-label {
-  font-size: clamp(0.75rem, 1.1vw, 1rem);
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--brand);
-}
-
-.tip-box p {
-  font-size: clamp(1.1rem, 2.1vw, 1.85rem);
-  color: #333;
-  line-height: 1.5;
-}
-
-.tip-box code {
-  font-family: var(--font-mono);
-  background: #f0e4df;
-  padding: 0.05em 0.35em;
-  border-radius: 3px;
-  font-size: 0.95em;
-  color: #8b3010;
-}
-
-/* ── comparison table ── */
-.comp-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.comp-table th {
-  background: var(--brand);
-  color: #fff;
-  font-family: 'Archivo', sans-serif;
-  font-weight: 800;
-  font-size: clamp(0.85rem, 1.5vw, 1.25rem);
-  padding: clamp(0.6rem, 1.4vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
-  text-align: left;
-  letter-spacing: 0.01em;
-}
-
-.comp-table th:first-child { width: 18%; }
-
-.comp-table td {
-  font-size: clamp(0.9rem, 1.6vw, 1.4rem);
-  font-weight: 400;
-  color: #222;
-  padding: clamp(0.6rem, 1.5vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
-  border-bottom: 1.5px solid #e8e8e8;
-  vertical-align: top;
-  line-height: 1.45;
-}
-
-.comp-table td:first-child {
-  font-weight: 800;
-  color: #111;
-}
-
-.comp-table tr:last-child td { border-bottom: none; }
-.comp-table tbody tr:hover td { background: #fdf4f1; }
-
-.comp-table td code {
-  font-family: 'Courier New', monospace;
-  font-size: 0.85em;
-}
-
-/* ── two-col layout ── */
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(1.2rem, 3vw, 2.5rem);
-  align-items: start;
-}
-
-/* ── slash commands row ── */
-.cmd-row {
-  display: flex;
-  gap: clamp(0.6rem, 1.5vw, 1.2rem);
-  flex-wrap: wrap;
-}
-
-.cmd-pill {
-  background: var(--beige);
-  color: #333;
-  font-family: var(--font-mono);
-  font-size: clamp(1.2rem, 2.4vw, 2.2rem);
-  font-weight: 700;
-  padding: 0.3em 0.8em;
-  border-radius: 8px;
-}
-
-/* ── demo steps ── */
-.demo-steps {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.5rem, 1.2vh, 1rem);
-}
-
-.demo-step {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.8rem, 1.8vw, 1.6rem);
-  border-radius: 0 8px 8px 0;
-  padding: clamp(0.5rem, 1.2vh, 1rem) clamp(0.8rem, 2vw, 1.6rem);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-/* Prompt — fondo salmón, borde naranja */
-.demo-step[data-type="prompt"] {
-  background: #fdf4f1;
-  border-left: 4px solid var(--brand);
-}
-
-/* Acción terminal — beige */
-.demo-step[data-type="action"] {
-  background: var(--beige);
-  border-left: none;
-  border-radius: 10px;
-}
-
-.demo-step[data-type="action"] .step-num {
-  color: #666;
-}
-
-.demo-step[data-type="action"] .step-label {
-  color: #666;
-}
-
-.demo-step[data-type="action"] .step-cmd {
-  color: #333;
-  background: var(--beige-dark);
-}
-
-/* Warning — aviso amarillo ámbar */
-.demo-step[data-type="warning"] {
-  background: var(--warn-bg);
-  border-left: 4px solid var(--warn-border);
-}
-
-.demo-step[data-type="warning"] .step-num {
-  color: var(--warn-border);
-}
-
-.demo-step[data-type="warning"] .step-label {
-  color: var(--warn-text);
-}
-
-.demo-step[data-type="warning"] .step-cmd {
-  color: var(--warn-dark);
-  background: rgba(0,0,0,0.06);
-}
-
-.demo-step[data-type="warning"] .step-desc {
-  color: var(--warn-dark);
-}
-
-/* Highlight — brand color para ejemplo destacado */
-.demo-step[data-type="highlight"] {
-  background: var(--brand);
-  border-left: 4px solid rgba(0,0,0,0.2);
-}
-
-.demo-step[data-type="highlight"] .step-num {
-  color: rgba(255,255,255,0.7);
-}
-
-.demo-step[data-type="highlight"] .step-label {
-  color: rgba(255,255,255,0.85);
-}
-
-.demo-step[data-type="highlight"] .step-cmd {
-  color: #fff;
-  background: rgba(0,0,0,0.15);
-}
-
-.demo-step.hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(6px);
-}
-
-.step-num {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: clamp(1rem, 2vw, 1.8rem);
-  color: var(--brand);
-  min-width: 1.5ch;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.step-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.step-label {
-  font-size: clamp(0.75rem, 1.1vw, 1rem);
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--brand);
-}
-
-.step-cmd {
-  font-family: var(--font-mono);
-  font-size: clamp(0.85rem, 1.5vw, 1.3rem);
-  font-weight: 700;
-  color: #111;
-  background: none;
-}
-
-.step-desc {
-  font-family: 'Archivo', sans-serif;
-  font-size: clamp(1.1rem, 2.1vw, 1.85rem);
-  font-weight: 400;
-  color: #111;
-  line-height: 1.45;
-}
-
-.step-desc code {
-  font-family: var(--font-mono);
-  background: rgba(0,0,0,0.08);
-  padding: 0.05em 0.4em;
-  border-radius: 4px;
-  font-size: 0.9em;
-  font-weight: 700;
-  color: var(--brand);
-}
-
-.demo-step[data-type="action"] .step-desc {
-  color: #444;
-}
-
-.demo-step[data-type="highlight"] .step-desc {
-  color: rgba(255,255,255,0.9);
-}
-
-/* ── navigation ── */
-.nav {
-  position: fixed;
-  bottom: clamp(1rem, 3vh, 2rem);
-  right: clamp(1.5rem, 4vw, 3rem);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  z-index: 100;
-}
-
-.nav-btn {
-  background: none;
-  border: 2px solid var(--brand);
-  color: var(--brand);
-  font-family: 'Archivo', sans-serif;
-  font-weight: 800;
-  font-size: 1rem;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s, color 0.15s;
-  line-height: 1;
-}
-
-.nav-btn:hover {
-  background: var(--brand);
-  color: #fff;
-}
-
-.nav-counter {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #aaa;
-  letter-spacing: 0.08em;
-  min-width: 2.5rem;
-  text-align: center;
-}
-
-/* ── block break slide ── */
-.slide-break {
-  background: #111;
-}
-
-.slide-break h1 {
-  color: #fff;
-}
-
-.slide-break .subtitle {
-  color: rgba(255,255,255,0.55);
-}
-
-.slide-break .accent-bar {
-  background: var(--brand);
-}
-
-.slide-break .eyebrow-rule {
-  background: #fff;
-}
-
-.slide-break .eyebrow-text {
-  color: rgba(255,255,255,0.6);
-}
-
-/* ── quote reveal ── */
-.slide-quote [data-step] {
-  display: block;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-.slide-quote [data-step].hidden {
-  opacity: 0;
-  transform: translateY(8px);
-  pointer-events: none;
-}
-
-/* ── quote slide ── */
-.slide-quote {
-  background: #111;
-  align-items: center;
-  text-align: center;
-}
-
-.slide-quote blockquote {
-  font-family: 'Archivo Black', sans-serif;
-  font-size: clamp(1.8rem, 4.5vw, 4rem);
-  color: #fff;
-  line-height: 1.2;
-  max-width: 80%;
-  border-left: 6px solid var(--brand);
-  padding-left: clamp(1rem, 3vw, 2.5rem);
-  text-align: left;
-}
-
-.slide-break h1,
-.slide-title h1 {
-  font-size: clamp(3.5rem, 10vw, 9rem);
-}
-
-.slide-title .subtitle {
-  font-size: clamp(1.1rem, 2.2vw, 2rem);
-  font-weight: 600;
-  color: #666;
-  margin-top: -0.3rem;
-}
-
-.accent-bar {
-  width: clamp(60px, 10vw, 130px);
-  height: 6px;
-  background: var(--brand);
-  margin-top: 0.4rem;
-}
-
-/* ── hidden slides ── */
-.slide[data-hidden] { display: none; }
-
-/* ── inline code (outside tip-box) ── */
-.checklist code, .slide-quote code {
-  font-family: var(--font-mono);
-  background: #f0e4df;
-  padding: 0.05em 0.35em;
-  border-radius: 3px;
-  color: #8b3010;
-}
-
-/* ── code comment ── */
-.code-block .comment { color: #888; }
-
-/* ── links in checklist ── */
-.checklist a {
-  color: #0066cc;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.checklist a:hover {
-  color: var(--brand);
-  text-decoration: underline;
-}
-</style>
-</head>
-<body>
-
-<div class="slides-wrapper">
-
-  <!-- ── SLIDE 1: Título ── -->
-  <div class="slide slide-title active" id="slide-1">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">AI Dev Workshop · Wallbox 2026</span>
-    </div>
-    <h1>Claude Code Workshop</h1>
-    <div class="accent-bar"></div>
-  </div>
-
-  <!-- ── SLIDE 2: Prerequisitos ── -->
-  <div class="slide" id="slide-2">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Antes de empezar</span>
-    </div>
-    <h2>Prerrequisitos</h2>
-    <ul class="checklist">
-      <li><span>Claude Code <strong>instalado y configurado</strong> con Bedrock</span></li>
-      <li><span>Haber ejecutado al menos una vez <code>claude</code> en terminal</span></li>
-      <li><span><strong>Docker</strong> instalado y funcionando</span></li>
-      <li><span>Clonar el <a href="https://github.com/nikeyes/ai-dev-workshop" target="_blank">repo del workshop</a> y levantar el proyecto:</span></li>
-    </ul>
-    <div class="code-block"><span class="prompt">$</span><span class="cmd"> git clone https://github.com/nikeyes/ai-dev-workshop.git</span>
-<span class="prompt">$</span><span class="cmd"> cd ai-dev-workshop</span>
-<span class="prompt">$</span><span class="cmd"> docker compose build</span>
-<span class="prompt">$</span><span class="cmd"> docker compose run --rm app uv run pytest</span></div>
-    <ul class="checklist">
-      <li><span>Traer un <strong>ticket pequeño/mediano</strong> del equipo</span></li>
-    </ul>
-  </div>
-
-  <!-- ── SLIDE 3: Verificar el entorno ── -->
-  <div class="slide" id="slide-3">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 1</span>
-    </div>
-    <h2>Verificar el entorno</h2>
-    <div class="code-block"><span class="prompt">$</span><span class="cmd"> cd workshop-project</span>
-<span class="prompt">$</span><span class="cmd"> claude --version</span>
-<span class="prompt">$</span><span class="cmd"> claude "hola, di solo 'listo'"</span></div>
-    <div class="tip-box">
-      <span class="tip-label">Regla</span>
-      <p>No seguimos hasta que <strong>todos</strong> tengáis Claude Code funcionando.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 4: Estado del entorno ── -->
-  <div class="slide" id="slide-4">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 1</span>
-    </div>
-    <h2>Ver el estado de Claude Code</h2>
-    <div class="code-block"><span class="prompt">></span><span class="cmd"> /doctor</span></div>
-    <div class="tip-box">
-      <span class="tip-label">Doctor</span>
-      <p>Comprueba conectividad, credenciales y versión del CLI.</p>
-    </div>
-    <div class="code-block"><span class="prompt">></span><span class="cmd"> /status</span></div>
-    <div class="tip-box">
-      <span class="tip-label">Status</span>
-      <p>Muestra el modelo activo, coste acumulado y contexto utilizado de la sesión actual.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 5: Modelos — tabla ── -->
-  <div class="slide" id="slide-5" data-reveal="5">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 2</span>
-    </div>
-    <h2>Modelos y coste</h2>
-    <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="prompt">
-        <span class="step-num">Haiku</span>
-        <div class="step-body">
-          <span class="step-label">Tu asistente de confianza</span>
-          <p class="step-desc">Tareas simples: renombrar, formatear, buscar.<br>Velocidad y coste por encima de profundidad.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Dev Workshop — Prerequisitos & Entorno</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23c0522a'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='14' fill='white'>AI</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --brand: #c0522a;
+        --beige: #e8e0d8;
+        --beige-dark: rgba(0, 0, 0, 0.08);
+        --warn-bg: #fef3c7;
+        --warn-border: #d97706;
+        --warn-text: #92400e;
+        --warn-dark: #1c1917;
+        --font-mono: "Courier New", monospace;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        background: #fff;
+        overflow: hidden;
+      }
+
+      body {
+        width: 100vw;
+        height: 100vh;
+        font-family: "Archivo", sans-serif;
+      }
+
+      /* ── slide container ── */
+      .slides-wrapper {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 4vh 7vw 7vh;
+        gap: clamp(1.2rem, 2.8vh, 2.8rem);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+      }
+
+      .slide.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      /* ── eyebrow ── */
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.5rem, 1.2vw, 1rem);
+      }
+      .eyebrow-rule {
+        width: clamp(36px, 5vw, 70px);
+        height: 4px;
+        background: var(--brand);
+        flex-shrink: 0;
+      }
+      .eyebrow-text {
+        font-size: clamp(0.7rem, 1.1vw, 1rem);
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--brand);
+      }
+
+      h1 {
+        font-family: "Archivo Black", sans-serif;
+        font-size: clamp(2.8rem, 8vw, 7rem);
+        color: #000;
+        line-height: 1;
+      }
+
+      h2 {
+        font-family: "Archivo Black", sans-serif;
+        font-size: clamp(2rem, 5vw, 4.2rem);
+        color: #000;
+        line-height: 1.05;
+      }
+
+      /* ── checklist ── */
+      .checklist {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.5rem, 1.3vh, 1rem);
+      }
+
+      .checklist li {
+        display: flex;
+        align-items: flex-start;
+        gap: clamp(0.8rem, 1.5vw, 1.4rem);
+        font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+        font-weight: 400;
+        color: #222;
+        line-height: 1.4;
+      }
+
+      .checklist li::before {
+        content: "";
+        width: clamp(22px, 2.4vw, 32px);
+        height: clamp(22px, 2.4vw, 32px);
+        border: 2.5px solid var(--brand);
+        border-radius: 4px;
+        flex-shrink: 0;
+        margin-top: 0.18em;
+      }
+
+      .checklist li strong {
+        font-weight: 800;
+        color: #111;
+      }
+
+      /* ── code block ── */
+      .code-block {
+        background: var(--beige);
+        color: #333;
+        border-radius: 10px;
+        padding: clamp(0.8rem, 1.8vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
+        font-family: var(--font-mono);
+        font-size: clamp(0.8rem, 1.3vw, 1.15rem);
+        line-height: 1.7;
+        white-space: pre;
+      }
+
+      .code-block .prompt {
+        color: var(--brand);
+        font-weight: 700;
+        user-select: none;
+      }
+
+      .code-block .cmd {
+        color: #333;
+      }
+
+      /* ── tip box ── */
+      .tip-box {
+        border-left: 4px solid var(--brand);
+        padding: clamp(0.6rem, 1.3vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
+        background: #fdf4f1;
+        border-radius: 0 6px 6px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+
+      .tip-box--warning {
+        border-left-color: var(--warn-border);
+        background: var(--warn-bg);
+      }
+
+      .tip-box--warning .tip-label {
+        color: var(--warn-text);
+      }
+
+      .tip-box--sm p {
+        font-size: clamp(0.9rem, 1.5vw, 1.3rem);
+      }
+
+      .tip-box .tip-label {
+        font-size: clamp(0.75rem, 1.1vw, 1rem);
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand);
+      }
+
+      .tip-box p {
+        font-size: clamp(1.1rem, 2.1vw, 1.85rem);
+        color: #333;
+        line-height: 1.5;
+      }
+
+      .tip-box code {
+        font-family: var(--font-mono);
+        background: #f0e4df;
+        padding: 0.05em 0.35em;
+        border-radius: 3px;
+        font-size: 0.95em;
+        color: #8b3010;
+      }
+
+      /* ── comparison table ── */
+      .comp-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .comp-table th {
+        background: var(--brand);
+        color: #fff;
+        font-family: "Archivo", sans-serif;
+        font-weight: 800;
+        font-size: clamp(0.85rem, 1.5vw, 1.25rem);
+        padding: clamp(0.6rem, 1.4vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
+        text-align: left;
+        letter-spacing: 0.01em;
+      }
+
+      .comp-table th:first-child {
+        width: 18%;
+      }
+
+      .comp-table td {
+        font-size: clamp(0.9rem, 1.6vw, 1.4rem);
+        font-weight: 400;
+        color: #222;
+        padding: clamp(0.6rem, 1.5vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
+        border-bottom: 1.5px solid #e8e8e8;
+        vertical-align: top;
+        line-height: 1.45;
+      }
+
+      .comp-table td:first-child {
+        font-weight: 800;
+        color: #111;
+      }
+
+      .comp-table tr:last-child td {
+        border-bottom: none;
+      }
+      .comp-table tbody tr:hover td {
+        background: #fdf4f1;
+      }
+
+      .comp-table td code {
+        font-family: "Courier New", monospace;
+        font-size: 0.85em;
+      }
+
+      /* ── two-col layout ── */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(1.2rem, 3vw, 2.5rem);
+        align-items: start;
+      }
+
+      /* ── slash commands row ── */
+      .cmd-row {
+        display: flex;
+        gap: clamp(0.6rem, 1.5vw, 1.2rem);
+        flex-wrap: wrap;
+      }
+
+      .cmd-pill {
+        background: var(--beige);
+        color: #333;
+        font-family: var(--font-mono);
+        font-size: clamp(1.2rem, 2.4vw, 2.2rem);
+        font-weight: 700;
+        padding: 0.3em 0.8em;
+        border-radius: 8px;
+      }
+
+      /* ── demo steps ── */
+      .demo-steps {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.5rem, 1.2vh, 1rem);
+      }
+
+      .demo-step {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.8rem, 1.8vw, 1.6rem);
+        border-radius: 0 8px 8px 0;
+        padding: clamp(0.5rem, 1.2vh, 1rem) clamp(0.8rem, 2vw, 1.6rem);
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease;
+      }
+
+      /* Prompt — fondo salmón, borde naranja */
+      .demo-step[data-type="prompt"] {
+        background: #fdf4f1;
+        border-left: 4px solid var(--brand);
+      }
+
+      /* Acción terminal — beige */
+      .demo-step[data-type="action"] {
+        background: var(--beige);
+        border-left: none;
+        border-radius: 10px;
+      }
+
+      .demo-step[data-type="action"] .step-num {
+        color: #666;
+      }
+
+      .demo-step[data-type="action"] .step-label {
+        color: #666;
+      }
+
+      .demo-step[data-type="action"] .step-cmd {
+        color: #333;
+        background: var(--beige-dark);
+      }
+
+      /* Warning — aviso amarillo ámbar */
+      .demo-step[data-type="warning"] {
+        background: var(--warn-bg);
+        border-left: 4px solid var(--warn-border);
+      }
+
+      .demo-step[data-type="warning"] .step-num {
+        color: var(--warn-border);
+      }
+
+      .demo-step[data-type="warning"] .step-label {
+        color: var(--warn-text);
+      }
+
+      .demo-step[data-type="warning"] .step-cmd {
+        color: var(--warn-dark);
+        background: rgba(0, 0, 0, 0.06);
+      }
+
+      .demo-step[data-type="warning"] .step-desc {
+        color: var(--warn-dark);
+      }
+
+      /* Highlight — brand color para ejemplo destacado */
+      .demo-step[data-type="highlight"] {
+        background: var(--brand);
+        border-left: 4px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .demo-step[data-type="highlight"] .step-num {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .demo-step[data-type="highlight"] .step-label {
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .demo-step[data-type="highlight"] .step-cmd {
+        color: #fff;
+        background: rgba(0, 0, 0, 0.15);
+      }
+
+      .demo-step.hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(6px);
+      }
+
+      .step-num {
+        font-family: "Archivo Black", sans-serif;
+        font-size: clamp(1rem, 2vw, 1.8rem);
+        color: var(--brand);
+        min-width: 1.5ch;
+        flex-shrink: 0;
+        line-height: 1;
+      }
+
+      .step-body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .step-label {
+        font-size: clamp(0.75rem, 1.1vw, 1rem);
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--brand);
+      }
+
+      .step-cmd {
+        font-family: var(--font-mono);
+        font-size: clamp(0.85rem, 1.5vw, 1.3rem);
+        font-weight: 700;
+        color: #111;
+        background: none;
+      }
+
+      .step-desc {
+        font-family: "Archivo", sans-serif;
+        font-size: clamp(1.1rem, 2.1vw, 1.85rem);
+        font-weight: 400;
+        color: #111;
+        line-height: 1.45;
+      }
+
+      .step-desc code {
+        font-family: var(--font-mono);
+        background: rgba(0, 0, 0, 0.08);
+        padding: 0.05em 0.4em;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-weight: 700;
+        color: var(--brand);
+      }
+
+      .demo-step[data-type="action"] .step-desc {
+        color: #444;
+      }
+
+      .demo-step[data-type="highlight"] .step-desc {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      /* ── navigation ── */
+      .nav {
+        position: fixed;
+        bottom: clamp(1rem, 3vh, 2rem);
+        right: clamp(1.5rem, 4vw, 3rem);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 100;
+      }
+
+      .nav-btn {
+        background: none;
+        border: 2px solid var(--brand);
+        color: var(--brand);
+        font-family: "Archivo", sans-serif;
+        font-weight: 800;
+        font-size: 1rem;
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.15s,
+          color 0.15s;
+        line-height: 1;
+      }
+
+      .nav-btn:hover {
+        background: var(--brand);
+        color: #fff;
+      }
+
+      .nav-counter {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #aaa;
+        letter-spacing: 0.08em;
+        min-width: 2.5rem;
+        text-align: center;
+      }
+
+      /* ── block break slide ── */
+      .slide-break {
+        background: #111;
+      }
+
+      .slide-break h1 {
+        color: #fff;
+      }
+
+      .slide-break .subtitle {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .slide-break .accent-bar {
+        background: var(--brand);
+      }
+
+      .slide-break .eyebrow-rule {
+        background: #fff;
+      }
+
+      .slide-break .eyebrow-text {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* ── quote reveal ── */
+      .slide-quote [data-step] {
+        display: block;
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+      }
+      .slide-quote [data-step].hidden {
+        opacity: 0;
+        transform: translateY(8px);
+        pointer-events: none;
+      }
+
+      /* ── quote slide ── */
+      .slide-quote {
+        background: #111;
+        align-items: center;
+        text-align: center;
+      }
+
+      .slide-quote blockquote {
+        font-family: "Archivo Black", sans-serif;
+        font-size: clamp(1.8rem, 4.5vw, 4rem);
+        color: #fff;
+        line-height: 1.2;
+        max-width: 80%;
+        border-left: 6px solid var(--brand);
+        padding-left: clamp(1rem, 3vw, 2.5rem);
+        text-align: left;
+      }
+
+      .slide-break h1,
+      .slide-title h1 {
+        font-size: clamp(3.5rem, 10vw, 9rem);
+      }
+
+      .slide-title .subtitle {
+        font-size: clamp(1.1rem, 2.2vw, 2rem);
+        font-weight: 600;
+        color: #666;
+        margin-top: -0.3rem;
+      }
+
+      .accent-bar {
+        width: clamp(60px, 10vw, 130px);
+        height: 6px;
+        background: var(--brand);
+        margin-top: 0.4rem;
+      }
+
+      /* ── hidden slides ── */
+      .slide[data-hidden] {
+        display: none;
+      }
+
+      /* ── inline code (outside tip-box) ── */
+      .checklist code,
+      .slide-quote code {
+        font-family: var(--font-mono);
+        background: #f0e4df;
+        padding: 0.05em 0.35em;
+        border-radius: 3px;
+        color: #8b3010;
+      }
+
+      /* ── code comment ── */
+      .code-block .comment {
+        color: #888;
+      }
+
+      /* ── links in checklist ── */
+      .checklist a {
+        color: #0066cc;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .checklist a:hover {
+        color: var(--brand);
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slides-wrapper">
+      <!-- ── SLIDE 1: Título ── -->
+      <div class="slide slide-title active" id="slide-1">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">AI Dev Workshop · Wallbox 2026</span>
+        </div>
+        <h1>Claude Code Workshop</h1>
+        <div class="accent-bar"></div>
+      </div>
+
+      <!-- ── SLIDE 2: Prerequisitos ── -->
+      <div class="slide" id="slide-2">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Antes de empezar</span>
+        </div>
+        <h2>Prerrequisitos</h2>
+        <ul class="checklist">
+          <li>
+            <span>Claude Code <strong>instalado y configurado</strong> con Bedrock</span>
+          </li>
+          <li>
+            <span>Haber ejecutado al menos una vez <code>claude</code> en terminal</span>
+          </li>
+          <li>
+            <span><strong>Docker</strong> instalado y funcionando</span>
+          </li>
+          <li>
+            <span
+              >Clonar el
+              <a href="https://github.com/nikeyes/ai-dev-workshop" target="_blank"
+                >repo del workshop</a
+              >
+              y levantar el proyecto:</span
+            >
+          </li>
+        </ul>
+        <div class="code-block">
+          <span class="prompt">$</span
+          ><span class="cmd"> git clone https://github.com/nikeyes/ai-dev-workshop.git</span>
+          <span class="prompt">$</span><span class="cmd"> cd ai-dev-workshop</span>
+          <span class="prompt">$</span><span class="cmd"> docker compose build</span>
+          <span class="prompt">$</span
+          ><span class="cmd"> docker compose run --rm app uv run pytest</span>
+        </div>
+        <ul class="checklist">
+          <li>
+            <span>Traer un <strong>ticket pequeño/mediano</strong> del equipo</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ── SLIDE 3: Verificar el entorno ── -->
+      <div class="slide" id="slide-3">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 1</span>
+        </div>
+        <h2>Verificar el entorno</h2>
+        <div class="code-block">
+          <span class="prompt">$</span><span class="cmd"> cd workshop-project</span>
+          <span class="prompt">$</span><span class="cmd"> claude --version</span>
+          <span class="prompt">$</span><span class="cmd"> claude "hola, di solo 'listo'"</span>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Regla</span>
+          <p>No seguimos hasta que <strong>todos</strong> tengáis Claude Code funcionando.</p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="2" data-type="prompt">
-        <span class="step-num">Sonnet</span>
-        <div class="step-body">
-          <span class="step-label">Tu todo-terreno · Punto de partida por defecto</span>
-          <p class="step-desc">El 80% del trabajo cotidiano.<br>La brecha con Opus se ha reducido mucho.</p>
+
+      <!-- ── SLIDE 4: Estado del entorno ── -->
+      <div class="slide" id="slide-4">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 1</span>
+        </div>
+        <h2>Ver el estado de Claude Code</h2>
+        <div class="code-block"><span class="prompt">></span><span class="cmd"> /doctor</span></div>
+        <div class="tip-box">
+          <span class="tip-label">Doctor</span>
+          <p>Comprueba conectividad, credenciales y versión del CLI.</p>
+        </div>
+        <div class="code-block"><span class="prompt">></span><span class="cmd"> /status</span></div>
+        <div class="tip-box">
+          <span class="tip-label">Status</span>
+          <p>Muestra el modelo activo, coste acumulado y contexto utilizado de la sesión actual.</p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="3" data-type="prompt">
-        <span class="step-num">Opus</span>
-        <div class="step-body">
-          <span class="step-label">Tu experto senior</span>
-          <p class="step-desc">Arquitectura, planes, debugging difícil, decisiones críticas.<br>Resérvalo cuando Sonnet no llega.</p>
+
+      <!-- ── SLIDE 5: Tips de sesión ── -->
+      <div class="slide" id="slide-5">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Tips</span>
+        </div>
+        <h2>¿Claude Code se cerró en mitad de una tarea?</h2>
+        <div class="code-block">
+          <span class="prompt">$</span><span class="cmd"> claude --continue </span
+          ><span class="comment"># Reanuda la última sesión</span> <span class="prompt">$</span
+          ><span class="cmd"> claude --resume </span
+          ><span class="comment"># Elige una sesión anterior</span>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Recuerda</span>
+          <p>
+            Las sesiones son <strong>por carpeta</strong>.<br />Asegúrate de estar en
+            <code>workshop-project</code> antes de reanudar.
+          </p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="4" data-type="action">
-        <span class="step-num">$</span>
-        <div class="step-body">
-          <span class="step-label">Coste</span>
-          <p class="step-desc"><code>/cost</code> con Bedrock · <code>/usage</code> con suscripción. Ver el gasto acumulado de la sesión o la subscripción</p>
+
+      <!-- ── SLIDE 6: Regla de oro ── -->
+      <div class="slide slide-quote" id="slide-6" data-reveal="1">
+        <blockquote>
+          Antes tardabas 2 horas en escribir código malo.<br />Ahora tardas 2 segundos.<span
+            data-step="1"
+            class="hidden"
+            ><br /><br />Si no sabes explicar lo que quieres y no le das el contexto suficiente, el
+            agente tampoco sabrá hacerlo bien.</span
+          >
+        </blockquote>
+      </div>
+
+      <!-- ── SLIDE 7: Modelos — tabla ── -->
+      <div class="slide" id="slide-7" data-reveal="5">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 2</span>
+        </div>
+        <h2>Modelos y coste</h2>
+        <div class="demo-steps">
+          <div class="demo-step hidden" data-step="1" data-type="prompt">
+            <span class="step-num">Haiku</span>
+            <div class="step-body">
+              <span class="step-label">Tu asistente de confianza</span>
+              <p class="step-desc">
+                Tareas simples: renombrar, formatear, buscar.<br />Velocidad y coste por encima de
+                profundidad.
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="2" data-type="prompt">
+            <span class="step-num">Sonnet</span>
+            <div class="step-body">
+              <span class="step-label">Tu todo-terreno · Punto de partida por defecto</span>
+              <p class="step-desc">
+                El 80% del trabajo cotidiano.<br />La brecha con Opus se ha reducido mucho.
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="3" data-type="prompt">
+            <span class="step-num">Opus</span>
+            <div class="step-body">
+              <span class="step-label">Tu experto senior</span>
+              <p class="step-desc">
+                Arquitectura, planes, debugging difícil, decisiones críticas.<br />Resérvalo cuando
+                Sonnet no llega.
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="4" data-type="action">
+            <span class="step-num">$</span>
+            <div class="step-body">
+              <span class="step-label">Coste</span>
+              <p class="step-desc">
+                <code>/cost</code> con Bedrock · <code>/usage</code> con suscripción — gasto
+                acumulado de la sesión o la subscripción
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="5">
+            <div class="tip-box tip-box--warning tip-box--sm" style="width: 100%">
+              <span class="tip-label">⚠️ Hay herramientas para reducir el consumo de tokens</span>
+              <p>
+                <a href="https://github.com/rtk-ai/rtk" target="_blank">github.com/rtk-ai/rtk</a> —
+                pero es una herramienta de terceros y tiene la
+                <strong>telemetría activada por defecto</strong>.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="5">
-        <div class="tip-box tip-box--warning tip-box--sm" style="width:100%">
-          <span class="tip-label">⚠️ Hay herramientas para reducir el consumo de tokens</span>
-          <p><a href="https://github.com/rtk-ai/rtk" target="_blank">github.com/rtk-ai/rtk</a> — pero es una herramienta de terceros y tiene la <strong>telemetría activada por defecto</strong>.</p>
+
+      <!-- ── SLIDE 7: CLAUDE.md — demo ── -->
+      <div class="slide" id="slide-8" data-reveal="6">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 3 · Demo</span>
+        </div>
+        <h2>Demo: CLAUDE.md en acción</h2>
+        <div class="demo-steps">
+          <div class="demo-step hidden" data-step="1" data-type="prompt">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <span class="step-label">Prompt · Sin CLAUDE.md</span>
+              <code class="step-cmd">Ejecuta los tests del proyecto</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="2" data-type="action">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <span class="step-label">Terminal</span>
+              <code class="step-cmd">mv ___CLAUDE.md CLAUDE.md</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="3" data-type="prompt">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <span class="step-label">Prompt · Con CLAUDE.md</span>
+              <code class="step-cmd">Ejecuta los tests del proyecto</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="4" data-type="prompt">
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <span class="step-label">Prompt · Con CLAUDE.md</span>
+              <code class="step-cmd">Comprueba si el proyecto está ready</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="5" data-type="action">
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <span class="step-label">Terminal</span>
+              <code class="step-cmd">mv .claude/____rules .claude/rules</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="6" data-type="prompt">
+            <span class="step-num">6</span>
+            <div class="step-body">
+              <span class="step-label">Prompt · Con CLAUDE.md + Rules</span>
+              <code class="step-cmd">Comprueba si el proyecto está ready</code>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- ── SLIDE 6: Tips de sesión ── -->
-  <div class="slide" id="slide-6">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Tips</span>
-    </div>
-    <h2>¿Claude Code se cerró en mitad de una tarea?</h2>
-    <div class="code-block"><span class="prompt">$</span><span class="cmd"> claude --continue   </span><span class="comment"># Reanuda la última sesión</span>
-<span class="prompt">$</span><span class="cmd"> claude --resume     </span><span class="comment"># Elige una sesión anterior</span></div>
-    <div class="tip-box">
-      <span class="tip-label">Recuerda</span>
-      <p>Las sesiones son <strong>por carpeta</strong>.<br>Asegúrate de estar en <code>workshop-project</code> antes de reanudar.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 7: Regla de oro ── -->
-  <div class="slide slide-quote" id="slide-7" data-reveal="1">
-    <blockquote>Antes tardabas 2 horas en escribir código malo.<br>Ahora tardas 2 segundos.<span data-step="1" class="hidden"><br><br>Si no sabes explicar lo que quieres y no le das el contexto suficiente, el agente tampoco sabrá hacerlo bien.</span></blockquote>
-  </div>
-
-  <!-- ── SLIDE 7: CLAUDE.md — demo ── -->
-  <div class="slide" id="slide-8" data-reveal="6">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 3 · Demo</span>
-    </div>
-    <h2>Demo: CLAUDE.md en acción</h2>
-    <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="prompt">
-        <span class="step-num">1</span>
-        <div class="step-body">
-          <span class="step-label">Prompt · Sin CLAUDE.md</span>
-          <code class="step-cmd">Ejecuta los tests del proyecto</code>
+      <!-- ── SLIDE 9b: CLAUDE.md — qué es ── -->
+      <div class="slide" id="slide-9">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 3</span>
+        </div>
+        <h2>Memoria de los agentes</h2>
+        <div class="tip-box">
+          <span class="tip-label">Sin CLAUDE.md</span>
+          <p>
+            El agente empieza cada sesión desde cero.<br />Es como contratar a alguien nuevo cada
+            día.
+          </p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Con CLAUDE.md</span>
+          <p>
+            El agente tiene contexto persistente: convenciones del proyecto, cómo validar cambios,
+            qué evitar.<br />No tienes que repetirlo nunca más.
+          </p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Con Rules</span>
+          <p>
+            Reglas específicas que el agente aplica siempre, organizadas por módulo o tipo de tarea.
+          </p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="2" data-type="action">
-        <span class="step-num">2</span>
-        <div class="step-body">
-          <span class="step-label">Terminal</span>
-          <code class="step-cmd">mv ___CLAUDE.md CLAUDE.md</code>
+
+      <!-- ── SLIDE 9: CLAUDE.md — buenas prácticas ── -->
+      <div class="slide" id="slide-10">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 3 · Buenas prácticas</span>
+        </div>
+        <h2>¿Qué poner en el CLAUDE.md?</h2>
+        <ul class="checklist">
+          <li>
+            <span
+              >Escríbelo <strong>con tus propias palabras</strong>, como si se lo explicaras a un
+              compañero nuevo para que no cometa errores.</span
+            >
+          </li>
+          <li>
+            <span>Mantenlo <strong>corto</strong> (150–300 líneas máx).</span>
+          </li>
+          <li>
+            <span
+              >Solo cosas que
+              <strong>no se pueden deducir del código de forma directa.</strong>.</span
+            >
+          </li>
+          <li><span>No dupliques lo que ya está en el README, docs o configs estándar.</span></li>
+          <li>
+            <span
+              >Define <strong>convenciones del proyecto</strong> que difieran del estándar del
+              lenguaje.</span
+            >
+          </li>
+          <li>
+            <span>Indica <strong>cómo validar los cambios</strong> (tests, linter, build).</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- ── SLIDE 10: CLAUDE.md — jerarquía ── -->
+      <div class="slide" id="slide-11">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 3 · Jerarquía</span>
+        </div>
+        <h2>Dónde está el CLAUDE.md</h2>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Ubicación</th>
+              <th>Alcance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>~/.claude/CLAUDE.md</code></td>
+              <td>Todos tus proyectos — convenciones personales</td>
+            </tr>
+            <tr>
+              <td><code>&lt;raíz&gt;/CLAUDE.md</code></td>
+              <td>El proyecto completo (versionado, compartido con el equipo)</td>
+            </tr>
+            <tr>
+              <td><code>&lt;raíz&gt;/CLAUDE.local.md</code></td>
+              <td>El proyecto, solo tu copia local (gitignored)</td>
+            </tr>
+            <tr>
+              <td><code>&lt;subdirectorio&gt;/CLAUDE.md</code></td>
+              <td>Solo ese módulo — útil en monorepos</td>
+            </tr>
+            <tr>
+              <td><code>.claude/rules/</code></td>
+              <td>Reglas opcionales organizadas por fichero</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip-box">
+          <span class="tip-label">Prioridad</span>
+          <p>
+            Cuanto más cerca del código, más específico.<br />El subdirectorio sobreescribe al
+            proyecto, que sobreescribe al global.
+          </p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="3" data-type="prompt">
-        <span class="step-num">3</span>
-        <div class="step-body">
-          <span class="step-label">Prompt · Con CLAUDE.md</span>
-          <code class="step-cmd">Ejecuta los tests del proyecto</code>
+
+      <!-- ── SLIDE 10b: CLAUDE.md — @imports ── -->
+      <div class="slide" id="slide-11b">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 3 · @imports</span>
+        </div>
+        <h2>CLAUDE.md puede importar otros ficheros</h2>
+        <div class="code-block">
+          <span class="comment"># CLAUDE.md</span>
+          <span class="cmd"
+            >Ver @README.md para el resumen del proyecto y @package.json para los comandos
+            disponibles.</span
+          >
+
+          <span class="comment"># Instrucciones adicionales</span>
+          <span class="cmd"
+            >- Git workflow: @docs/git-instructions.md - Overrides locales:
+            @~/.claude/my-project-instructions.md</span
+          >
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">¿Para qué sirve?</span>
+          <p>
+            Mantén el CLAUDE.md principal corto e importa ficheros específicos según el contexto.<br />Los
+            overrides locales (<code>@~/.claude/…</code>) se cargan solo en tu máquina — nunca se
+            versionan.
+          </p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="4" data-type="prompt">
-        <span class="step-num">4</span>
-        <div class="step-body">
-          <span class="step-label">Prompt · Con CLAUDE.md</span>
-          <code class="step-cmd">Comprueba si el proyecto está ready</code>
+
+      <!-- ── SLIDE 11: Contexto ── -->
+      <div class="slide" id="slide-12">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 4</span>
+        </div>
+        <h2>Contexto</h2>
+        <div class="code-block">
+          <span class="prompt">></span><span class="cmd"> /context</span>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">/context</span>
+          <p>
+            Muestra cuánto contexto llevas consumido en la sesión actual.<br />Puedes activarlo
+            permanentemente en la status bar.
+          </p>
+        </div>
+        <div class="code-block">
+          <span class="prompt">></span><span class="cmd"> /compact</span>
+        </div>
+        <div class="tip-box tip-box--warning">
+          <span class="tip-label">⚠️ /compact — con cuidado</span>
+          <p>
+            Claude lo ejecuta solo cuando no queda espacio.<br />Puede perder contexto crítico que
+            no has guardado.<br />Puedes ejecutarlo manualemente.
+          </p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="5" data-type="action">
-        <span class="step-num">5</span>
-        <div class="step-body">
-          <span class="step-label">Terminal</span>
-          <code class="step-cmd">mv .claude/____rules .claude/rules</code>
+
+      <!-- ── SLIDE 12: Contexto — add-dir ── -->
+      <div class="slide" id="slide-13">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 4</span>
+        </div>
+        <h2>Añadir contexto de otro módulo</h2>
+        <div class="code-block">
+          <span class="prompt">></span><span class="cmd"> /add-dir ../otro-servicio</span>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Cuándo usarlo</span>
+          <p>
+            Cuando necesitas que el agente entienda código de otro módulo sin abrir una sesión
+            nueva.<br />Útil en monorepos o cuando un cambio cruza servicios.
+          </p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Alternativa</span>
+          <p>
+            Si el otro módulo tiene su propio <code>CLAUDE.md</code>, Claude lo leerá
+            automáticamente al añadir el directorio.
+          </p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="6" data-type="prompt">
-        <span class="step-num">6</span>
-        <div class="step-body">
-          <span class="step-label">Prompt · Con CLAUDE.md + Rules</span>
-          <code class="step-cmd">Comprueba si el proyecto está ready</code>
+
+      <!-- ── SLIDE 13: Permisos — allow / deny ── -->
+      <div class="slide" id="slide-14" data-reveal="5">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 5 · Demo</span>
+        </div>
+        <h2>Allow &amp; Deny</h2>
+        <div class="demo-steps">
+          <div class="demo-step hidden" data-step="1" data-type="prompt">
+            <span class="step-num">✓</span>
+            <div class="step-body">
+              <span class="step-label">Allow</span>
+              <p class="step-desc">
+                Herramientas que Claude puede usar sin preguntar.<br />Añádelas durante la sesión
+                respondiendo "yes, always" o directamente en <code>settings.json</code>.
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="2" data-type="prompt">
+            <span class="step-num">✗</span>
+            <div class="step-body">
+              <span class="step-label">Deny</span>
+              <p class="step-desc">
+                Herramientas que Claude nunca puede usar, aunque se lo pidas.<br />Útil para
+                proteger comandos destructivos en producción.
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="3" data-type="prompt">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <span class="step-label">Prompt</span>
+              <code class="step-cmd">Ejecuta los tests del proyecto</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="4" data-type="action">
+            <span class="step-num">→</span>
+            <div class="step-body">
+              <span class="step-label">Claude pide permiso</span>
+              <code class="step-cmd">Acepta con "yes, always" para añadirlo al allow</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="5" data-type="prompt">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <span class="step-label">Prompt — esta vez no pregunta</span>
+              <code class="step-cmd">Ejecuta los tests del proyecto</code>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- ── SLIDE 9b: CLAUDE.md — qué es ── -->
-  <div class="slide" id="slide-9">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 3</span>
-    </div>
-    <h2>Memoria de los agentes</h2>
-    <div class="tip-box">
-      <span class="tip-label">Sin CLAUDE.md</span>
-      <p>El agente empieza cada sesión desde cero.<br>Es como contratar a alguien nuevo cada día.</p>
-    </div>
-    <div class="tip-box">
-      <span class="tip-label">Con CLAUDE.md</span>
-      <p>El agente tiene contexto persistente: convenciones del proyecto, cómo validar cambios, qué evitar.<br>No tienes que repetirlo nunca más.</p>
-    </div>
-    <div class="tip-box">
-      <span class="tip-label">Con Rules</span>
-      <p>Reglas específicas que el agente aplica siempre, organizadas por módulo o tipo de tarea.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 9: CLAUDE.md — buenas prácticas ── -->
-  <div class="slide" id="slide-10">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 3 · Buenas prácticas</span>
-    </div>
-    <h2>¿Qué poner en el CLAUDE.md?</h2>
-    <ul class="checklist">
-      <li><span>Escríbelo <strong>con tus propias palabras</strong>, como si se lo explicaras a un compañero nuevo para que no cometa errores.</span></li>
-      <li><span>Mantenlo <strong>corto</strong> (150–300 líneas máx).</span></li>
-      <li><span>Solo cosas que <strong>no se pueden deducir del código de forma directa.</strong>.</span></li>
-      <li><span>No dupliques lo que ya está en el README, docs o configs estándar.</span></li>
-      <li><span>Define <strong>convenciones del proyecto</strong> que difieran del estándar del lenguaje.</span></li>
-      <li><span>Indica <strong>cómo validar los cambios</strong> (tests, linter, build).</span></li>
-    </ul>
-  </div>
-
-  <!-- ── SLIDE 10: CLAUDE.md — jerarquía ── -->
-  <div class="slide" id="slide-11">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 3 · Jerarquía</span>
-    </div>
-    <h2>Dónde está el CLAUDE.md</h2>
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Ubicación</th>
-          <th>Alcance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>~/.claude/CLAUDE.md</code></td>
-          <td>Todos tus proyectos — convenciones personales</td>
-        </tr>
-        <tr>
-          <td><code>&lt;raíz&gt;/CLAUDE.md</code></td>
-          <td>El proyecto completo</td>
-        </tr>
-        <tr>
-          <td><code>&lt;subdirectorio&gt;/CLAUDE.md</code></td>
-          <td>Solo ese módulo — útil en monorepos</td>
-        </tr>
-        <tr>
-          <td><code>.claude/rules/</code></td>
-          <td>Reglas opcionales organizadas por fichero</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="tip-box">
-      <span class="tip-label">Prioridad</span>
-      <p>Cuanto más cerca del código, más específico.<br>El subdirectorio sobreescribe al proyecto, que sobreescribe al global.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 11: Contexto ── -->
-  <div class="slide" id="slide-12">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 4</span>
-    </div>
-    <h2>Contexto</h2>
-    <div class="code-block"><span class="prompt">></span><span class="cmd"> /context</span></div>
-    <div class="tip-box">
-      <span class="tip-label">/context</span>
-      <p>Muestra cuánto contexto llevas consumido en la sesión actual.<br>Puedes activarlo permanentemente en la status bar.</p>
-    </div>
-    <div class="code-block"><span class="prompt">></span><span class="cmd"> /compact</span></div>
-    <div class="tip-box tip-box--warning">
-      <span class="tip-label">⚠️ /compact — con cuidado</span>
-      <p>Claude lo ejecuta solo cuando no queda espacio.<br>Puede perder contexto crítico que no has guardado.<br>Puedes ejecutarlo manualemente.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 12: Contexto — add-dir ── -->
-  <div class="slide" id="slide-13">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 4</span>
-    </div>
-    <h2>Añadir contexto de otro módulo</h2>
-    <div class="code-block"><span class="prompt">></span><span class="cmd"> /add-dir ../otro-servicio</span></div>
-    <div class="tip-box">
-      <span class="tip-label">Cuándo usarlo</span>
-      <p>Cuando necesitas que el agente entienda código de otro módulo sin abrir una sesión nueva.<br>Útil en monorepos o cuando un cambio cruza servicios.</p>
-    </div>
-    <div class="tip-box">
-      <span class="tip-label">Alternativa</span>
-      <p>Si el otro módulo tiene su propio <code>CLAUDE.md</code>, Claude lo leerá automáticamente al añadir el directorio.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 13: Permisos — allow / deny ── -->
-  <div class="slide" id="slide-14" data-reveal="5">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 5 · Demo</span>
-    </div>
-    <h2>Allow &amp; Deny</h2>
-    <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="prompt">
-        <span class="step-num">✓</span>
-        <div class="step-body">
-          <span class="step-label">Allow</span>
-          <p class="step-desc">Herramientas que Claude puede usar sin preguntar.<br>Añádelas durante la sesión respondiendo "yes, always" o directamente en <code>settings.json</code>.</p>
+      <!-- ── SLIDE 15b: Permisos — jerarquía settings ── -->
+      <div class="slide" id="slide-15">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 5</span>
+        </div>
+        <h2>Permisos</h2>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Fichero</th>
+              <th>Alcance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>~/.claude/settings.json</code></td>
+              <td>Global — todos tus proyectos</td>
+            </tr>
+            <tr>
+              <td><code>.claude/settings.json</code></td>
+              <td>Proyecto — se commitea con el repo</td>
+            </tr>
+            <tr>
+              <td><code>.claude/settings.local.json</code></td>
+              <td>Solo tú — no se commitea (añadir a <code>.gitignore</code>)</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip-box">
+          <span class="tip-label">Prioridad</span>
+          <p>Local sobreescribe proyecto, proyecto sobreescribe global.</p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="2" data-type="prompt">
-        <span class="step-num">✗</span>
-        <div class="step-body">
-          <span class="step-label">Deny</span>
-          <p class="step-desc">Herramientas que Claude nunca puede usar, aunque se lo pidas.<br>Útil para proteger comandos destructivos en producción.</p>
+
+      <!-- ── SLIDE 15: Rewind ── -->
+      <div class="slide" id="slide-16" data-reveal="4">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 6</span>
+        </div>
+        <h2>Rewind — deshacer sin miedo</h2>
+        <div class="demo-steps">
+          <div class="demo-step hidden" data-step="1" data-type="prompt">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <span class="step-label">Prompt</span>
+              <code class="step-cmd">Crea un fichero de texto con una haiku en japonés</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="2" data-type="prompt">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <span class="step-label">Prompt</span>
+              <code class="step-cmd">Borra el fichero del Haiku</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="3" data-type="action">
+            <span class="step-num">↩</span>
+            <div class="step-body">
+              <span class="step-label">Rewind</span>
+              <code class="step-cmd">Deshace el último turno del agente</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="4" data-type="warning">
+            <span class="step-num">⚠️</span>
+            <div class="step-body">
+              <span class="step-label">Aviso</span>
+              <code class="step-cmd"
+                >En las últimas versiones, también deshace comandos bash sencillos, pero no os
+                fiéis...</code
+              >
+            </div>
+          </div>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="3" data-type="prompt">
-        <span class="step-num">1</span>
-        <div class="step-body">
-          <span class="step-label">Prompt</span>
-          <code class="step-cmd">Ejecuta los tests del proyecto</code>
+
+      <!-- ── SLIDE 16: Hooks — qué son ── -->
+      <div class="slide" id="slide-17">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 7</span>
+        </div>
+        <h2>Hooks — guardarraíles automáticos</h2>
+        <div class="tip-box">
+          <span class="tip-label">Qué son</span>
+          <p>
+            Comandos que se ejecutan automáticamente en respuesta a acciones del agente.<br />El
+            agente no los pide — simplemente ocurren.
+          </p>
+        </div>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Evento</th>
+              <th>Se dispara cuando…</th>
+              <th>Ideal para</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>PostToolUse + Edit</code></td>
+              <td>Después de cada edición de fichero</td>
+              <td>Linter / formatter — actúa mientras el fichero está en foco</td>
+            </tr>
+            <tr>
+              <td><code>Stop</code></td>
+              <td>Cuando el agente termina su turno</td>
+              <td>Build / tests — espera a que todos los cambios estén hechos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── SLIDE 17: Hooks — demo ── -->
+      <div class="slide" id="slide-18" data-reveal="3">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 7 · Demo</span>
+        </div>
+        <h2>Configurar un hook con el agente</h2>
+        <div class="demo-steps">
+          <div class="demo-step hidden" data-step="1" data-type="prompt">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <span class="step-label">Prompt</span>
+              <code class="step-cmd"
+                >Using the claude-code-guide agent, configure a hook in the settings.json of the
+                project to run the format tool after every file edit.</code
+              >
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="2" data-type="action">
+            <span class="step-num">→</span>
+            <div class="step-body">
+              <span class="step-label">Resultado</span>
+              <code class="step-cmd"
+                >A partir de ahora el formatter corre en cada fichero editado — sin pedirlo</code
+              >
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="3" data-type="action">
+            <span class="step-num">📦</span>
+            <div class="step-body">
+              <span class="step-label">Backup por si os atascáis</span>
+              <code class="step-cmd">mv ___settings.json .claude/settings.json</code>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="4" data-type="action">
-        <span class="step-num">→</span>
-        <div class="step-body">
-          <span class="step-label">Claude pide permiso</span>
-          <code class="step-cmd">Acepta con "yes, always" para añadirlo al allow</code>
+
+      <!-- ── SLIDE 18: Agents & Skills — qué son ── -->
+      <div class="slide" id="slide-19" data-hidden>
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 8</span>
+        </div>
+        <h2>Agents &amp; Skills</h2>
+        <div class="tip-box">
+          <span class="tip-label">El problema</span>
+          <p>
+            Cada persona de tu equipo reinventa los mismos prompts.<br />Las Skills son la forma de
+            <strong>compartir conocimiento</strong> entre sesiones y entre personas.
+          </p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Qué es una Skill</span>
+          <p>
+            Un fichero de instrucciones que el agente carga cuando lo necesita.<br />Vive en
+            <code>.claude/skills/</code> y se activa con <code>/nombre</code>.
+          </p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Agentes</span>
+          <p>
+            Claude puede delegar subtareas a subagentes especializados.<br />Cada agente tiene su
+            propio contexto, herramientas y CLAUDE.md.
+          </p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="5" data-type="prompt">
-        <span class="step-num">2</span>
-        <div class="step-body">
-          <span class="step-label">Prompt — esta vez no pregunta</span>
-          <code class="step-cmd">Ejecuta los tests del proyecto</code>
+
+      <!-- ── SLIDE 19: Skills vs Prompts vs Subagents vs MCP ── -->
+      <div class="slide" id="slide-20">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 8</span>
+        </div>
+        <h2>Prompts, Skills, Subagents &amp; MCP</h2>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Prompts</th>
+              <th>Skills</th>
+              <th>Subagents</th>
+              <th>MCP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Qué aporta</td>
+              <td>Instrucciones paso a paso</td>
+              <td>Procedimientos reutilizables entre sesiones</td>
+              <td>Delegación de tareas con contexto aislado</td>
+              <td>Conectividad con herramientas externas</td>
+            </tr>
+            <tr>
+              <td>Persistencia</td>
+              <td>Una sola conversación</td>
+              <td>Entre conversaciones</td>
+              <td>Entre sesiones</td>
+              <td>Conexión continua</td>
+            </tr>
+            <tr>
+              <td>Contiene</td>
+              <td>Lenguaje natural</td>
+              <td>Instrucciones + código + assets</td>
+              <td>Lógica completa de agente</td>
+              <td>Definiciones de herramientas</td>
+            </tr>
+            <tr>
+              <td>Se carga</td>
+              <td>Cada turno</td>
+              <td>Dinámicamente, cuando es relevante</td>
+              <td>Cuando se invoca</td>
+              <td>Siempre disponible</td>
+            </tr>
+            <tr>
+              <td>Incluye código</td>
+              <td>No</td>
+              <td>Sí</td>
+              <td>Sí</td>
+              <td>Sí</td>
+            </tr>
+            <tr>
+              <td>Ideal para</td>
+              <td>Peticiones rápidas y puntuales</td>
+              <td>Conocimiento especializado y reutilizable</td>
+              <td>Tareas especializadas con permisos propios</td>
+              <td>Acceso a datos y sistemas externos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── SLIDE 21: Skills — demo ── -->
+      <div class="slide" id="slide-21" data-reveal="3">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 8 · Demo</span>
+        </div>
+        <h2>Skills en acción</h2>
+        <div class="demo-steps">
+          <div class="demo-step hidden" data-step="1" data-type="prompt">
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <span class="step-label">Prompt · Sin skills</span>
+              <code class="step-cmd">Haz el code review del main.py</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="2" data-type="action">
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <span class="step-label">Acción</span>
+              <code class="step-cmd">mv ___skills .claude/skills</code>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="3" data-type="prompt">
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <span class="step-label">Prompt · Con skills</span>
+              <code class="step-cmd">Haz el code review del main.py</code>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- ── SLIDE 15b: Permisos — jerarquía settings ── -->
-  <div class="slide" id="slide-15">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 5</span>
-    </div>
-    <h2>Permisos</h2>
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Fichero</th>
-          <th>Alcance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>~/.claude/settings.json</code></td>
-          <td>Global — todos tus proyectos</td>
-        </tr>
-        <tr>
-          <td><code>.claude/settings.json</code></td>
-          <td>Proyecto — se commitea con el repo</td>
-        </tr>
-        <tr>
-          <td><code>.claude/settings.local.json</code></td>
-          <td>Solo tú — no se commitea</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="tip-box">
-      <span class="tip-label">Prioridad</span>
-      <p>Local sobreescribe proyecto, proyecto sobreescribe global.</p>
-    </div>
-  </div>
-
-  <!-- ── SLIDE 15: Rewind ── -->
-  <div class="slide" id="slide-16" data-reveal="4">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 6</span>
-    </div>
-    <h2>Rewind — deshacer sin miedo</h2>
-    <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="prompt">
-        <span class="step-num">1</span>
-        <div class="step-body">
-          <span class="step-label">Prompt</span>
-          <code class="step-cmd">Crea un fichero de texto con una haiku en japonés</code>
+      <!-- ── SLIDE 22: Skills del equipo ── -->
+      <div class="slide" id="slide-22">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 8 · Skills útiles</span>
+        </div>
+        <h2>Ejemplos de Skills</h2>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th>Para qué sirve</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>/story-splitting</code></td>
+              <td>Detecta si una historia son varias disfrazadas</td>
+            </tr>
+            <tr>
+              <td><code>/hamburger-method</code></td>
+              <td>Corta en capas, genera opciones, elige la que da feedback más rápido</td>
+            </tr>
+            <tr>
+              <td><code>/small-safe-steps</code></td>
+              <td>Incrementos pequeños, cada uno desplegable de forma independiente</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip-box">
+          <span class="tip-label">Si repites el mismo prompt más de 2 veces</span>
+          <p>Sácalo a una Skill.<br />Así lo comparte todo el equipo sin esfuerzo.</p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">Skill Creator de Anthropic</span>
+          <p>
+            Genera skills automáticamente a partir de una descripción.<br /><code
+              >anthropics/skills → skill-creator</code
+            >
+          </p>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="2" data-type="prompt">
-        <span class="step-num">2</span>
-        <div class="step-body">
-          <span class="step-label">Prompt</span>
-          <code class="step-cmd">Borra el fichero del Haiku</code>
+
+      <!-- ── SLIDE 23: Plugins — anatomía ── -->
+      <div class="slide" id="slide-23" data-reveal="4">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 1 · Paso 8 · Plugins</span>
+        </div>
+        <h2>Plugins para agrupar skills, agentes, MCPs</h2>
+        <div class="demo-steps">
+          <div class="demo-step hidden" data-step="1" data-type="highlight">
+            <span class="step-num">🔗</span>
+            <div class="step-body">
+              <code class="step-cmd">github.com/nikeyes/stepwise-dev</code>
+              <span class="step-label">Plugin que agrupa research, plan, implement & validate</span>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="2" data-type="prompt">
+            <span class="step-num">⌘</span>
+            <div class="step-body">
+              <span class="step-label">Slash Commands</span>
+              <p class="step-desc">
+                Workflows completos invocables con <code>/nombre</code>.<br />Ej:
+                <code>/research_codebase</code>, <code>/create_plan</code>,
+                <code>/iterate_plan</code>, <code>/implement_plan</code>,
+                <code>/validate_plan</code>, <code>/deep_research</code>
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="3" data-type="prompt">
+            <span class="step-num">🤖</span>
+            <div class="step-body">
+              <span class="step-label">Subagentes</span>
+              <p class="step-desc">
+                Agentes especializados que Claude delega automáticamente.<br />Ej:
+                <code>codebase-analyzer</code>, <code>web-search-researcher</code>,
+                <code>citation-analyst</code>
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="4" data-type="prompt">
+            <span class="step-num">📘</span>
+            <div class="step-body">
+              <span class="step-label">Skills</span>
+              <p class="step-desc">
+                Conocimiento procedimental que se carga bajo demanda.<br />Ej: gestión de
+                conocimiento en <code>thoughts/</code> o generación de informes con citas
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="demo-step hidden" data-step="3" data-type="action">
-        <span class="step-num">↩</span>
-        <div class="step-body">
-          <span class="step-label">Rewind</span>
-          <code class="step-cmd">Deshace el último turno del agente</code>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="4" data-type="warning">
-        <span class="step-num">⚠️</span>
-        <div class="step-body">
-          <span class="step-label">Aviso</span>
-          <code class="step-cmd">En las últimas versiones, también deshace comandos bash sencillos, pero no os fiéis...</code>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── SLIDE 16: Hooks — qué son ── -->
-  <div class="slide" id="slide-17">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 7</span>
-    </div>
-    <h2>Hooks — guardarraíles automáticos</h2>
-    <div class="tip-box">
-      <span class="tip-label">Qué son</span>
-      <p>Comandos que se ejecutan automáticamente en respuesta a acciones del agente.<br>El agente no los pide, simplemente ocurren.</p>
-    </div>
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Evento</th>
-          <th>Se dispara cuando…</th>
-          <th>Ideal para</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>PostToolUse + Edit</code></td>
-          <td>Después de cada edición de fichero</td>
-          <td>Linter / formatter — actúa mientras el fichero está en foco</td>
-        </tr>
-        <tr>
-          <td><code>Stop</code></td>
-          <td>Cuando el agente termina su turno</td>
-          <td>Build / tests — espera a que todos los cambios estén hechos</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <!-- ── SLIDE 24: Recursos útiles ── -->
+      <div class="slide" id="slide-24">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Recursos útiles</span>
+        </div>
+        <h2>Recursos para AI-Driven Development</h2>
+        <ul class="checklist">
+          <li>
+            <span
+              ><strong>📚 Documentación:</strong>
+              <a href="https://code.claude.com/docs/en/best-practices" target="_blank"
+                >Best Practices</a
+              >,
+              <a href="https://code.claude.com/docs/en/common-workflows" target="_blank"
+                >Common Workflows</a
+              >,
+              <a href="https://www.humanlayer.dev/blog/writing-a-good-claude-md" target="_blank"
+                >writing good CLAUDE.md</a
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><strong>🔌 Plugins de Anthropic:</strong>
+              <a href="https://claude.com/plugins#plugins" target="_blank">Claude Code plugins</a>,
+              <a href="https://claude.com/plugins/pyright-lsp" target="_blank">Pyright LSP</a></span
+            >
+          </li>
+          <li>
+            <span
+              ><strong>🛠️ Skills que yo uso:</strong>
+              <a href="https://github.com/anthropics/skills" target="_blank">/simplify</a>,
+              <a href="https://github.com/eferro/skill-factory" target="_blank"
+                >/test-desiderata, /hamburger-method, /small-safe-steps, /story-splitting</a
+              ></span
+            >
+          </li>
+          <li>
+            <span
+              ><strong>🔧 Mi propio Plugin:</strong>
+              <a href="https://github.com/nikeyes/stepwise-dev" target="_blank">stepwise-dev</a>
+              para research, plan, implement, validate workflows</span
+            >
+          </li>
+        </ul>
+      </div>
 
-  <!-- ── SLIDE 17: Hooks — demo ── -->
-  <div class="slide" id="slide-18" data-reveal="3">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 7 · Demo</span>
-    </div>
-    <h2>Configurar un hook con el agente</h2>
-    <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="prompt">
-        <span class="step-num">1</span>
-        <div class="step-body">
-          <span class="step-label">Prompt</span>
-          <code class="step-cmd">Using the claude-code-guide agent, configure a hook in the settings.json of the project to run the format tool after every file edit.</code>
+      <!-- __ SLIDE 25: Transición Bloque 2 ── -->
+      <div class="slide slide-break" id="slide-25">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 2 — 1h</span>
         </div>
+        <h1>Tu ticket, tu repo</h1>
+        <div class="accent-bar"></div>
       </div>
-      <div class="demo-step hidden" data-step="2" data-type="action">
-        <span class="step-num">→</span>
-        <div class="step-body">
-          <span class="step-label">Resultado</span>
-          <code class="step-cmd">A partir de ahora el formatter corre en cada fichero editado — sin pedirlo</code>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="3" data-type="action">
-        <span class="step-num">📦</span>
-        <div class="step-body">
-          <span class="step-label">Backup por si os atascáis</span>
-          <code class="step-cmd">mv ___settings.json .claude/settings.json</code>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── SLIDE 18: Agents & Skills — qué son ── -->
-  <div class="slide" id="slide-19" data-hidden>
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 8</span>
-    </div>
-    <h2>Agents &amp; Skills</h2>
-    <div class="tip-box">
-      <span class="tip-label">El problema</span>
-      <p>Cada persona de tu equipo reinventa los mismos prompts.<br>Las Skills son la forma de <strong>compartir conocimiento</strong> entre sesiones y entre personas.</p>
-    </div>
-    <div class="tip-box">
-      <span class="tip-label">Qué es una Skill</span>
-      <p>Un fichero de instrucciones que el agente carga cuando lo necesita.<br>Vive en <code>.claude/skills/</code> y se activa con <code>/nombre</code>.</p>
-    </div>
-    <div class="tip-box">
-      <span class="tip-label">Agentes</span>
-      <p>Claude puede delegar subtareas a subagentes especializados.<br>Cada agente tiene su propio contexto, herramientas y CLAUDE.md.</p>
-    </div>
-  </div>
+      <!-- ── SLIDE 26: Bloque 2 — Tu ticket ── -->
+      <div class="slide" id="slide-26">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 2 · 1h</span>
+        </div>
+        <h2>Tu ticket, tu repo</h2>
+        <ul class="checklist">
+          <li>
+            <span>Cada persona trabaja su <strong>propio ticket</strong>.</span>
+          </li>
+          <li>
+            <span>El objetivo <strong>no es terminar</strong> el ticket.</span>
+          </li>
+          <li>
+            <span
+              >El objetivo es <strong>aprender a usar y configurar</strong> Claude Code con vuestros
+              repos.</span
+            >
+          </li>
+          <li>
+            <span
+              >Al principio iréis inseguros y lentos. Cuando tengáis el repo configurado,
+              <strong>iréis volando</strong>.</span
+            >
+          </li>
+        </ul>
+      </div>
 
-  <!-- ── SLIDE 19: Skills vs Prompts vs Subagents vs MCP ── -->
-  <div class="slide" id="slide-20">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 8</span>
-    </div>
-    <h2>Prompts, Skills, Subagents &amp; MCP</h2>
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Prompts</th>
-          <th>Skills</th>
-          <th>Subagents</th>
-          <th>MCP</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Qué aporta</td>
-          <td>Instrucciones paso a paso</td>
-          <td> Procedimientos reutilizables entre sesiones</td>
-          <td>Delegación de tareas con contexto aislado</td>
-          <td>Conectividad con herramientas externas</td>
-        </tr>
-        <tr>
-          <td>Persistencia</td>
-          <td>Una sola conversación</td>
-          <td>Entre conversaciones</td>
-          <td>Entre sesiones</td>
-          <td>Conexión continua</td>
-        </tr>
-        <tr>
-          <td>Contiene</td>
-          <td>Lenguaje natural</td>
-          <td>Instrucciones + código + assets</td>
-          <td>Lógica completa de agente</td>
-          <td>Definiciones de herramientas</td>
-        </tr>
-        <tr>
-          <td>Se carga</td>
-          <td>Cada turno</td>
-          <td>Dinámicamente, cuando es relevante</td>
-          <td>Cuando se invoca</td>
-          <td>Siempre disponible</td>
-        </tr>
-        <tr>
-          <td>Incluye código</td>
-          <td>No</td>
-          <td>Sí</td>
-          <td>Sí</td>
-          <td>Sí</td>
-        </tr>
-        <tr>
-          <td>Ideal para</td>
-          <td>Peticiones rápidas y puntuales</td>
-          <td>Conocimiento especializado y reutilizable </td>
-          <td>Tareas especializadas con permisos propios</td>
-          <td>Acceso a datos y sistemas externos</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <!-- ── SLIDE 27: Bloque 2 — guía durante la sesión ── -->
+      <div class="slide" id="slide-27">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 2 · Guía</span>
+        </div>
+        <h2>Mientras trabajas</h2>
+        <ul class="checklist">
+          <li>
+            <span
+              >Si no tienes un workflow de desarrollo con IA, empieza con <em>Plan Mode</em>.</span
+            >
+          </li>
+          <li>
+            <span
+              >Configura los <strong>permisos</strong> que necesitas para tu ticket de forma
+              iterativa.</span
+            >
+          </li>
+          <li>
+            <span
+              >Si Claude Code no se comporta como esperas, añádelo al
+              <strong>CLAUDE.md o a las Rules</strong>.</span
+            >
+          </li>
+          <li>
+            <span
+              >Si escribes el mismo prompt más de 2 veces:
+              <strong>sácalo a una Skill</strong>.</span
+            >
+          </li>
+          <li>
+            <span>Fíjate en cómo se va <strong>llenando el contexto</strong>.</span>
+          </li>
+          <li>
+            <span
+              >Añade <strong>hooks</strong> para el linter, formatter u otras validaciones.</span
+            >
+          </li>
+        </ul>
+      </div>
 
-  <!-- ── SLIDE 21: Skills — demo ── -->
-  <div class="slide" id="slide-21" data-reveal="3">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 8 · Demo</span>
-    </div>
-    <h2>Skills en acción</h2>
-    <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="prompt">
-        <span class="step-num">1</span>
-        <div class="step-body">
-          <span class="step-label">Prompt · Sin skills</span>
-          <code class="step-cmd">Haz el code review del main.py</code>
+      <!-- ── SLIDE 28: Grupos de trabajo ── -->
+      <div class="slide" id="slide-28">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Grupos de trabajo</span>
         </div>
+        <h2>Súmate a un grupo existente</h2>
+        <p style="margin-bottom: 0.5rem">
+          Si deseas sumarte a un grupo de trabajo existente, puedes contactar:
+        </p>
+        <ul class="checklist" style="font-size: clamp(0.78rem, 1.6vh, 1rem); gap: 0.35rem">
+          <li>
+            <span><strong>Embedded Software H&amp;B</strong> — @Germán Navarro</span>
+          </li>
+          <li>
+            <span><strong>Embedded Software Public</strong> — @Ricardo Estevez</span>
+          </li>
+          <li>
+            <span><strong>Platform (infra) / AI &amp; Automations</strong> — @Pablo Murga</span>
+          </li>
+          <li>
+            <span><strong>Backend</strong> — @Pedro Martínez</span>
+          </li>
+          <li>
+            <span><strong>Mobile</strong> — @Luka Hristic</span>
+          </li>
+          <li>
+            <span><strong>Data</strong> — @Carlos Guevara</span>
+          </li>
+          <li>
+            <span><strong>Frontend</strong> — @Vanessa Poppe</span>
+          </li>
+          <li>
+            <span><strong>QA / Validations</strong> — @Luna Camacho · @Antonio Reyes</span>
+          </li>
+          <li>
+            <span><strong>OS</strong> — @Victor Álvarez</span>
+          </li>
+          <li>
+            <span><strong>Firmware</strong> — @Julio Liñán</span>
+          </li>
+        </ul>
       </div>
-      <div class="demo-step hidden" data-step="2" data-type="action">
-        <span class="step-num">2</span>
-        <div class="step-body">
-          <span class="step-label">Acción</span>
-          <code class="step-cmd">mv ___skills .claude/skills</code>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="3" data-type="prompt">
-        <span class="step-num">3</span>
-        <div class="step-body">
-          <span class="step-label">Prompt · Con skills</span>
-          <code class="step-cmd">Haz el code review del main.py</code>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── SLIDE 22: Skills del equipo ── -->
-  <div class="slide" id="slide-22">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 8 · Skills útiles</span>
-    </div>
-    <h2>Ejemplos de Skills</h2>
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th>Skill</th>
-          <th>Para qué sirve</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>/story-splitting</code></td>
-          <td>Detecta si una historia son varias disfrazadas</td>
-        </tr>
-        <tr>
-          <td><code>/hamburger-method</code></td>
-          <td>Corta en capas, genera opciones, elige la que da feedback más rápido</td>
-        </tr>
-        <tr>
-          <td><code>/small-safe-steps</code></td>
-          <td>Incrementos pequeños, cada uno desplegable de forma independiente</td>
-        </tr>
-        <tr>
-          <td><code>/test-desiderata</code></td>
-          <td>Analiza y mejora la calidad de los tests usando los desiderata de Kent Beck</td>
-        </tr>
-        <tr>
-          <td><code>/simplify</code></td>
-          <td>Revisa el código recién escrito y lo simplifica sin perder funcionalidad</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="tip-box">
-      <span class="tip-label">Si repites el mismo prompt más de 2 veces</span>
-      <p>Sácalo a una Skill.<br>Así lo comparte todo el equipo sin esfuerzo.</p>
-    </div>
-    <div class="tip-box">
-      <span class="tip-label">Skill Creator de Anthropic</span>
-      <p>Genera skills automáticamente a partir de una descripción.<br><code>anthropics/skills → skill-creator</code></p>
-    </div>
-  </div>
+      <!-- ── SLIDE 29: Transición Bloque 3 ── -->
+      <div class="slide slide-break" id="slide-29">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 3 — 20 min</span>
+        </div>
+        <h1>Retro</h1>
+        <div class="accent-bar"></div>
+      </div>
 
-  <!-- ── SLIDE 23: Plugins — anatomía ── -->
-  <div class="slide" id="slide-23" data-reveal="4">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 1 · Paso 8 · Plugins</span>
-    </div>
-    <h2>Plugins para agrupar skills, agentes, MCPs</h2>
-    <div class="demo-steps">
-      <div class="demo-step hidden" data-step="1" data-type="highlight">
-        <span class="step-num">🔗</span>
-        <div class="step-body">
-          <code class="step-cmd">github.com/nikeyes/stepwise-dev</code>
-          <span class="step-label">Plugin que agrupa research, plan, implement & validate</span>
+      <!-- ── SLIDE 30: Bloque 3 — Retro ── -->
+      <div class="slide" id="slide-30">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Bloque 3 · 20 min</span>
         </div>
-      </div>
-      <div class="demo-step hidden" data-step="2" data-type="prompt">
-        <span class="step-num">⌘</span>
-        <div class="step-body">
-          <span class="step-label">Slash Commands</span>
-          <p class="step-desc">Workflows completos invocables con <code>/nombre</code>.<br>Ej: <code>/research_codebase</code>, <code>/create_plan</code>, <code>/iterate_plan</code>, <code>/implement_plan</code>, <code>/validate_plan</code>, <code>/deep_research</code></p>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="3" data-type="prompt">
-        <span class="step-num">🤖</span>
-        <div class="step-body">
-          <span class="step-label">Subagentes</span>
-          <p class="step-desc">Agentes especializados que Claude delega automáticamente.<br>Ej: <code>codebase-analyzer</code>, <code>web-search-researcher</code>, <code>citation-analyst</code></p>
-        </div>
-      </div>
-      <div class="demo-step hidden" data-step="4" data-type="prompt">
-        <span class="step-num">📘</span>
-        <div class="step-body">
-          <span class="step-label">Skills</span>
-          <p class="step-desc">Conocimiento procedimental que se carga bajo demanda.<br>Ej: gestión de conocimiento en <code>thoughts/</code> o generación de informes con citas</p>
-        </div>
+        <h2>Retro</h2>
+        <ul class="checklist">
+          <li>
+            <span>¿Qué ha <strong>funcionado mejor</strong> de lo esperado?</span>
+          </li>
+          <li>
+            <span>¿Qué os ha <strong>costado más</strong>?</span>
+          </li>
+          <li>
+            <span><strong>Patrones comunes</strong> que habéis encontrado.</span>
+          </li>
+          <li>
+            <span
+              >¿Siguientes pasos como equipo?:
+              <strong>CLAUDE.md, hooks, forma de compartir aprendizajes</strong>.</span
+            >
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
 
-  <!-- ── SLIDE 24: Recursos útiles ── -->
-  <div class="slide" id="slide-24">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Recursos útiles</span>
-    </div>
-    <h2>Recursos para AI-Driven Development</h2>
-    <ul class="checklist">
-      <li><span><strong>📚 Documentación:</strong> <a href="https://code.claude.com/docs/en/best-practices" target="_blank">Best Practices</a>, <a href="https://code.claude.com/docs/en/common-workflows" target="_blank">Common Workflows</a>, <a href="https://www.humanlayer.dev/blog/writing-a-good-claude-md" target="_blank">writing good CLAUDE.md</a></span></li>
-      <li><span><strong>🔌 Plugins de Anthropic:</strong> <a href="https://claude.com/plugins#plugins" target="_blank">Claude Code plugins</a>, <a href="https://claude.com/plugins/pyright-lsp" target="_blank">Pyright LSP</a></span></li>
-      <li><span><strong>🛠️ Skills que yo uso:</strong> <a href="https://github.com/anthropics/skills" target="_blank">/simplify</a>, <a href="https://github.com/eferro/skill-factory" target="_blank">/test-desiderata, /hamburger-method, /small-safe-steps, /story-splitting</a></span></li>
-      <li><span><strong>🔧 Mi propio Plugin:</strong> <a href="https://github.com/nikeyes/stepwise-dev" target="_blank">stepwise-dev</a> para research, plan, implement, validate workflows</span></li>
-    </ul>
-  </div>
+    <!-- ── Navigation ── -->
+    <nav class="nav" aria-label="Slide navigation">
+      <button class="nav-btn" id="prev" aria-label="Anterior">&#8592;</button>
+      <span class="nav-counter" id="counter"></span>
+      <button class="nav-btn" id="next" aria-label="Siguiente">&#8594;</button>
+    </nav>
 
-  <!-- __ SLIDE 25: Transición Bloque 2 ── -->
-  <div class="slide slide-break" id="slide-25">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 2 — 1h</span>
-    </div>
-    <h1>Tu ticket, tu repo</h1>
-    <div class="accent-bar"></div>
-  </div>
+    <script>
+      const slides = Array.from(document.querySelectorAll(".slide:not([data-hidden])"));
+      const total = slides.length;
+      const counterEl = document.getElementById("counter");
+      const prevBtn = document.getElementById("prev");
+      const nextBtn = document.getElementById("next");
+      let current = 0;
 
-  <!-- ── SLIDE 26: Bloque 2 — Tu ticket ── -->
-  <div class="slide" id="slide-26">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 2 · 1h</span>
-    </div>
-    <h2>Tu ticket, tu repo</h2>
-    <ul class="checklist">
-      <li><span>Cada persona trabaja su <strong>propio ticket</strong>.</span></li>
-      <li><span>El objetivo <strong>no es terminar</strong> el ticket.</span></li>
-      <li><span>El objetivo es <strong>aprender a usar y configurar</strong> Claude Code con vuestros repos.</span></li>
-      <li><span>Al principio iréis inseguros y lentos. Cuando tengáis el repo configurado, <strong>iréis volando</strong>.</span></li>
-    </ul>
-  </div>
+      const revealed = {};
 
-  <!-- ── SLIDE 27: Bloque 2 — guía durante la sesión ── -->
-  <div class="slide" id="slide-27">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 2 · Guía</span>
-    </div>
-    <h2>Mientras trabajas</h2>
-    <ul class="checklist">
-      <li><span>Si no tienes un workflow de desarrollo con IA, empieza con <em>Plan Mode</em>.</span></li>
-      <li><span>Configura los <strong>permisos</strong> que necesitas para tu ticket de forma iterativa.</span></li>
-      <li><span>Si Claude Code no se comporta como esperas, añádelo al <strong>CLAUDE.md o a las Rules</strong>.</span></li>
-      <li><span>Si escribes el mismo prompt más de 2 veces: <strong>sácalo a una Skill</strong>.</span></li>
-      <li><span>Fíjate en cómo se va <strong>llenando el contexto</strong>.</span></li>
-      <li><span>Añade <strong>hooks</strong> para el linter, formatter u otras validaciones.</span></li>
-      
-    </ul>
-  </div>
+      function getRevealData(slideEl) {
+        const max = parseInt(slideEl.dataset.reveal || "0", 10);
+        const id = slideEl.id;
+        if (!revealed[id]) revealed[id] = 0;
+        return { max, count: revealed[id], id };
+      }
 
-  <!-- ── SLIDE 28: Grupos de trabajo ── -->
-  <div class="slide" id="slide-28">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Grupos de trabajo</span>
-    </div>
-    <h2>Súmate a un grupo existente</h2>
-    <p style="margin-bottom:0.5rem">Si deseas sumarte a un grupo de trabajo existente, puedes contactar:</p>
-    <ul class="checklist" style="font-size:clamp(0.78rem,1.6vh,1rem);gap:0.35rem">
-      <li><span><strong>Embedded Software H&amp;B</strong> — @Germán Navarro</span></li>
-      <li><span><strong>Embedded Software Public</strong> — @Ricardo Estevez</span></li>
-      <li><span><strong>Platform (infra) / AI &amp; Automations</strong> — @Pablo Murga</span></li>
-      <li><span><strong>Backend</strong> — @Pedro Martínez</span></li>
-      <li><span><strong>Mobile</strong> — @Luka Hristic</span></li>
-      <li><span><strong>Data</strong> — @Carlos Guevara</span></li>
-      <li><span><strong>Frontend</strong> — @Vanessa Poppe</span></li>
-      <li><span><strong>QA / Validations</strong> — @Luna Camacho · @Antonio Reyes</span></li>
-      <li><span><strong>OS</strong> — @Victor Álvarez</span></li>
-      <li><span><strong>Firmware</strong> — @Julio Liñán</span></li>
-    </ul>
-  </div>
+      function revealNext(slideEl) {
+        const { max, count, id } = getRevealData(slideEl);
+        if (count >= max) return false;
+        revealed[id] = count + 1;
+        const step = slideEl.querySelector(`[data-step="${revealed[id]}"]`);
+        if (step) step.classList.remove("hidden");
+        return true;
+      }
 
-  <!-- ── SLIDE 29: Transición Bloque 3 ── -->
-  <div class="slide slide-break" id="slide-29">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 3 — 20 min</span>
-    </div>
-    <h1>Retro</h1>
-    <div class="accent-bar"></div>
-  </div>
+      function resetReveal(slideEl) {
+        revealed[slideEl.id] = 0;
+        slideEl.querySelectorAll("[data-step]").forEach((s) => s.classList.add("hidden"));
+      }
 
-  <!-- ── SLIDE 30: Bloque 3 — Retro ── -->
-  <div class="slide" id="slide-30">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Bloque 3 · 20 min</span>
-    </div>
-    <h2>Retro</h2>
-    <ul class="checklist">
-      <li><span>¿Qué ha <strong>funcionado mejor</strong> de lo esperado?</span></li>
-      <li><span>¿Qué os ha <strong>costado más</strong>?</span></li>
-      <li><span><strong>Patrones comunes</strong> que habéis encontrado.</span></li>
-      <li><span>¿Siguientes pasos como equipo?: <strong>CLAUDE.md, hooks, forma de compartir aprendizajes</strong>.</span></li>
-    </ul>
-  </div>
+      function show(n) {
+        slides[current].classList.remove("active");
+        current = Math.max(0, Math.min(total - 1, n));
+        slides[current].classList.add("active");
+        counterEl.textContent = current + 1 + " / " + total;
+        prevBtn.style.opacity = current === 0 ? "0.3" : "1";
+        nextBtn.style.opacity = current === total - 1 ? "0.3" : "1";
+      }
 
-</div>
+      function advance() {
+        const slideEl = slides[current];
+        if (revealNext(slideEl)) return;
+        if (current < total - 1) show(current + 1);
+      }
 
-<!-- ── Navigation ── -->
-<nav class="nav" aria-label="Slide navigation">
-  <button class="nav-btn" id="prev" aria-label="Anterior">&#8592;</button>
-  <span class="nav-counter" id="counter"></span>
-  <button class="nav-btn" id="next" aria-label="Siguiente">&#8594;</button>
-</nav>
+      function back() {
+        const slideEl = slides[current];
+        const { max, count } = getRevealData(slideEl);
+        if (max > 0 && count > 0) {
+          resetReveal(slideEl);
+          return;
+        }
+        if (current > 0) show(current - 1);
+      }
 
-<script>
-  const slides = Array.from(document.querySelectorAll('.slide:not([data-hidden])'));
-  const total = slides.length;
-  const counterEl = document.getElementById('counter');
-  const prevBtn = document.getElementById('prev');
-  const nextBtn = document.getElementById('next');
-  let current = 0;
+      prevBtn.onclick = back;
+      nextBtn.onclick = advance;
 
-  const revealed = {};
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") advance();
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") back();
+      });
 
-  function getRevealData(slideEl) {
-    const max = parseInt(slideEl.dataset.reveal || '0', 10);
-    const id = slideEl.id;
-    if (!revealed[id]) revealed[id] = 0;
-    return { max, count: revealed[id], id };
-  }
-
-  function revealNext(slideEl) {
-    const { max, count, id } = getRevealData(slideEl);
-    if (count >= max) return false;
-    revealed[id] = count + 1;
-    const step = slideEl.querySelector(`[data-step="${revealed[id]}"]`);
-    if (step) step.classList.remove('hidden');
-    return true;
-  }
-
-  function resetReveal(slideEl) {
-    revealed[slideEl.id] = 0;
-    slideEl.querySelectorAll('[data-step]').forEach(s => s.classList.add('hidden'));
-  }
-
-  function show(n) {
-    slides[current].classList.remove('active');
-    current = Math.max(0, Math.min(total - 1, n));
-    slides[current].classList.add('active');
-    counterEl.textContent = (current + 1) + ' / ' + total;
-    prevBtn.style.opacity = current === 0 ? '0.3' : '1';
-    nextBtn.style.opacity = current === total - 1 ? '0.3' : '1';
-  }
-
-  function advance() {
-    const slideEl = slides[current];
-    if (revealNext(slideEl)) return;
-    if (current < total - 1) show(current + 1);
-  }
-
-  function back() {
-    const slideEl = slides[current];
-    const { max, count } = getRevealData(slideEl);
-    if (max > 0 && count > 0) {
-      resetReveal(slideEl);
-      return;
-    }
-    if (current > 0) show(current - 1);
-  }
-
-  prevBtn.onclick = back;
-  nextBtn.onclick = advance;
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') advance();
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp') back();
-  });
-
-  slides.forEach(s => s.classList.remove('active'));
-  show(0);
-</script>
-</body>
+      slides.forEach((s) => s.classList.remove("active"));
+      show(0);
+    </script>
+  </body>
 </html>
