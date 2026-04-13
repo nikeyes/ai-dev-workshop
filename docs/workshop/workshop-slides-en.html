@@ -1720,5 +1720,19 @@
       slides.forEach((s) => s.classList.remove("active"));
       show(0);
     </script>
+<!-- Librecounter Analytics -->
+<a id="librecounter" href="https://librecounter.org/referer/show" title="Website Analytics" style="position:fixed;bottom:8px;right:8px;opacity:0.3;z-index:9999;">
+  <img src="https://librecounter.org/counter.svg" referrerpolicy="unsafe-url" alt="Librecounter Analytics" width="32" height="32"/>
+</a>
+<script>
+  (function() {
+    var badge = document.getElementById('librecounter');
+    var origShow = show;
+    show = function(n) {
+      origShow(n);
+      badge.style.display = current === 0 ? '' : 'none';
+    };
+  })();
+</script>
   </body>
 </html>

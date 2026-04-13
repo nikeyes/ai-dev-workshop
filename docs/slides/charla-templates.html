@@ -1460,5 +1460,20 @@ body { background: #000; }
   /* Init */
   updateLabel(0);
 </script>
+<!-- Librecounter Analytics -->
+<a id="librecounter" href="https://librecounter.org/referer/show" title="Website Analytics" style="position:fixed;bottom:8px;right:8px;opacity:0.3;z-index:9999;">
+  <img src="https://librecounter.org/counter.svg" referrerpolicy="unsafe-url" alt="Librecounter Analytics" width="32" height="32"/>
+</a>
+<script>
+  (function() {
+    var badge = document.getElementById('librecounter');
+    var first = document.querySelector('.slide');
+    if (badge && first) {
+      new IntersectionObserver(function(entries) {
+        badge.style.display = entries[0].isIntersecting ? '' : 'none';
+      }, { threshold: 0.5 }).observe(first);
+    }
+  })();
+</script>
 </body>
 </html>
