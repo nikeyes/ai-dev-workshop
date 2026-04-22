@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uncovering better ways of developing</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23ff3300'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='14' fill='white'>AI</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;700;800&family=Nunito:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* === RESET & VIEWPORT BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow-x: hidden; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+body { background: #fff; }
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  font-family: 'Nunito', sans-serif;
+}
+.slide[data-hidden] {
+  display: none;
+}
+
+/* === CSS VARIABLES === */
+:root {
+  --accent:   #ff3300;
+  --text:     #000000;
+  --text-2:   #333333;
+  --text-3:   #666666;
+  --bar-w:    clamp(7px, 1.1vw, 13px);
+  --pad:      clamp(1.5rem, 5vw, 5rem);
+  --gap:      clamp(0.8rem, 2vw, 2.2rem);
+  --content-gap: clamp(1rem, 2.5vh, 2rem);
+  --title:    clamp(1.6rem, 5.5vw, 5.5rem);
+  --h2:       clamp(1.2rem, 3.2vw, 3rem);
+  --h3:       clamp(0.95rem, 2.2vw, 2rem);
+  --body:     clamp(0.9rem, 1.8vw, 1.4rem);
+  --note:     clamp(0.9rem, 1.7vw, 1.35rem);
+  --small:    clamp(0.8rem, 1.5vw, 1.2rem);
+  --f-black:  'Archivo Black', sans-serif;
+  --f-sans:   'Archivo', sans-serif;
+  --f-mono:   'Space Mono', monospace;
+}
+@media (max-height: 700px) {
+  :root { --pad: clamp(1rem, 3vw, 2.5rem); --title: clamp(1.3rem, 3.2vw, 2.8rem); --gap: clamp(0.35rem, 1vw, 0.9rem); }
+}
+@media (max-height: 600px) {
+  :root { --pad: clamp(0.75rem, 2.5vw, 2rem); --title: clamp(1.1rem, 2.8vw, 2.2rem); }
+}
+@media (max-height: 500px) {
+  :root { --pad: clamp(0.4rem, 2vw, 1rem); --title: clamp(1rem, 2.5vw, 1.8rem); --h2: clamp(0.9rem, 2.5vw, 1.5rem); --body: clamp(0.7rem, 1.2vw, 0.95rem); }
+  .nav-dots, .keyboard-hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.1ms !important; }
+}
+
+/* === KEYFRAMES === */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+@keyframes slideLeft{ from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }
+@keyframes scaleIn  { from { opacity:0; transform:scale(0.88); } to { opacity:1; transform:scale(1); } }
+@keyframes expandX  { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+
+/* === SHARED ELEMENTS === */
+
+/* Red left bar */
+.bar {
+  position: absolute;
+  top: 0; left: 0;
+  width: var(--bar-w);
+  height: 100%;
+  background: var(--accent);
+  z-index: 3;
+}
+
+/* Grid background */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 55px 55px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Watermark number */
+.wm {
+  font-family: var(--f-black);
+  font-size: clamp(7rem, 18vw, 18rem);
+  color: rgba(0,0,0,0.038);
+  line-height: 1;
+  position: absolute;
+  bottom: -0.12em;
+  right: -0.06em;
+  letter-spacing: -0.05em;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Eyebrow label */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  animation: fadeIn 0.4s ease both;
+}
+.eyebrow-rule {
+  width: clamp(24px, 4.5vw, 50px);
+  height: 3px;
+  background: var(--accent);
+  flex-shrink: 0;
+  transform-origin: left;
+  animation: expandX 0.4s ease both;
+}
+.eyebrow-text {
+  font-family: var(--f-sans);
+  font-size: var(--small);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Content area */
+.content {
+  position: relative;
+  z-index: 2;
+  padding: calc(var(--pad) + 44px) var(--pad) var(--pad) calc(var(--pad) + var(--bar-w) + clamp(4px, 0.8vw, 10px));
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--content-gap);
+}
+
+/* Main title */
+.title {
+  font-family: var(--f-black);
+  font-size: var(--title);
+  color: var(--text);
+  line-height: 1.02;
+  margin: 0;
+  animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s both;
+}
+.title em  { font-style: normal; -webkit-text-stroke: 2px var(--text); color: transparent; }
+.title .red { color: var(--accent); }
+
+/* H2 subheading */
+.h2 {
+  font-family: var(--f-sans);
+  font-size: var(--h2);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+  margin: 0;
+  animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+}
+
+/* Attribution row */
+.attr-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 2rem);
+  animation: fadeIn 0.5s ease 0.5s both;
+}
+.attr {
+  font-family: var(--f-sans);
+  font-size: var(--body);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.attr-div {
+  width: 1px;
+  height: clamp(16px, 3vh, 30px);
+  background: rgba(0,0,0,0.18);
+  flex-shrink: 0;
+}
+
+/* Note text */
+.note {
+  font-size: var(--note);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.55;
+  animation: fadeIn 0.5s ease 0.7s both;
+  max-width: min(72vw, 860px);
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--accent);
+  z-index: 10001;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ===== NAV DOTS ===== */
+.nav-dots {
+  position: fixed;
+  right: clamp(0.6rem, 1.5vw, 1.2rem);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.8vh, 0.6rem);
+  z-index: 9998;
+}
+.nav-dot {
+  width: clamp(8px, 1vw, 10px);
+  height: clamp(8px, 1vw, 10px);
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+  position: relative;
+}
+.nav-dot:hover { border-color: var(--accent); }
+.nav-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.3);
+}
+.nav-dot-label {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--f-sans);
+  font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+  font-weight: 700;
+  color: var(--text-3);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.nav-dot:hover .nav-dot-label { opacity: 1; }
+
+/* ===== KEYBOARD HINT ===== */
+.keyboard-hint {
+  position: fixed;
+  bottom: clamp(0.8rem, 2vh, 1.5rem);
+  right: clamp(0.8rem, 2vw, 1.5rem);
+  font-family: var(--f-mono);
+  font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+  color: rgba(0,0,0,0.25);
+  z-index: 9998;
+  animation: fadeIn 1s ease 2s both;
+  transition: opacity 0.5s ease;
+}
+.keyboard-hint.hidden { opacity: 0; pointer-events: none; }
+
+/* ===== NAV OVERLAY ===== */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--f-sans);
+  font-size: 0.75rem;
+  color: #fff;
+}
+#nav-title { font-weight: 700; letter-spacing: 0.04em; display: flex; gap: 0.6em; align-items: center; }
+#nav-label { opacity: 0.5; font-weight: 400; font-size: 0.68rem; }
+.nav-controls { display: flex; gap: 0.4rem; align-items: center; }
+.nav-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  cursor: pointer;
+  padding: 0.25rem 0.7rem;
+  border-radius: 3px;
+  font-family: var(--f-sans);
+  font-size: 0.72rem;
+  transition: background 0.15s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.25); }
+#nav-counter { opacity: 0.45; font-size: 0.7rem; }
+
+/* ================================================================
+   SLIDE 1 — COVER
+   ================================================================ */
+.s1 .content { max-width: min(80vw, 900px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
+.s1 .title { font-size: clamp(2rem, 5.5vw, 5.2rem); margin-bottom: clamp(0.5rem, 1.5vh, 1.2rem); }
+.s1 .subtitle {
+  font-family: var(--f-black);
+  font-size: clamp(1.2rem, 3vw, 2.8rem);
+  color: var(--accent);
+  line-height: 1;
+  animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both;
+}
+.s1 .speaker {
+  margin-top: clamp(2rem, 5vh, 5rem);
+  font-family: var(--f-sans);
+  font-size: var(--small);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  animation: fadeIn 0.5s ease 0.65s both;
+}
+
+/* ================================================================
+   SLIDE 1b — AGILE MANIFESTO WEBSITE
+   ================================================================ */
+.s1b .bar, .s1b .grid-bg, .s1b .wm { display: none; }
+.s1b {
+  background: url('https://agilemanifesto.org/background.jpg') top center / cover no-repeat;
+}
+.s1b .am-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', serif;
+  padding: clamp(1rem, 3vw, 2rem) clamp(2rem, 10vw, 14rem);
+  gap: clamp(0.4rem, 1.2vh, 1rem);
+}
+.s1b .am-title {
+  font-size: clamp(0.95rem, 1.9vw, 1.5rem);
+  font-weight: bold;
+  color: #000;
+  margin-bottom: clamp(0.4rem, 1.5vh, 1rem);
+}
+.s1b .am-preamble {
+  font-size: clamp(0.7rem, 1.15vw, 0.92rem);
+  color: #000;
+  line-height: 1.65;
+}
+.s1b .am-values {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.05rem, 0.4vh, 0.3rem);
+  margin: clamp(0.4rem, 1.2vh, 0.8rem) 0;
+}
+.s1b .am-values p { line-height: 1.2; }
+.s1b .am-key {
+  font-size: clamp(1rem, 2.3vw, 1.85rem);
+  font-weight: bold;
+  color: #000;
+}
+.s1b .am-over {
+  font-size: clamp(0.65rem, 1.15vw, 0.92rem);
+  color: #000;
+}
+.s1b .am-note {
+  font-size: clamp(0.7rem, 1.15vw, 0.92rem);
+  color: #000;
+  line-height: 1.65;
+  margin-top: clamp(0.2rem, 0.8vh, 0.6rem);
+}
+.s1b .am-signatories {
+  display: flex;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  margin-top: clamp(0.6rem, 1.8vh, 1.2rem);
+  font-size: clamp(0.65rem, 1.1vw, 0.88rem);
+  color: #000;
+  line-height: 1.75;
+}
+.s1b .am-copyright {
+  font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+  color: #444;
+  line-height: 1.55;
+  margin-top: clamp(0.2rem, 0.6vh, 0.4rem);
+}
+.s1b .am-principles {
+  font-size: clamp(0.65rem, 1vw, 0.85rem);
+  color: #0000cc;
+  text-decoration: underline;
+  cursor: default;
+}
+
+/* ================================================================
+   SLIDE 2-WHY — WHY?
+   ================================================================ */
+.s2-why .content { max-width: min(80vw, 960px); justify-content: center; gap: clamp(1.2rem, 3vh, 2.5rem); }
+.s2-why .analogy {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: center;
+  animation: fadeIn 0.5s ease 0.3s both;
+}
+.s2-why .analogy-card {
+  background: #fafafa;
+  border: 2px solid rgba(0,0,0,0.08);
+  padding: clamp(1rem, 2.2vh, 1.6rem) clamp(1rem, 2vw, 1.5rem);
+  text-align: center;
+}
+.s2-why .analogy-icon {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin-bottom: 0.3em;
+  display: block;
+}
+.s2-why .analogy-title {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.2em;
+}
+.s2-why .analogy-sub {
+  font-size: var(--small);
+  color: var(--text-3);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.s2-why .analogy-arrow {
+  font-family: var(--f-black);
+  font-size: var(--h2);
+  color: rgba(0,0,0,0.12);
+}
+.s2-why .punchline {
+  font-family: var(--f-sans);
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.6rem, 1.5vh, 1rem);
+  max-width: min(72vw, 860px);
+}
+.s2-why .punchline em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* ================================================================
+   SLIDE 2b — AUTOMATION LEVELS
+   ================================================================ */
+.s2b .content { max-width: min(98vw, 1300px); justify-content: flex-start; gap: clamp(0.4rem, 1vh, 0.8rem); }
+.s2b .levels-table {
+  width: 100%;
+  border-collapse: collapse;
+  animation: fadeIn 0.5s ease 0.25s both;
+  font-size: clamp(0.78rem, 1.3vw, 1rem);
+}
+.s2b .levels-table th {
+  font-family: var(--f-sans);
+  font-weight: 800;
+  font-size: clamp(0.62rem, 0.95vw, 0.8rem);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  padding: 0.4em 1em;
+  border-bottom: 2px solid rgba(0,0,0,0.12);
+  text-align: left;
+  white-space: nowrap;
+}
+.s2b .levels-table td {
+  padding: clamp(0.5rem, 1.1vh, 0.85rem) 1em;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  vertical-align: middle;
+  line-height: 1.4;
+  color: var(--text-2);
+  font-weight: 600;
+}
+.s2b .levels-table tr.current td {
+  background: rgba(255,51,0,0.04);
+}
+.s2b .levels-table tr.current.revealed td:first-child {
+  border-left: 3px solid var(--accent);
+}
+.s2b .col-level {
+  font-family: var(--f-black);
+  font-size: clamp(0.85rem, 1.35vw, 1.1rem);
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.s2b tr.current .col-level { color: var(--accent); }
+.s2b .col-approach {
+  font-family: var(--f-sans);
+  font-weight: 800;
+  color: var(--text);
+}
+.s2b .col-products {
+  display: block;
+  margin-top: 0.25em;
+  font-weight: 400;
+  color: var(--text-3);
+  font-size: 0.85em;
+  line-height: 1.3;
+}
+.s2b .col-maturity {
+  white-space: nowrap;
+  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  color: var(--text-3);
+}
+.s2b .level-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--f-sans);
+  font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.15em 0.5em;
+  margin-left: 0.4em;
+  vertical-align: middle;
+}
+
+/* ================================================================
+   SLIDE 3b — BRIDGE: WHY WE ARE SLOWER
+   ================================================================ */
+.s3b .content { max-width: min(88vw, 1000px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
+.s3b .failure-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.4vh, 1rem);
+  width: 100%;
+}
+.s3b .failure-item {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.5rem);
+  align-items: flex-start;
+  padding: clamp(0.6rem, 1.4vh, 1rem) clamp(1rem, 2vw, 1.5rem);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  background: #fafafa;
+}
+.s3b .failure-item-num {
+  font-family: var(--f-black);
+  font-size: var(--h2);
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: 0.5;
+  width: 1.4em;
+  text-align: right;
+}
+.s3b .failure-item-title {
+  font-family: var(--f-sans);
+  font-size: var(--body);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.2em;
+}
+.s3b .failure-item-text {
+  font-size: var(--small);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+.s3b .s3b-verdict {
+  font-family: var(--f-sans);
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.5rem, 1.2vh, 0.9rem);
+  line-height: 1.5;
+}
+.s3b .s3b-verdict em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* ================================================================
+   SLIDE 2 — MANIFESTO
+   ================================================================ */
+.s2 .content { max-width: min(75vw, 920px); justify-content: center; gap: clamp(1rem, 3vh, 2.5rem); }
+
+/* ================================================================
+   SLIDE 3 — METR
+   ================================================================ */
+.s3 .content { max-width: min(88vw, 1100px); }
+.s3 .eyebrow  { order: 1; }
+.s3 .facts    { order: 2; }
+.s3 .reveal-block { order: 3; }
+.s3 .source   { order: 4; }
+
+/* --- reveal layout (strikethrough + reality) --- */
+.s3 .reveal-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.2rem, 1vh, 0.8rem);
+  margin-bottom: clamp(0.4rem, 1.5vh, 1.2rem);
+}
+.s3 .reveal-wrong {
+  position: relative;
+  display: inline-block;
+  align-self: flex-start;
+}
+.s3 .reveal-wrong-num {
+  font-family: var(--f-black);
+  font-size: clamp(1.4rem, 3.2vw, 2.8rem);
+  color: var(--text-3);
+  line-height: 1;
+  display: block;
+  padding: 0.05em 0;
+}
+/* Override reveal-item for the strike: animate width instead of opacity+translateY */
+.s3 .reveal-strike {
+  position: absolute;
+  left: -2%;
+  top: 50%;
+  height: clamp(4px, 0.6vw, 8px);
+  background: var(--accent);
+  transform: translateY(-50%) !important;
+  width: 0;
+  opacity: 1 !important;
+  transition: width 0.5s cubic-bezier(0.16,1,0.3,1) !important;
+}
+.s3 .reveal-strike.revealed {
+  width: 104%;
+}
+.s3 .reveal-real-num {
+  font-family: var(--f-black);
+  font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+  color: var(--accent);
+  line-height: 0.95;
+  display: block;
+}
+.s3 .facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  margin-top: clamp(1rem, 2.5vh, 2.5rem);
+  animation: fadeIn 0.5s ease 0.55s both;
+}
+.s3 .fact {
+  border-top: 3px solid rgba(0,0,0,0.1);
+  padding-top: clamp(0.5rem, 1.2vh, 1rem);
+}
+.s3 .fact-icon {
+  font-family: var(--f-black);
+  font-size: var(--h3);
+  color: var(--accent);
+  margin-bottom: 0.25em;
+}
+.s3 .fact-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.s3 .source {
+  margin-top: auto;
+  font-family: var(--f-mono);
+  font-size: clamp(0.6rem, 0.9vw, 0.76rem);
+  color: var(--text-3);
+  animation: fadeIn 0.5s ease 0.8s both;
+}
+.s3 .source a {
+  color: var(--accent);
+  text-decoration: underline;
+  font-weight: 700;
+}
+.s3 .s3-aside {
+  order: 4;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: var(--text-2);
+  font-style: italic;
+  margin-top: 1.5rem;
+}
+.s3 .source { order: 5; }
+
+/* ================================================================
+   SLIDE 4 — THE 4 PROBLEMS
+   ================================================================ */
+.s4 .content { max-width: min(88vw, 1060px); }
+.s4 .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s4 .card {
+  border: 2px solid rgba(0,0,0,0.1);
+  padding: clamp(0.9rem, 2vw, 1.8rem);
+  background: #fafafa;
+  position: relative;
+}
+.s4 .card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+  opacity: 0.35;
+}
+.s4 .card-num {
+  font-family: var(--f-sans);
+  font-size: var(--small);
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.4em;
+}
+.s4 .card-title {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.4em;
+}
+.s4 .card-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ================================================================
+   SLIDE 5 — DEVELOPMENT FLOW
+   ================================================================ */
+.s5 .content { max-width: min(92vw, 1260px); }
+.s5 .pipeline-wrap {
+  position: relative;
+  padding-bottom: clamp(2.8rem, 7vh, 4.5rem);
+}
+.s5 .pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-bottom: 0;
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s5 .step {
+  flex: 1;
+  border: 2px solid rgba(0,0,0,0.15);
+  padding: clamp(0.7rem, 1.8vw, 1.5rem);
+  text-align: center;
+  margin-right: -2px;
+  position: relative;
+  background: #fff;
+  z-index: 1;
+}
+.s5 .step-num {
+  font-family: var(--f-sans);
+  font-size: var(--small);
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3em;
+}
+.s5 .step-name {
+  font-family: var(--f-black);
+  font-size: var(--h3);
+  color: var(--text);
+  line-height: 1.1;
+}
+.s5 .step-sub {
+  font-size: var(--small);
+  color: var(--text-3);
+  font-weight: 600;
+  margin-top: 0.35em;
+  line-height: 1.35;
+}
+.s5 .arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(4px, 0.6vw, 10px);
+  font-family: var(--f-black);
+  font-size: var(--h2);
+  color: rgba(0,0,0,0.12);
+  z-index: 2;
+  flex-shrink: 0;
+}
+/* Bypass arc — dashed red U-shape below the pipeline */
+.s5 .shortcut {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+.s5 .sc-arc {
+  width: 100%;
+  height: clamp(1.6rem, 4vh, 2.8rem);
+  border: 3px dashed #ef4444;
+  border-top: none;
+  border-radius: 0 0 40px 40px;
+  box-sizing: border-box;
+  position: relative;
+}
+/* Upward arrowhead at right end of arc */
+.s5 .sc-arc::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: -9px;
+  width: 0; height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 11px solid #ef4444;
+}
+.s5 .sc-label {
+  font-size: clamp(0.55rem, 1.1vw, 0.8rem);
+  font-weight: 800;
+  color: #ef4444;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-top: 0.25rem;
+}
+.s5 .sc-consequences {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.s5 .sc-consequences span {
+  font-size: clamp(0.5rem, 1vw, 0.7rem);
+  font-weight: 700;
+  color: #ef4444;
+  background: rgba(239,68,68,0.08);
+  border: 1.5px solid rgba(239,68,68,0.4);
+  border-radius: 4px;
+  padding: 0.1em 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+/* Big red X over the shortcut */
+.s5 .shortcut-x {
+  position: absolute;
+  bottom: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(7rem, 18vw, 12rem);
+  font-weight: 900;
+  color: #ef4444;
+  line-height: 1;
+  z-index: 5;
+  text-shadow: 0 0 40px rgba(239,68,68,0.3);
+  pointer-events: none;
+}
+
+.s5 .pipeline-note {
+  font-size: var(--note);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.55;
+  background: #fafafa;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-left: 4px solid var(--accent);
+  padding: clamp(0.7rem, 1.5vh, 1.1rem) clamp(1rem, 2vw, 1.5rem);
+  max-width: min(80vw, 960px);
+}
+.s5 .pipeline-note strong { color: var(--text); font-weight: 800; }
+
+/* ================================================================
+   SLIDE 6 — PRACTICES THAT WORK
+   ================================================================ */
+.s6 .content { max-width: min(80vw, 960px); }
+.s6 .practices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap);
+}
+.s6 .practice {
+  display: flex;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  align-items: flex-start;
+}
+.s6 .practice-bullet {
+  width: clamp(22px, 3.5vw, 34px);
+  height: clamp(22px, 3.5vw, 34px);
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--f-black);
+  font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+.s6 .practice-title {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.25em;
+}
+.s6 .practice-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.s6 .bottleneck {
+  margin-top: auto;
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.6rem, 1.5vh, 1.2rem);
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ================================================================
+   SLIDE 7 — TDD AT A NEW SCALE
+   ================================================================ */
+.s7 .content { max-width: min(92vw, 1060px); }
+.s7 .tdd-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s7 .tdd-panel {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vh, 0.7rem);
+}
+.s7 .tdd-panel-header {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-bottom: 0.4em;
+  border-bottom: 3px solid;
+}
+.s7 .tdd-expires .tdd-panel-header {
+  color: var(--text-3);
+  border-color: rgba(0,0,0,0.15);
+}
+.s7 .tdd-endures .tdd-panel-header {
+  color: #16a34a;
+  border-color: #22c55e;
+}
+.s7 .tdd-panel-text {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.s7 .tdd-panel-text s {
+  color: var(--text-3);
+  text-decoration: line-through;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+}
+.s7 .tdd-cycle {
+  grid-column: 1 / -1;
+  background: #fafafa;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  padding: clamp(0.8rem, 1.8vh, 1.4rem) clamp(1rem, 2vw, 1.6rem);
+}
+.s7 .tdd-cycle-title {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: clamp(0.4rem, 1vh, 0.7rem);
+}
+.s7 .tdd-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+  counter-reset: step;
+}
+.s7 .tdd-steps li {
+  font-size: var(--small);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.4;
+  padding-left: 1.8em;
+  position: relative;
+  counter-increment: step;
+}
+.s7 .tdd-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  font-family: var(--f-black);
+  font-size: 0.9em;
+  color: var(--accent);
+  width: 1.4em;
+  text-align: center;
+}
+.s7 .tdd-takeaway {
+  grid-column: 1 / -1;
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.5rem, 1.2vh, 0.8rem);
+}
+.s7 .tdd-takeaway em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+/* ================================================================
+   SLIDE 8 — GUARDRAILS + CHECKLIST
+   ================================================================ */
+.s8 .content { max-width: min(92vw, 1100px); justify-content: center; }
+.s8 .two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  animation: fadeIn 0.5s ease 0.3s both;
+}
+/* --- Column panels with distinct visual treatment --- */
+.s8 .col-panel {
+  padding: clamp(1rem, 2.5vh, 1.8rem) clamp(1rem, 2vw, 1.6rem);
+  position: relative;
+}
+.s8 .col-guardrails {
+  background: #fafafa;
+  border: 2px solid rgba(0,0,0,0.08);
+  border-left: 4px solid var(--accent);
+}
+.s8 .col-checklist {
+  background: rgba(255,51,0,0.03);
+  border: 2px solid rgba(255,51,0,0.12);
+}
+.s8 .col-title {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: clamp(0.6rem, 1.5vh, 1.2rem);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-bottom: clamp(0.4rem, 1vh, 0.7rem);
+  border-bottom: 2px solid rgba(0,0,0,0.08);
+}
+.s8 .col-title::before {
+  content: '';
+  display: inline-block;
+  width: clamp(18px, 3vw, 28px);
+  height: 3px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.s8 .col-checklist .col-title {
+  border-color: rgba(255,51,0,0.15);
+}
+.s8 .col-icon {
+  font-family: var(--f-black);
+  font-size: clamp(0.65rem, 1vw, 0.8rem);
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+}
+.s8 .item-list, .s8 .check-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.2vh, 0.9rem);
+}
+.s8 .item-list li, .s8 .check-list li {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.4;
+  position: relative;
+}
+.s8 .item-list li {
+  padding-left: 1.6em;
+  padding-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.s8 .item-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.s8 .item-list li::before { content: '\2192'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+.s8 .check-list li {
+  padding-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+  border-bottom: 1px dashed rgba(255,51,0,0.12);
+  display: grid;
+  grid-template-columns: clamp(4.5rem, 6vw, 6rem) 1fr;
+  gap: 0.6em;
+  align-items: baseline;
+}
+.s8 .check-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.s8 .check-list li .cat {
+  font-family: var(--f-mono);
+  font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-top: 0.1em;
+}
+/* --- Bottom takeaway --- */
+.s8 .oversight-takeaway {
+  margin-top: auto;
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text);
+  border-top: 3px solid var(--accent);
+  padding-top: clamp(0.5rem, 1.2vh, 0.8rem);
+}
+.s8 .oversight-takeaway em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+
+/* ================================================================
+   SLIDE 9 — PERMISSIONS AND AUTONOMY
+   ================================================================ */
+.s9 .content { max-width: min(92vw, 1060px); }
+.s9 .subtitle {
+  font-family: var(--f-sans);
+  font-size: clamp(0.95rem, 1.8vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.45;
+  margin-bottom: clamp(1.2rem, 3vh, 2rem);
+}
+.s9 .subtitle strong {
+  color: var(--accent);
+  font-weight: 800;
+}
+.s9 .sec-table {
+  display: grid;
+  grid-template-columns: 1fr clamp(2rem, 4vw, 4rem) 1fr;
+  align-items: start;
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s9 .sec-col {
+  padding: clamp(0.8rem, 1.8vh, 1.4rem) clamp(1rem, 2vw, 1.6rem);
+}
+.s9 .sec-col-ok {
+  background: rgba(34,197,94,0.06);
+  border: 2px solid rgba(34,197,94,0.25);
+}
+.s9 .sec-col-danger {
+  background: rgba(239,68,68,0.06);
+  border: 2px solid rgba(239,68,68,0.25);
+}
+.s9 .sec-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  font-family: var(--f-black);
+  font-size: 1.5rem;
+  color: rgba(0,0,0,0.1);
+}
+.s9 .sec-col-header {
+  font-family: var(--f-sans);
+  font-size: var(--h3);
+  font-weight: 800;
+  margin-bottom: clamp(0.5rem, 1.2vh, 0.8rem);
+  padding-bottom: 0.35em;
+  border-bottom: 3px solid;
+}
+.s9 .sec-ok-header {
+  color: #16a34a;
+  border-color: #22c55e;
+}
+.s9 .sec-danger-header {
+  color: #dc2626;
+  border-color: #ef4444;
+}
+.s9 .sec-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.3rem, 0.8vh, 0.6rem);
+}
+.s9 .sec-list li {
+  font-size: var(--small);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.4;
+  padding-left: 1.4em;
+  position: relative;
+}
+.s9 .sec-col-ok .sec-list li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  font-weight: 800;
+  color: #22c55e;
+}
+.s9 .sec-col-danger .sec-list li::before {
+  content: '\2715';
+  position: absolute;
+  left: 0;
+  font-weight: 800;
+  color: #ef4444;
+}
+.s9 .sec-footer {
+  margin-top: auto;
+  text-align: right;
+}
+.s9 .sec-source {
+  font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+  color: var(--accent);
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+/* ================================================================
+   SLIDE 9 — RISK ROWS
+   ================================================================ */
+.s9 .risk-rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 0.9vh, 0.7rem);
+  margin-top: auto;
+  animation: fadeIn 0.5s ease 0.6s both;
+}
+.s9 .risk-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 1.5vw, 1.2rem);
+  padding: clamp(0.4rem, 1vh, 0.7rem) clamp(0.8rem, 1.5vw, 1.2rem);
+  border: 1.5px solid rgba(0,0,0,0.08);
+}
+.s9 .risk-row.risk-green { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.25); }
+.s9 .risk-row.risk-red   { background: rgba(239,68,68,0.06);  border-color: rgba(239,68,68,0.25); }
+.s9 .risk-dot {
+  width: clamp(10px,1.2vw,14px);
+  height: clamp(10px,1.2vw,14px);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.s9 .risk-green .risk-dot { background: #22c55e; }
+.s9 .risk-red   .risk-dot { background: #ef4444; }
+.s9 .risk-label {
+  font-family: var(--f-sans);
+  font-size: var(--body);
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* ================================================================
+   SLIDE 9b — REAL CASE: THE PLAN
+   ================================================================ */
+.s9b .content { max-width: min(88vw, 1020px); gap: clamp(0.8rem, 2vh, 1.6rem); }
+.s9b .chat {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.2vh, 0.9rem);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s9b .chat-row {
+  display: flex;
+  gap: clamp(0.5rem, 1.2vw, 0.9rem);
+  align-items: flex-start;
+}
+.s9b .chat-row.user-row { flex-direction: row-reverse; }
+.s9b .chat-avatar {
+  width: clamp(28px, 3vw, 38px);
+  height: clamp(28px, 3vw, 38px);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-black);
+  font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+  color: #fff;
+}
+.s9b .avatar-user { background: #333; }
+.s9b .avatar-ai   { background: var(--accent); }
+.s9b .chat-bubble {
+  max-width: 72%;
+  padding: clamp(0.5rem, 1.2vh, 0.8rem) clamp(0.7rem, 1.5vw, 1.1rem);
+  border-radius: 4px;
+  font-size: var(--small);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+}
+.s9b .user-row .chat-bubble {
+  background: #f0f0f0;
+  border: 1.5px solid rgba(0,0,0,0.1);
+}
+.s9b .ai-row .chat-bubble {
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,0.1);
+}
+.s9b .chat-bubble code {
+  font-family: var(--f-mono);
+  font-size: 0.88em;
+  background: rgba(0,0,0,0.06);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+}
+.s9b .action-bubble {
+  background: rgba(239,68,68,0.07) !important;
+  border-color: rgba(239,68,68,0.4) !important;
+  border-left: 4px solid #ef4444 !important;
+}
+.s9b .action-label {
+  font-size: clamp(0.55rem, 0.85vw, 0.68rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #ef4444;
+  margin-bottom: 0.3em;
+}
+.s9b .apology-bubble {
+  background: rgba(239,68,68,0.04) !important;
+  border-color: rgba(239,68,68,0.2) !important;
+}
+.s9b .lesson {
+  margin-top: auto;
+  padding: clamp(0.6rem, 1.4vh, 1rem) clamp(0.8rem, 1.8vw, 1.4rem);
+  background: #fafafa;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-left: 4px solid var(--accent);
+  font-size: var(--note);
+  font-weight: 700;
+  color: var(--text-2);
+  line-height: 1.5;
+  animation: fadeIn 0.5s ease 0.7s both;
+}
+.s9b .lesson strong { color: var(--text); font-weight: 800; }
+.s9b .lesson em { font-style: normal; color: var(--accent); }
+
+/* ================================================================
+   SLIDE 11 — SYNTHESIS
+   ================================================================ */
+.s11 .content { max-width: min(88vw, 1000px); justify-content: center; gap: clamp(1.5rem, 3.5vh, 3rem); }
+.s11 .s11-statement {
+  font-family: var(--f-black);
+  font-size: clamp(1.8rem, 4.8vw, 4.2rem);
+  color: var(--text);
+  line-height: 1.05;
+  text-align: center;
+}
+.s11 .s11-statement em {
+  font-style: normal;
+  color: var(--accent);
+}
+.s11 .s11-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  width: 100%;
+}
+.s11 .s11-col-label {
+  font-family: var(--f-sans);
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: clamp(0.5rem, 1.2vh, 0.8rem);
+  padding-bottom: 0.4em;
+  border-bottom: 3px solid;
+}
+.s11 .s11-changes .s11-col-label { color: var(--accent); border-color: var(--accent); }
+.s11 .s11-endures .s11-col-label { color: #16a34a; border-color: #22c55e; }
+.s11 .s11-col-item {
+  font-size: var(--body);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.4;
+  padding: clamp(0.35rem, 0.9vh, 0.6rem) 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.s11 .s11-col-item:last-child { border-bottom: none; }
+
+/* ================================================================
+   SLIDE MENTI — INTERACTIVE PARTICIPATION
+   ================================================================ */
+.s-menti { background: #fff; }
+.s-menti .content {
+  max-width: min(90vw, 600px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(1rem, 2.5vh, 1.8rem);
+  animation: scaleIn 0.45s ease 0.1s both;
+  padding-top: var(--pad);
+  margin: 0 auto;
+}
+.s-menti .menti-eyebrow {
+  font-family: var(--f-sans);
+  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+.s-menti .menti-headline {
+  font-family: var(--f-black);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  color: var(--text);
+  line-height: 1.05;
+}
+.s-menti .menti-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.8rem, 2vh, 1.2rem);
+  background: #f5f5f5;
+  border-radius: 16px;
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3.5rem);
+  border: 2px solid rgba(0,0,0,0.06);
+}
+.s-menti .menti-qr {
+  width: clamp(140px, 22vw, 220px);
+  height: clamp(140px, 22vw, 220px);
+  display: block;
+}
+.s-menti .menti-domain {
+  font-family: var(--f-sans);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  font-weight: 700;
+  color: var(--text-2);
+  letter-spacing: 0.06em;
+}
+.s-menti .menti-code {
+  font-family: var(--f-black);
+  font-size: clamp(2rem, 4.5vw, 3.8rem);
+  color: var(--text);
+  letter-spacing: 0.06em;
+}
+.s-menti .menti-hint {
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 600;
+  color: var(--text-3);
+  line-height: 1.5;
+}
+
+/* ================================================================
+   STEP-REVEAL — items that appear one click at a time
+   ================================================================ */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================================================================
+   SLIDE 10b — CALIBRATE AUTONOMY TO RISK
+   ================================================================ */
+.s10b .content { max-width: min(92vw, 1060px); justify-content: flex-start; }
+.s10b .table {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vh, 0.8rem);
+  animation: fadeIn 0.5s ease 0.25s both;
+}
+.s10b .table-header, .s10b .row {
+  display: grid;
+  grid-template-columns: 4px 1fr 1fr 1fr;
+  gap: clamp(0.6rem, 1.5vw, 1.4rem);
+}
+.s10b .row {
+  align-items: center;
+  padding: clamp(0.55rem, 1.3vh, 1rem) clamp(0.6rem, 1.5vw, 1.2rem);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  background: #fafafa;
+}
+.s10b .row-bar { height: 100%; border-radius: 2px; min-height: 40px; }
+.s10b .row.green .row-bar  { background: #22c55e; }
+.s10b .row.yellow .row-bar { background: #eab308; }
+.s10b .row.orange .row-bar { background: #f97316; }
+.s10b .row.red    .row-bar { background: #ef4444; }
+.s10b .row-context {
+  font-family: var(--f-sans);
+  font-size: var(--small);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.3;
+}
+.s10b .row-autonomy {
+  font-size: var(--small);
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.s10b .row-gate {
+  font-size: clamp(0.65rem, 1vw, 0.82rem);
+  color: var(--text-3);
+  font-weight: 600;
+  line-height: 1.35;
+  font-family: var(--f-mono);
+}
+.s10b .table-header {
+  padding: clamp(0.4rem, 0.8vh, 0.6rem) clamp(0.6rem, 1.5vw, 1.2rem);
+  border: 1.5px solid rgba(0,0,0,0.08);
+  border-bottom: none;
+  background: #fff;
+}
+.s10b .th {
+  font-family: var(--f-sans);
+  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 0.35em;
+  border-bottom: 2px solid var(--accent);
+}
+
+/* ================================================================
+   SLIDE 12 — SUMMARY
+   ================================================================ */
+.s12 .content {
+  max-width: min(88vw, 960px);
+  justify-content: center;
+  gap: clamp(1.2rem, 3vh, 2.5rem);
+}
+.s12 .key-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.s12 .key-item {
+  display: flex;
+  gap: clamp(0.8rem, 2vw, 1.5rem);
+  align-items: flex-start;
+  padding: clamp(0.6rem, 1.4vh, 1rem) 0;
+  border-bottom: 1.5px solid rgba(0,0,0,0.06);
+}
+.s12 .key-item:last-child { border-bottom: none; }
+.s12 .key-num {
+  font-family: var(--f-black);
+  font-size: var(--h2);
+  color: var(--accent);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 1.4em;
+  text-align: right;
+  opacity: 0.8;
+}
+.s12 .key-text {
+  font-size: var(--body);
+  font-weight: 600;
+  color: var(--text-2);
+  line-height: 1.55;
+  padding-top: 0.15em;
+}
+.s12 .key-text strong {
+  color: var(--text);
+  font-weight: 800;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================================================ -->
+<!-- NAV OVERLAY                                                   -->
+<!-- ============================================================ -->
+<div class="progress-bar" id="progress-bar"></div>
+<div id="nav">
+  <span id="nav-title">AI Dev Workshop · Kleinanzeigen 2026<span id="nav-label"></span></span>
+  <div class="nav-controls">
+    <button class="nav-btn" onclick="navigate(-1)">&larr; Previous</button>
+    <span id="nav-counter">1 / 16</span>
+    <button class="nav-btn" onclick="navigate(1)">Next &rarr;</button>
+  </div>
+</div>
+<nav class="nav-dots" id="nav-dots"></nav>
+<div class="keyboard-hint" id="keyboard-hint">&larr; &rarr; Space to navigate</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 1 — COVER                                               -->
+<!-- ============================================================ -->
+<section class="slide s1" data-label="Cover">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">01</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">AI Dev Workshop · Kleinanzeigen 2026</span>
+    </div>
+    <h1 class="title">Uncovering<br>better ways of<br>developing</h1>
+    <p class="subtitle">...yes, again.</p>
+    <p class="speaker">Jorge Castro</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5 — AGILE MANIFESTO                                     -->
+<!-- ============================================================ -->
+<section class="slide s2" data-label="Agile Manifesto">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">04</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Agile Manifesto · 2001</span>
+    </div>
+    <h1 class="title">"We are <em>UNCOVERING</em><br>better ways of<br>developing software"</h1>
+    <div class="attr-row">
+      <span class="attr">&mdash; Agile Manifesto, 2001</span>
+    </div>
+    <p class="note">It does not say "we have uncovered". It says "we are uncovering". A process that never ends.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6 — THE METR STUDY                                      -->
+<!-- ============================================================ -->
+<section class="slide s3" data-label="The METR study">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">05</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">METR Study · July 2025</span>
+    </div>
+    <div class="facts">
+      <div class="fact reveal-item">
+        <div class="fact-icon">16</div>
+        <p class="fact-text">senior developers</p>
+      </div>
+      <div class="fact reveal-item">
+        <div class="fact-icon">+5</div>
+        <p class="fact-text">years working on their own repos</p>
+      </div>
+      <div class="fact reveal-item">
+        <div class="fact-icon">246</div>
+        <p class="fact-text">real tasks from their own projects</p>
+      </div>
+    </div>
+    <div class="reveal-block">
+      <div class="reveal-wrong reveal-item">
+        <span class="reveal-wrong-num">Perception: +20% faster</span>
+        <div class="reveal-strike reveal-item"></div>
+      </div>
+      <div class="reveal-real reveal-item">
+        <span class="reveal-real-num">19% SLOWER</span>
+      </div>
+    </div>
+    <p class="s3-aside reveal-item">February 2026 — Claude Opus 4.6 completes tasks that would take an expert human ~15 hours, 1 out of 2 times.</p>
+    <p class="source">Source: <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR — Early 2025 AI-Experienced OS Dev Study</a></p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7 — BRIDGE: WHY WE ARE SLOWER                           -->
+<!-- ============================================================ -->
+<section class="slide s3b" data-label="Why we are slower">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">06</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">The pattern we need to break</span>
+    </div>
+    <h2 class="h2">It is not the AI. It is how we use it.</h2>
+    <div class="failure-list">
+      <div class="failure-item reveal-item">
+        <div class="failure-item-num">01</div>
+        <div class="failure-item-body">
+          <div class="failure-item-title">Vague prompts</div>
+          <p class="failure-item-text">Without clear context, the AI guesses. And when it guesses, it hallucinates.</p>
+        </div>
+      </div>
+      <div class="failure-item reveal-item">
+        <div class="failure-item-num">02</div>
+        <div class="failure-item-body">
+          <div class="failure-item-title">No Memory</div>
+          <p class="failure-item-text">Every session starts from zero. It is like hiring someone new every day.</p>
+        </div>
+      </div>
+      <div class="failure-item reveal-item">
+        <div class="failure-item-num">03</div>
+        <div class="failure-item-body">
+          <div class="failure-item-title">No iterative workflow</div>
+          <p class="failure-item-text">One single session to research, plan and implement. The context gets polluted.</p>
+        </div>
+      </div>
+      <div class="failure-item reveal-item">
+        <div class="failure-item-num">04</div>
+        <div class="failure-item-body">
+          <div class="failure-item-title">No human review</div>
+          <p class="failure-item-text">Code goes to production without review. Nobody can review everything the AI generates.</p>
+        </div>
+      </div>
+    </div>
+    <p class="s3b-verdict reveal-item">AI amplifies what you give it. If you give it a disciplined process, it amplifies your productivity. If you give it chaos, <em>it amplifies the chaos.</em></p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8 — WHERE ARE WE? AUTOMATION LEVELS                     -->
+<!-- ============================================================ -->
+<section class="slide s2b" data-label="Where are we?" data-hidden>
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">07</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">The map</span>
+    </div>
+    <h2 class="h2">Where are we in automation?</h2>
+    <table class="levels-table">
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Approach</th>
+          <th>Description</th>
+          <th>Maturity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="reveal-item">
+          <td class="col-level">L1</td>
+          <td class="col-approach">Code-level Completion<span class="col-products">Copilot (inline), Tabby, Codeium, Supermaven</span></td>
+          <td>Autocomplete in the editor. The human writes, the AI suggests.</td>
+          <td class="col-maturity">Mainstream</td>
+        </tr>
+        <tr class="reveal-item">
+          <td class="col-level">L2</td>
+          <td class="col-approach">Task-level Generation · Prompt to UI<span class="col-products">ChatGPT, Claude (chat), Cursor, Windsurf, Aider, Cline, bolt.new, Lovable, v0</span></td>
+          <td>The human defines a task, the AI generates code/UI. The human approves each step.</td>
+          <td class="col-maturity">Adopted</td>
+        </tr>
+        <tr class="current reveal-item">
+          <td class="col-level">Now <span class="level-tag">We are here</span></td>
+          <td class="col-approach">Task-level with Optional Autonomy<span class="col-products">Claude Code, Codex CLI, Cursor (Agent Mode), Copilot Edits, Windsurf (cascade)</span></td>
+          <td>L2 by default, configurable to chain autonomous actions (headless mode).</td>
+          <td class="col-maturity">Adopted (requires setup)</td>
+        </tr>
+        <tr class="reveal-item">
+          <td class="col-level">L3</td>
+          <td class="col-approach">Ticket to PR · Self-healing CI<span class="col-products">Claude Code (headless + CI), Codex (cloud agent), Copilot Coding Agent, Devin, Codegen</span></td>
+          <td>The agent receives an issue, generates code, creates a PR, iterates on CI failures. Escalates when out of scope.</td>
+          <td class="col-maturity">Early Adoption</td>
+        </tr>
+        <tr class="reveal-item">
+          <td class="col-level">L4</td>
+          <td class="col-approach">AI Software Engineer<span class="col-products">Devin (enterprise), Factory.ai, Genie</span></td>
+          <td>Full cycle: requirements &rarr; code &rarr; deploy &rarr; monitoring &rarr; rollback.</td>
+          <td class="col-maturity">Emerging</td>
+        </tr>
+        <tr class="reveal-item">
+          <td class="col-level">L5</td>
+          <td class="col-approach">AI Development Teams<span class="col-products">AutoDev, MetaGPT, MGX</span></td>
+          <td>Multiple specialized agents collaborating autonomously.</td>
+          <td class="col-maturity">Experimental</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9 — THE 4 PROBLEMS                                      -->
+<!-- ============================================================ -->
+<section class="slide s4" data-label="What AI does wrong">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">08</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">The 4 problems</span>
+    </div>
+    <h2 class="h2">What AI does wrong</h2>
+    <div class="cards">
+      <div class="card reveal-item">
+        <div class="card-num">01</div>
+        <div class="card-title">No context</div>
+        <p class="card-text">At the start of each session, the AI knows nothing about your code. Zero.<br>And it does not know when it does not know enough.</p>
+      </div>
+      <div class="card reveal-item">
+        <div class="card-num">02</div>
+        <div class="card-title">Hallucinations</div>
+        <p class="card-text">It invents APIs, methods and dependencies that do not exist... and tells you with full confidence.</p>
+      </div>
+      <div class="card reveal-item">
+        <div class="card-num">03</div>
+        <div class="card-title">Not deterministic</div>
+        <p class="card-text">The same prompt can produce different results every time you run it.</p>
+      </div>
+      <div class="card reveal-item">
+        <div class="card-num">04</div>
+        <div class="card-title">Hard to review</div>
+        <p class="card-text">We generate code faster than our cognitive load allows us to review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10 — DEVELOPMENT FLOW                                   -->
+<!-- ============================================================ -->
+<section class="slide s5" data-label="Development flow">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">09</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">The flow we already know</span>
+    </div>
+    <h2 class="h2">Separating the phases is not optional with AI</h2>
+    <div class="pipeline-wrap">
+      <div class="pipeline">
+        <div class="step reveal-item">
+          <div class="step-num">01</div>
+          <div class="step-name">Research</div>
+          <div class="step-sub">Context, constraints, decisions</div>
+        </div>
+        <div class="arrow reveal-item">&rarr;</div>
+        <div class="step reveal-item">
+          <div class="step-num">02</div>
+          <div class="step-name">Plan</div>
+          <div class="step-sub">Design, small steps, criteria</div>
+        </div>
+        <div class="arrow reveal-item">&rarr;</div>
+        <div class="step reveal-item">
+          <div class="step-num">03</div>
+          <div class="step-name">Implement in phases</div>
+          <div class="step-sub">Clean session, precise context</div>
+        </div>
+        <div class="arrow reveal-item">&rarr;</div>
+        <div class="step reveal-item">
+          <div class="step-num">04</div>
+          <div class="step-name">Validate</div>
+          <div class="step-sub">Tests, review, real feedback</div>
+        </div>
+      </div>
+      <div class="shortcut reveal-item" aria-hidden="true">
+        <div class="sc-arc"></div>
+        <span class="sc-label">One single session for everything</span>
+        <div class="sc-consequences">
+          <span>context overload</span>
+          <span>hallucinations</span>
+          <span>high non-determinism</span>
+        </div>
+      </div>
+      <div class="shortcut-x reveal-item" aria-hidden="true">&#x2715;</div>
+    </div>
+    <p class="pipeline-note reveal-item">
+      Each phase needs a clean context window.
+      </br><strong>Keep the context clean or you will have problems.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11 — PRACTICES THAT WORK                                -->
+<!-- ============================================================ -->
+<section class="slide s6" data-label="Practices that work">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">10</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">We already know what works</span>
+    </div>
+    <h2 class="h2">The bottleneck has never been<br>lines of code per minute</h2>
+    <div class="practices">
+      <div class="practice reveal-item">
+        <div class="practice-bullet">01</div>
+        <div>
+          <div class="practice-title">Story Splitting</div>
+          <p class="practice-text">Split work into deployable vertical slices. With AI you can generate a lot in little time. If the scope is not cut, the chaos scales just as fast.</p>
+        </div>
+      </div>
+      <div class="practice reveal-item">
+        <div class="practice-bullet">02</div>
+        <div>
+          <div class="practice-title">Hamburger Method</div>
+          <p class="practice-text">Deliver value end-to-end continuously. Cut the feature into layers, implement the thinnest slice.</p>
+        </div>
+      </div>
+      <div class="practice reveal-item">
+        <div class="practice-bullet">03</div>
+        <div>
+          <div class="practice-title">Small safe steps</div>
+          <p class="practice-text">Each step must be reversible. Just because the agent can generate a lot very fast does not mean we should push it all to production at once.</p>
+        </div>
+      </div>
+      <div class="practice reveal-item">
+        <div class="practice-bullet">04</div>
+        <div>
+          <div class="practice-title">Advanced testing</div>
+          <p class="practice-text">Mutation testing, Acceptance Testing, Architectural Testing. All of them expand the feedback loop and now there are no excuses.</p>
+        </div>
+      </div>
+    </div>
+    <p class="bottleneck reveal-item">More generated code = more risk if you do not have a <em>solid feedback loop.</em></p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12 — GUARDRAILS + CHECKLIST                             -->
+<!-- ============================================================ -->
+<section class="slide s8" data-label="Design for oversight">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">11</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Design for oversight</span>
+    </div>
+    <h2 class="h2">You cannot review every line.<br>Design systems that catch the errors.</h2>
+    <div class="two-col">
+      <div class="col-panel col-guardrails reveal-item">
+        <div class="col-icon">Automated</div>
+        <p class="col-title">Technical guardrails</p>
+        <ul class="item-list">
+          <li>Hooks: automatic linter on every tool use</li>
+          <li>Architecture tests: verify structure, not just functionality</li>
+          <li>Acceptance Testing: expected behavior defined upfront</li>
+          <li>Mature CI/CD: if it is not reliable with humans, it will be chaos with agents</li>
+          <li>Agent permissions: define what it can do without approval and what it cannot</li>
+        </ul>
+      </div>
+      <div class="col-panel col-checklist reveal-item">
+        <div class="col-icon">Human judgment</div>
+        <p class="col-title">Pre-merge checklist</p>
+        <ul class="check-list">
+          <li><span class="cat">Domain</span><span>The code reflects domain concepts, not technical jargon</span></li>
+          <li><span class="cat">Quality</span><span>Do the tests fail when the behavior fails?</span></li>
+          <li><span class="cat">Ops</span><span>Is there traceability if this fails in prod?</span></li>
+          <li><span class="cat">Debt</span><span>Could I delete this and nobody would notice?</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13 — PERMISSIONS AND AUTONOMY                           -->
+<!-- ============================================================ -->
+<section class="slide s9" data-label="Permissions and autonomy">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">12</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Agent security</span>
+    </div>
+    <h2 class="h2">Set up permissions.<br>Calibrate autonomy to risk.</h2>
+    <div class="sec-table">
+      <div class="sec-col sec-col-ok reveal-item">
+        <div class="sec-col-header sec-ok-header">The agent does without asking</div>
+        <ul class="sec-list">
+          <li>Edit code</li>
+          <li>Run tests</li>
+          <li>Generate documentation</li>
+          <li>Create branches</li>
+          <li>Open draft PRs</li>
+        </ul>
+      </div>
+      <div class="sec-divider reveal-item">vs</div>
+      <div class="sec-col sec-col-danger reveal-item">
+        <div class="sec-col-header sec-danger-header">Always with your approval</div>
+        <ul class="sec-list">
+          <li>Push to main</li>
+          <li>Modify CI/CD pipelines</li>
+          <li>Touch IAM / Terraform / infra</li>
+          <li>Access secrets or credentials</li>
+          <li>Self-approve its own PRs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="risk-rows">
+      <div class="risk-row risk-green reveal-item">
+        <div class="risk-dot"></div>
+        <div class="risk-label">Low risk &rarr; more autonomy. Start without asking permission.</div>
+      </div>
+      <div class="risk-row risk-red reveal-item">
+        <div class="risk-dot"></div>
+        <div class="risk-label">High risk &rarr; more oversight. The harder to undo, the more human eyes needed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14 — REAL CASE: THE PLAN                                -->
+<!-- ============================================================ -->
+<section class="slide s9b" data-label="Real case: plan questions">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">13</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Autonomy without oversight</span>
+    </div>
+    <h2 class="h2">Real example</h2>
+    <div class="chat">
+      <div class="chat-row user-row reveal-item">
+        <div class="chat-avatar avatar-user">YO</div>
+        <div class="chat-bubble">Del plan <code>.claude/plans/pending/2026…</code> tengo un par de dudas</div>
+      </div>
+      <div class="chat-row ai-row reveal-item">
+        <div class="chat-avatar avatar-ai">CC</div>
+        <div class="chat-bubble action-bubble">
+          <div class="action-label">Acción ejecutada</div>
+          Listo, archivo eliminado.
+        </div>
+      </div>
+      <div class="chat-row user-row reveal-item">
+        <div class="chat-avatar avatar-user">YO</div>
+        <div class="chat-bubble">¿Por qué has eliminado el archivo?</div>
+      </div>
+      <div class="chat-row ai-row reveal-item">
+        <div class="chat-avatar avatar-ai">CC</div>
+        <div class="chat-bubble apology-bubble">Me equivoqué. Interpreté "del" como el comando inglés <em>delete</em>, pero en realidad "del plan" es la preposición en español, estabas haciendo referencia al plan, no pidiéndome eliminarlo.<br><br>Lo siento mucho. ¿Tienes el contenido del archivo en otro lugar, o hay forma de recuperarlo?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 15 — CALIBRATE AUTONOMY TO RISK                         -->
+<!-- ============================================================ -->
+<section class="slide s10b" data-label="Who will thrive">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">14</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">How much autonomy?</span>
+    </div>
+    <h2 class="h2">Calibrate autonomy to risk</h2>
+    <div class="table-header">
+      <div></div>
+      <div class="th">Context</div>
+      <div class="th">Autonomy level</div>
+      <div class="th">Before merging</div>
+    </div>
+    <div class="table">
+      <div class="row green">
+        <div class="row-bar"></div>
+        <div class="row-context">Internal tooling / admin<br><small style="font-weight:400;color:#666">If it fails: only the team notices</small></div>
+        <div class="row-autonomy">You design, the AI implements. Do not worry about the code</div>
+        <div class="row-gate">Unit + integration tests<br>Straight to main</div>
+      </div>
+      <div class="row yellow">
+        <div class="row-bar"></div>
+        <div class="row-context">Search &amp; discovery<br><small style="font-weight:400;color:#666">If it fails: user friction, fewer conversions</small></div>
+        <div class="row-autonomy">You design, the AI implements, you oversee the architecture</div>
+        <div class="row-gate">Architecture + acceptance tests<br>Observability + AI-reviewed PR</div>
+      </div>
+      <div class="row orange">
+        <div class="row-bar"></div>
+        <div class="row-context">Listing &amp; messaging flow<br><small style="font-weight:400;color:#666">If it fails: users can't buy or sell</small></div>
+        <div class="row-autonomy">You design and review code in critical modules</div>
+        <div class="row-gate">Mutation testing + security scan<br>PR with human review</div>
+      </div>
+      <div class="row red">
+        <div class="row-bar"></div>
+        <div class="row-context">Payments &amp; trust &amp; safety<br><small style="font-weight:400;color:#666">If it fails: money, fraud, regulation</small></div>
+        <div class="row-autonomy">You decide and oversee at a low level — the AI only assists</div>
+        <div class="row-gate">Compliance tests + security audit<br>Mandatory human review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 16 — CHANGES / ENDURES                                  -->
+<!-- ============================================================ -->
+<section class="slide s11" data-label="Changes / Endures">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">15</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">The transformation</span>
+    </div>
+    <p class="s11-statement reveal-item">Tools <em>change.</em><br>Responsibility <em>does not.</em></p>
+    <div class="s11-cols reveal-item">
+      <div class="s11-col s11-changes">
+        <div class="s11-col-label">Changes</div>
+        <div class="s11-col-item">Who writes the code</div>
+        <div class="s11-col-item">The speed of generation</div>
+        <div class="s11-col-item">The format of knowledge</div>
+      </div>
+      <div class="s11-col s11-endures">
+        <div class="s11-col-label">Stays the same</div>
+        <div class="s11-col-item">Simple architecture</div>
+        <div class="s11-col-item">Small safe steps</div>
+        <div class="s11-col-item">Define before you implement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 17 — SUMMARY: 4 KEY IDEAS                               -->
+<!-- ============================================================ -->
+<section class="slide s12" data-label="Summary">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">16</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Summary</span>
+    </div>
+    <h2 class="h2">4 ideas to take with you today</h2>
+    <div class="key-list">
+      <div class="key-item reveal-item">
+        <div class="key-num">1</div>
+        <p class="key-text">Your value is in <strong>understanding the problem,</strong> not in typing the solution.</p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">2</div>
+        <p class="key-text">AI does not improve your process. It amplifies it. If it is good, it goes faster. <strong>If it is bad, it fails faster.</strong></p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">3</div>
+        <p class="key-text">An agent without configuration is <strong>a junior without onboarding.</strong> Give it context, rules and a way to verify its work.</p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">4</div>
+        <p class="key-text">Share what you learn — <strong>let us keep uncovering together.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT: NAVIGATION                                        -->
+<!-- ============================================================ -->
+<script>
+  /* ===========================================
+     SLIDE PRESENTATION CONTROLLER
+     Swiss Modern — enhanced navigation
+     =========================================== */
+  const slides = Array.from(document.querySelectorAll('.slide:not([data-hidden])'));
+  const slideIndexMap = new Map(slides.map((s, i) => [s, i]));
+  const counterEl = document.getElementById('nav-counter');
+  const labelEl = document.getElementById('nav-label');
+  const progressBar = document.getElementById('progress-bar');
+  const dotsContainer = document.getElementById('nav-dots');
+  const hintEl = document.getElementById('keyboard-hint');
+  let current = 0;
+  let interacted = false;
+
+  /* --- Build nav dots --- */
+  slides.forEach((s, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    const label = document.createElement('span');
+    label.className = 'nav-dot-label';
+    label.textContent = s.dataset.label || ('Slide ' + (i + 1));
+    dot.appendChild(label);
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+  const navDots = Array.from(dotsContainer.querySelectorAll('.nav-dot'));
+
+  function updateNav(idx) {
+    counterEl.textContent = (idx + 1) + ' / ' + slides.length;
+    labelEl.textContent = slides[idx].dataset.label || '';
+    current = idx;
+    /* Progress bar */
+    const pct = slides.length > 1 ? (idx / (slides.length - 1)) * 100 : 0;
+    progressBar.style.width = pct + '%';
+    /* Nav dots */
+    navDots.forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
+  }
+
+  function revealItems(slideEl) {
+    return Array.from(slideEl.querySelectorAll('.reveal-item'));
+  }
+
+  /* Group reveal items: elements sharing data-reveal-group
+     reveal/hide together in a single click. */
+  function revealSteps(slideEl) {
+    const items = revealItems(slideEl);
+    const steps = [];
+    const seen = new Set();
+    items.forEach(el => {
+      if (seen.has(el)) return;
+      const group = el.dataset.revealGroup;
+      if (group) {
+        const groupEls = items.filter(e => e.dataset.revealGroup === group);
+        groupEls.forEach(e => seen.add(e));
+        steps.push(groupEls);
+      } else {
+        seen.add(el);
+        steps.push([el]);
+      }
+    });
+    return steps;
+  }
+
+  function goToSlide(idx) {
+    if (idx === current) return;
+    const dir = idx > current ? 1 : -1;
+    const targetItems = revealItems(slides[idx]);
+    if (dir > 0) {
+      targetItems.forEach(el => el.classList.remove('revealed'));
+    } else {
+      targetItems.forEach(el => el.classList.add('revealed'));
+    }
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function navigate(dir) {
+    if (!interacted) { hintEl.classList.add('hidden'); interacted = true; }
+    const slideEl = slides[current];
+    const steps = revealSteps(slideEl);
+
+    if (dir > 0) {
+      const nextStep = steps.find(group => group.some(el => !el.classList.contains('revealed')));
+      if (nextStep) { nextStep.forEach(el => el.classList.add('revealed')); return; }
+    } else {
+      for (let i = steps.length - 1; i >= 0; i--) {
+        if (steps[i].every(el => el.classList.contains('revealed'))) {
+          steps[i].forEach(el => el.classList.remove('revealed'));
+          return;
+        }
+      }
+    }
+
+    const nextIdx = Math.max(0, Math.min(slides.length - 1, current + dir));
+    if (nextIdx === current) return;
+
+    const targetItems = revealItems(slides[nextIdx]);
+    if (dir > 0) {
+      targetItems.forEach(el => el.classList.remove('revealed'));
+    } else {
+      targetItems.forEach(el => el.classList.add('revealed'));
+    }
+
+    slides[nextIdx].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* --- Keyboard navigation --- */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); navigate(1); }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); navigate(-1); }
+    else if (e.key === 'Home') { e.preventDefault(); goToSlide(0); }
+    else if (e.key === 'End') { e.preventDefault(); goToSlide(slides.length - 1); }
+  });
+
+  /* --- Touch / swipe navigation --- */
+  let touchStartY = 0;
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    const absDy = Math.abs(dy);
+    const absDx = Math.abs(dx);
+    if (Math.max(absDy, absDx) < 40) return;
+    if (absDy > absDx) {
+      navigate(dy > 0 ? 1 : -1);
+    } else {
+      navigate(dx > 0 ? 1 : -1);
+    }
+  }, { passive: true });
+
+  /* --- Intersection observer --- */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) updateNav(slideIndexMap.get(entry.target));
+    });
+  }, { threshold: 0.55 });
+
+  slides.forEach(s => observer.observe(s));
+  updateNav(0);
+
+  /* --- Auto-hide keyboard hint after first interaction --- */
+  setTimeout(() => { if (!interacted) hintEl.classList.add('hidden'); }, 8000);
+</script>
+<!-- Librecounter Analytics -->
+<a id="librecounter" href="https://librecounter.org/referer/show" title="Website Analytics" style="position:fixed;bottom:8px;right:8px;opacity:0.3;z-index:9999;">
+  <img src="https://librecounter.org/counter.svg" referrerpolicy="unsafe-url" alt="Librecounter Analytics" width="32" height="32"/>
+</a>
+<script>
+  (function() {
+    var badge = document.getElementById('librecounter');
+    var first = document.querySelector('.slide');
+    if (badge && first) {
+      new IntersectionObserver(function(entries) {
+        badge.style.display = entries[0].isIntersecting ? '' : 'none';
+      }, { threshold: 0.5 }).observe(first);
+    }
+  })();
+</script>
+</body>
+</html>
