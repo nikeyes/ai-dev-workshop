@@ -1344,6 +1344,16 @@ body { background: #fff; }
 }
 .s9b .lesson strong { color: var(--text); font-weight: 800; }
 .s9b .lesson em { font-style: normal; color: var(--accent); }
+.s9b .chat-translation {
+  display: block;
+  margin-top: 0.35em;
+  font-size: 0.88em;
+  font-style: italic;
+  color: var(--text-3);
+  font-weight: 400;
+  border-top: 1px solid rgba(0,0,0,0.07);
+  padding-top: 0.3em;
+}
 
 /* ================================================================
    SLIDE 11 — SYNTHESIS
@@ -1570,6 +1580,31 @@ body { background: #fff; }
   color: var(--text);
   font-weight: 800;
 }
+
+/* ================================================================
+   OPT SLIDES A–E — SMALL SAFE STEPS ALTERNATIVES
+   ================================================================ */
+.s-opt .content { max-width: min(96vw, 1040px); justify-content: center; gap: clamp(0.6rem, 1.5vh, 1.2rem); }
+.s-opt .opt-badge { font-family: var(--f-mono); font-size: clamp(0.55rem, 0.78vw, 0.64rem); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); border: 1.5px solid var(--accent); padding: 0.14em 0.48em; align-self: flex-start; }
+.s-opt .opt-chart { width: 100%; height: auto; display: block; }
+.s-opt .opt-note { font-size: var(--small); font-weight: 600; color: var(--text-3); line-height: 1.5; }
+.s-opt .opt-legend { display: flex; gap: clamp(1rem, 2.5vw, 2rem); flex-wrap: wrap; padding-top: clamp(0.35rem, 0.8vh, 0.6rem); border-top: 2px solid rgba(0,0,0,0.06); }
+.s-opt .leg { display: flex; align-items: center; gap: 0.4em; font-size: var(--small); font-weight: 700; color: var(--text-2); }
+.s-opt .leg-swatch { flex-shrink: 0; }
+
+.s-opte .q-grid { display: flex; flex-direction: column; gap: clamp(1rem, 2.5vh, 2rem); width: 100%; }
+.s-opte .q-block { display: grid; grid-template-columns: clamp(120px,15vw,170px) 1fr 1fr; gap: clamp(0.8rem, 1.8vw, 1.4rem); align-items: start; }
+.s-opte .q-question { font-family: var(--f-sans); font-size: var(--small); font-weight: 800; color: var(--text); text-align: right; padding-right: clamp(0.7rem, 1.3vw, 1.1rem); border-right: 3px solid rgba(0,0,0,0.08); padding-top: 0.8rem; line-height: 1.35; }
+.s-opte .q-answer { padding: clamp(0.65rem, 1.4vh, 1rem) clamp(0.7rem, 1.3vw, 1.1rem); }
+.s-opte .q-alabel { font-family: var(--f-mono); font-size: clamp(0.5rem, 0.74vw, 0.62rem); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); margin-bottom: 0.3em; }
+.s-opte .q-aval { font-family: var(--f-black); font-size: clamp(1.1rem, 2.5vw, 2rem); line-height: 1.1; }
+.s-opte .q-neutral { background: #fafafa; border: 1.5px solid rgba(0,0,0,0.08); }
+.s-opte .q-neutral .q-aval { color: var(--text); }
+.s-opte .q-ok { background: rgba(34,197,94,0.05); border: 1.5px solid rgba(34,197,94,0.2); }
+.s-opte .q-ok .q-aval { color: #16a34a; }
+.s-opte .q-subdot-row { display: flex; gap: 0.3em; flex-wrap: wrap; margin-top: 0.45em; }
+.s-opte .q-dot { width: clamp(7px, 0.9vw, 11px); height: clamp(7px, 0.9vw, 11px); border-radius: 50%; background: #22c55e; }
+.s-opte .q-dot.single { background: var(--text-2); }
 </style>
 </head>
 
@@ -1609,22 +1644,21 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 5 — AGILE MANIFESTO                                     -->
+<!-- SLIDE 2 — MENTI: INTERACTIVE PARTICIPATION                    -->
 <!-- ============================================================ -->
-<section class="slide s2" data-label="Agile Manifesto">
+<section class="slide s-menti" data-label="Menti">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">04</div>
+  <div class="wm">02</div>
   <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Agile Manifesto · 2001</span>
+    <div class="menti-eyebrow">Questions about your day to day</div>
+    <div class="menti-headline">Are you up for it?</div>
+    <div class="menti-card">
+      <img class="menti-qr" src="ka_mentimeter_qr_code.png" alt="QR Mentimeter">
+      <div class="menti-domain">menti.com</div>
+      <div class="menti-code">4736 5056</div>
     </div>
-    <h1 class="title">"We are <em>UNCOVERING</em><br>better ways of<br>developing software"</h1>
-    <div class="attr-row">
-      <span class="attr">&mdash; Agile Manifesto, 2001</span>
-    </div>
-    <p class="note">It does not say "we have uncovered". It says "we are uncovering". A process that never ends.</p>
+    <div class="menti-hint">Scan the QR or go to menti.com and enter the code</div>
   </div>
 </section>
 
@@ -1634,7 +1668,7 @@ body { background: #fff; }
 <section class="slide s3" data-label="The METR study">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">05</div>
+  <div class="wm">03</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1669,12 +1703,50 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 7 — BRIDGE: WHY WE ARE SLOWER                           -->
+<!-- SLIDE 7 — THE 4 PROBLEMS                                      -->
+<!-- ============================================================ -->
+<section class="slide s4" data-label="What AI does wrong">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">04</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">The 4 problems</span>
+    </div>
+    <h2 class="h2">What AI does wrong</h2>
+    <div class="cards">
+      <div class="card reveal-item">
+        <div class="card-num">01</div>
+        <div class="card-title">No context</div>
+        <p class="card-text">At the start of each session, the AI knows nothing about your code. Zero.<br>And it does not know when it does not know enough.</p>
+      </div>
+      <div class="card reveal-item">
+        <div class="card-num">02</div>
+        <div class="card-title">Hallucinations</div>
+        <p class="card-text">It invents APIs, methods and dependencies that do not exist... and tells you with full confidence.</p>
+      </div>
+      <div class="card reveal-item">
+        <div class="card-num">03</div>
+        <div class="card-title">Not deterministic</div>
+        <p class="card-text">The same prompt can produce different results every time you run it.</p>
+      </div>
+      <div class="card reveal-item">
+        <div class="card-num">04</div>
+        <div class="card-title">Hard to review</div>
+        <p class="card-text">We generate code faster than our cognitive load allows us to review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8 — BRIDGE: WHY WE ARE SLOWER                           -->
 <!-- ============================================================ -->
 <section class="slide s3b" data-label="Why we are slower">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">06</div>
+  <div class="wm">05</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1716,12 +1788,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 8 — WHERE ARE WE? AUTOMATION LEVELS                     -->
+<!-- SLIDE — WHERE ARE WE? AUTOMATION LEVELS (hidden)              -->
 <!-- ============================================================ -->
 <section class="slide s2b" data-label="Where are we?" data-hidden>
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">07</div>
+  <div class="wm">05</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1780,50 +1852,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 9 — THE 4 PROBLEMS                                      -->
-<!-- ============================================================ -->
-<section class="slide s4" data-label="What AI does wrong">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">08</div>
-  <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">The 4 problems</span>
-    </div>
-    <h2 class="h2">What AI does wrong</h2>
-    <div class="cards">
-      <div class="card reveal-item">
-        <div class="card-num">01</div>
-        <div class="card-title">No context</div>
-        <p class="card-text">At the start of each session, the AI knows nothing about your code. Zero.<br>And it does not know when it does not know enough.</p>
-      </div>
-      <div class="card reveal-item">
-        <div class="card-num">02</div>
-        <div class="card-title">Hallucinations</div>
-        <p class="card-text">It invents APIs, methods and dependencies that do not exist... and tells you with full confidence.</p>
-      </div>
-      <div class="card reveal-item">
-        <div class="card-num">03</div>
-        <div class="card-title">Not deterministic</div>
-        <p class="card-text">The same prompt can produce different results every time you run it.</p>
-      </div>
-      <div class="card reveal-item">
-        <div class="card-num">04</div>
-        <div class="card-title">Hard to review</div>
-        <p class="card-text">We generate code faster than our cognitive load allows us to review.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
 <!-- SLIDE 10 — DEVELOPMENT FLOW                                   -->
 <!-- ============================================================ -->
 <section class="slide s5" data-label="Development flow">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">09</div>
+  <div class="wm">06</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1880,7 +1914,7 @@ body { background: #fff; }
 <section class="slide s6" data-label="Practices that work">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">10</div>
+  <div class="wm">07</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1922,12 +1956,56 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
+<!-- SMALL SAFE STEPS — VALUE CURVE                                -->
+<!-- ============================================================ -->
+<section class="slide s-opt" data-label="Small safe steps: value">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">08</div>
+  <div class="content">
+    <div class="eyebrow"><div class="eyebrow-rule"></div><span class="eyebrow-text">Small safe steps</span></div>
+    <h2 class="h2">Yes, you finish 1 week later.<br>The red area is what you <em style="font-style:normal;color:var(--accent)">gained along the way.</em></h2>
+    <svg class="opt-chart" viewBox="0 0 760 218" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- axes -->
+      <line x1="65" y1="12" x2="65" y2="185" stroke="#ccc" stroke-width="1.5"/>
+      <line x1="65" y1="185" x2="725" y2="185" stroke="#ccc" stroke-width="1.5"/>
+      <!-- day markers on axis -->
+      <line x1="545" y1="181" x2="545" y2="189" stroke="#6b7280" stroke-width="1.5"/>
+      <text x="545" y="200" font-family="'Space Mono',monospace" font-size="10" fill="#6b7280" text-anchor="middle">week 3</text>
+      <line x1="705" y1="181" x2="705" y2="189" stroke="#ff3300" stroke-width="1.5"/>
+      <text x="705" y="200" font-family="'Space Mono',monospace" font-size="10" fill="#ff3300" text-anchor="middle">week 4</text>
+      <text x="65" y="200" font-family="'Space Mono',monospace" font-size="10" fill="#999" text-anchor="middle">week 0</text>
+      <!-- Lost opportunity area -->
+      <polygon points="65,185 161,185 161,150 265,150 265,115 385,115 385,80 505,80 505,50 545,50 545,185" fill="rgba(255,51,0,0.15)"/>
+      <!-- Big release: flat until day 60, then jumps to full -->
+      <polyline points="65,185 545,185 545,25 725,25" fill="none" stroke="#d1d5db" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="545" cy="25" r="5" fill="#6b7280"/>
+      <text x="553" y="22" font-family="'Archivo',sans-serif" font-size="11" font-weight="700" fill="#6b7280">Big release</text>
+      <!-- Small steps staircase — finishes at day 80 -->
+      <polyline points="65,185 161,185 161,150 265,150 265,115 385,115 385,80 505,80 505,50 705,50 705,25" fill="none" stroke="#ff3300" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="705" cy="25" r="5" fill="#ff3300"/>
+      <text x="713" y="22" font-family="'Archivo',sans-serif" font-size="11" font-weight="700" fill="#ff3300">Small steps</text>
+      <!-- delivery dots -->
+      <circle cx="161" cy="150" r="4" fill="#ff3300"/>
+      <circle cx="265" cy="115" r="4" fill="#ff3300"/>
+      <circle cx="385" cy="80" r="4" fill="#ff3300"/>
+      <circle cx="505" cy="50" r="4" fill="#ff3300"/>
+      <!-- lost area annotation -->
+      <text x="430" y="165" font-family="'Archivo Black',sans-serif" font-size="12" fill="rgba(255,51,0,0.6)" text-anchor="middle">value delivered</text>
+      <!-- vertical dashed line at day 60 -->
+      <line x1="545" y1="12" x2="545" y2="185" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+    </svg>
+    <p class="opt-note">Big release delivers everything on week 3 but accumulates nothing before. Small steps finishes 1 week later, but the red area represents real feedback, real users, real value delivered throughout.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
 <!-- SLIDE 12 — GUARDRAILS + CHECKLIST                             -->
 <!-- ============================================================ -->
 <section class="slide s8" data-label="Design for oversight">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">11</div>
+  <div class="wm">09</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1961,12 +2039,49 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 13 — PERMISSIONS AND AUTONOMY                           -->
+<!-- SLIDE 13 — REAL CASE: THE PLAN                                -->
+<!-- ============================================================ -->
+<section class="slide s9b" data-label="Real case: plan questions">
+  <div class="bar"></div>
+  <div class="grid-bg"></div>
+  <div class="wm">10</div>
+  <div class="content">
+    <div class="eyebrow">
+      <div class="eyebrow-rule"></div>
+      <span class="eyebrow-text">Autonomy without oversight</span>
+    </div>
+    <h2 class="h2">Real example</h2>
+    <div class="chat">
+      <div class="chat-row user-row reveal-item">
+        <div class="chat-avatar avatar-user">YO</div>
+        <div class="chat-bubble">Del plan <code>.claude/plans/pending/2026…</code> tengo un par de dudas<span class="chat-translation">[About the plan … I have a couple of questions]</span></div>
+      </div>
+      <div class="chat-row ai-row reveal-item">
+        <div class="chat-avatar avatar-ai">CC</div>
+        <div class="chat-bubble action-bubble">
+          <div class="action-label">Acción ejecutada</div>
+          Listo, archivo eliminado.<span class="chat-translation">[Done, file deleted.]</span>
+        </div>
+      </div>
+      <div class="chat-row user-row reveal-item">
+        <div class="chat-avatar avatar-user">YO</div>
+        <div class="chat-bubble">¿Por qué has eliminado el archivo?<span class="chat-translation">[Why did you delete the file?]</span></div>
+      </div>
+      <div class="chat-row ai-row reveal-item">
+        <div class="chat-avatar avatar-ai">CC</div>
+        <div class="chat-bubble apology-bubble">Me equivoqué. Interpreté "del" como el comando inglés <em>delete</em>, pero en realidad "del plan" es la preposición en español, estabas haciendo referencia al plan, no pidiéndome eliminarlo.<br><br>Lo siento mucho. ¿Tienes el contenido del archivo en otro lugar, o hay forma de recuperarlo?<span class="chat-translation">[I made a mistake. I read "del" as the English command <em>delete</em>, but "del plan" is a Spanish preposition — you were referring to the plan, not asking me to delete it. I'm very sorry. Do you have the file content somewhere else, or is there a way to recover it?]</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SLIDE — PERMISSIONS AND AUTONOMY                              -->
 <!-- ============================================================ -->
 <section class="slide s9" data-label="Permissions and autonomy">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">12</div>
+  <div class="wm">11</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -2010,49 +2125,12 @@ body { background: #fff; }
 </section>
 
 <!-- ============================================================ -->
-<!-- SLIDE 14 — REAL CASE: THE PLAN                                -->
-<!-- ============================================================ -->
-<section class="slide s9b" data-label="Real case: plan questions">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">13</div>
-  <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Autonomy without oversight</span>
-    </div>
-    <h2 class="h2">Real example</h2>
-    <div class="chat">
-      <div class="chat-row user-row reveal-item">
-        <div class="chat-avatar avatar-user">YO</div>
-        <div class="chat-bubble">Del plan <code>.claude/plans/pending/2026…</code> tengo un par de dudas</div>
-      </div>
-      <div class="chat-row ai-row reveal-item">
-        <div class="chat-avatar avatar-ai">CC</div>
-        <div class="chat-bubble action-bubble">
-          <div class="action-label">Acción ejecutada</div>
-          Listo, archivo eliminado.
-        </div>
-      </div>
-      <div class="chat-row user-row reveal-item">
-        <div class="chat-avatar avatar-user">YO</div>
-        <div class="chat-bubble">¿Por qué has eliminado el archivo?</div>
-      </div>
-      <div class="chat-row ai-row reveal-item">
-        <div class="chat-avatar avatar-ai">CC</div>
-        <div class="chat-bubble apology-bubble">Me equivoqué. Interpreté "del" como el comando inglés <em>delete</em>, pero en realidad "del plan" es la preposición en español, estabas haciendo referencia al plan, no pidiéndome eliminarlo.<br><br>Lo siento mucho. ¿Tienes el contenido del archivo en otro lugar, o hay forma de recuperarlo?</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SLIDE 15 — CALIBRATE AUTONOMY TO RISK                         -->
+<!-- SLIDE — CALIBRATE AUTONOMY TO RISK                            -->
 <!-- ============================================================ -->
 <section class="slide s10b" data-label="Who will thrive">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">14</div>
+  <div class="wm">12</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -2097,46 +2175,19 @@ body { background: #fff; }
 <!-- ============================================================ -->
 <!-- SLIDE 16 — CHANGES / ENDURES                                  -->
 <!-- ============================================================ -->
-<section class="slide s11" data-label="Changes / Endures">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">15</div>
-  <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">The transformation</span>
-    </div>
-    <p class="s11-statement reveal-item">Tools <em>change.</em><br>Responsibility <em>does not.</em></p>
-    <div class="s11-cols reveal-item">
-      <div class="s11-col s11-changes">
-        <div class="s11-col-label">Changes</div>
-        <div class="s11-col-item">Who writes the code</div>
-        <div class="s11-col-item">The speed of generation</div>
-        <div class="s11-col-item">The format of knowledge</div>
-      </div>
-      <div class="s11-col s11-endures">
-        <div class="s11-col-label">Stays the same</div>
-        <div class="s11-col-item">Simple architecture</div>
-        <div class="s11-col-item">Small safe steps</div>
-        <div class="s11-col-item">Define before you implement</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============================================================ -->
-<!-- SLIDE 17 — SUMMARY: 4 KEY IDEAS                               -->
+<!-- SLIDE — SUMMARY: 5 KEY IDEAS                                  -->
 <!-- ============================================================ -->
 <section class="slide s12" data-label="Summary">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">16</div>
+  <div class="wm">13</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
       <span class="eyebrow-text">Summary</span>
     </div>
-    <h2 class="h2">4 ideas to take with you today</h2>
+    <h2 class="h2">5 ideas to take with you today</h2>
     <div class="key-list">
       <div class="key-item reveal-item">
         <div class="key-num">1</div>
@@ -2148,11 +2199,15 @@ body { background: #fff; }
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">3</div>
-        <p class="key-text">An agent without configuration is <strong>a junior without onboarding.</strong> Give it context, rules and a way to verify its work.</p>
+        <p class="key-text"><strong>Tools change. Responsibility does not.</strong></p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">4</div>
-        <p class="key-text">Share what you learn — <strong>let us keep uncovering together.</strong></p>
+        <p class="key-text">An agent without configuration is <strong>a junior without onboarding.</strong> Give it context, rules and a way to verify its work.</p>
+      </div>
+      <div class="key-item reveal-item">
+        <div class="key-num">5</div>
+        <p class="key-text">Share what you learn. <strong>Let us keep uncovering together.</strong></p>
       </div>
     </div>
   </div>
