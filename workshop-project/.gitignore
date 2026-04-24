@@ -4,3 +4,4 @@ __pycache__/
 .mutmut-cache
 mutants/
 .venv/
+.claude/settings.local.json
