@@ -372,6 +372,15 @@
         transform: translateY(6px);
       }
 
+      tr[data-step].hidden {
+        visibility: collapse;
+        transform: none;
+      }
+
+      tr[data-step] {
+        transition: opacity 0.3s ease;
+      }
+
       .step-num {
         font-family: "Archivo Black", sans-serif;
         font-size: clamp(1rem, 2vw, 1.8rem);
@@ -1489,54 +1498,27 @@
         </div>
       </div>
 
-      <!-- -- SLIDE 23: Plugins — anatomy -- -->
-      <div class="slide" id="slide-23" data-reveal="4">
+      <!-- -- SLIDE 23: Plugins — what they are -- -->
+      <div class="slide" id="slide-23">
         <div class="eyebrow">
           <div class="eyebrow-rule"></div>
           <span class="eyebrow-text">Block 1 · Step 8 · Plugins</span>
         </div>
-        <h2>Plugins to group skills, agents, MCPs</h2>
-        <div class="demo-steps">
-          <div class="demo-step hidden" data-step="1" data-type="highlight">
-            <span class="step-num">&#x1F517;</span>
-            <div class="step-body">
-              <code class="step-cmd">github.com/nikeyes/stepwise-dev</code>
-              <span class="step-label">Plugin that groups research, plan, implement & validate</span>
-            </div>
-          </div>
-          <div class="demo-step hidden" data-step="2" data-type="prompt">
-            <span class="step-num">&#x2318;</span>
-            <div class="step-body">
-              <span class="step-label">Slash Commands</span>
-              <p class="step-desc">
-                Complete workflows you can invoke with <code>/name</code>.<br />E.g.:
-                <code>/research_codebase</code>, <code>/create_plan</code>,
-                <code>/iterate_plan</code>, <code>/implement_plan</code>,
-                <code>/validate_plan</code>, <code>/deep_research</code>
-              </p>
-            </div>
-          </div>
-          <div class="demo-step hidden" data-step="3" data-type="prompt">
-            <span class="step-num">&#x1F916;</span>
-            <div class="step-body">
-              <span class="step-label">Sub-agents</span>
-              <p class="step-desc">
-                Specialized agents that Claude delegates to automatically.<br />E.g.:
-                <code>codebase-analyzer</code>, <code>web-search-researcher</code>,
-                <code>citation-analyst</code>
-              </p>
-            </div>
-          </div>
-          <div class="demo-step hidden" data-step="4" data-type="prompt">
-            <span class="step-num">&#x1F4D8;</span>
-            <div class="step-body">
-              <span class="step-label">Skills</span>
-              <p class="step-desc">
-                Procedural knowledge loaded on demand.<br />E.g.: knowledge management in
-                <code>thoughts/</code> or report generation with citations
-              </p>
-            </div>
-          </div>
+        <h2>What is a Plugin?</h2>
+        <div class="tip-box" style="margin-bottom:clamp(0.4rem,1vh,0.8rem)">
+          <span class="tip-label">Definition</span>
+          <p>A <strong>packaged bundle</strong> of Claude Code customisations you can install, version and share — like an npm package, but for the agent.</p>
+        </div>
+        <ul class="checklist">
+          <li><span><strong>Slash commands</strong> — reusable workflows invoked with <code>/name</code>.</span></li>
+          <li><span><strong>Sub-agents</strong> — specialised agents with their own context window.</span></li>
+          <li><span><strong>Skills</strong> — procedural knowledge loaded on demand.</span></li>
+          <li><span><strong>Hooks</strong> — shell commands that react to agent events.</span></li>
+          <li><span><strong>MCP servers</strong> — connectors to external tools and data.</span></li>
+        </ul>
+        <div class="tip-box">
+          <span class="tip-label">How you get one</span>
+          <p>Install from a marketplace: <code>/plugin marketplace add org/repo</code> → <code>/plugin install name</code>.</p>
         </div>
       </div>
 
@@ -1663,6 +1645,121 @@ and a test. Use type annotations.</span></div>
               ><strong>&#x1F527; My own Plugin:</strong>
               <a href="https://github.com/nikeyes/stepwise-dev" target="_blank">stepwise-dev</a>
               for research, plan, implement, validate workflows</span
+            >
+          </li>
+        </ul>
+      </div>
+
+      <!-- -- SLIDE W0: My Development Workflow — break -- -->
+      <div class="slide slide-break" id="slide-workflow-break">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">My Development Workflow</span>
+        </div>
+        <h1>My Development Workflow</h1>
+        <div class="accent-bar"></div>
+      </div>
+
+      <!-- -- SLIDE W2: The loop — per-phase commands & helpers -- -->
+      <div class="slide" id="slide-workflow-loop" data-reveal="7">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">My Development Workflow · The loop</span>
+        </div>
+        <h2 style="font-size: clamp(1.9rem, 4vw, 3.5rem);">Research → Plan → Implement → Validate</h2>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>I run</th>
+              <th>Who helps (agents / skills)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hidden" data-step="1">
+              <td><strong>Before</strong> — product side</td>
+              <td><code>/story-splitting</code></td>
+              <td>Against the PRD / Jira / use case — not the code.</td>
+            </tr>
+            <tr class="hidden" data-step="2">
+              <td>&#x1F50D; <strong>Research</strong></td>
+              <td><code>/research_codebase</code><br /><code>/deep_research</code></td>
+              <td>
+                <code>codebase-locator</code>, <code>codebase-analyzer</code>,
+                <code>codebase-pattern-finder</code><br />
+                <code>web-search-researcher</code>, <code>citation-analyst</code>
+              </td>
+            </tr>
+            <tr class="hidden" data-step="3">
+              <td>&#x1F5FA;&#xFE0F; <strong>Plan</strong></td>
+              <td><code>/create_plan</code><br /><code>/iterate_plan</code></td>
+              <td><code>/hamburger-method</code>, <code>/small-safe-steps</code></td>
+            </tr>
+            <tr class="hidden" data-step="4">
+              <td>&#x1F6E0;&#xFE0F; <strong>Implement</strong></td>
+              <td><code>/implement_plan</code><br /><code>/commit</code></td>
+              <td>
+                <code>/test-desiderata</code> (test quality)<br />
+                <code>/bugmagnet &lt;file&gt;</code> (edge-case &amp; bug hunt on a module)
+              </td>
+            </tr>
+            <tr class="hidden" data-step="5">
+              <td>&#x2705; <strong>Validate</strong></td>
+              <td><code>/validate_plan</code></td>
+              <td>—</td>
+            </tr>
+            <tr class="hidden" data-step="6">
+              <td>&#x1F310; <strong>Any web lookup</strong></td>
+              <td><em>"search the web for…"</em></td>
+              <td>
+                <code>web-search-researcher</code> fires
+                <strong>automatically</strong>, keeps noisy fetches out of my context.
+              </td>
+            </tr>
+            <tr class="hidden" data-step="7">
+              <td><strong>Across all</strong></td>
+              <td><code>/clear</code> between phases</td>
+              <td>
+                <code>/thoughts-management</code>, <code>thoughts-locator</code>,
+                <code>thoughts-analyzer</code> keep <code>thoughts/</code> as persistent memory.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- -- SLIDE W4: Golden rules -- -->
+      <div class="slide" id="slide-workflow-rules">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">My Development Workflow · Rules</span>
+        </div>
+        <h2>Golden rules</h2>
+        <ul class="checklist">
+          <li>
+            <span>Keep context <strong>under 60%</strong>. Past that, quality drops.</span>
+          </li>
+          <li>
+            <span
+              ><code>/clear</code> <strong>between phases</strong> — knowledge lives in
+              <code>thoughts/</code>, not in the context window.</span
+            >
+          </li>
+          <li>
+            <span
+              >Read a <strong>200-line plan</strong> before Claude writes
+              <strong>2,000 lines of code</strong>.</span
+            >
+          </li>
+          <li>
+            <span
+              >Implement <strong>one phase at a time</strong>, with its own tests and commit.</span
+            >
+          </li>
+          <li>
+            <span
+              >Delegate noisy work (web, big scans) to <strong>sub-agents</strong> so the parent
+              context stays clean.</span
             >
           </li>
         </ul>
