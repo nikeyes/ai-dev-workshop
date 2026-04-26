@@ -598,7 +598,7 @@
       <div class="slide slide-title active" id="slide-1">
         <div class="eyebrow">
           <div class="eyebrow-rule"></div>
-          <span class="eyebrow-text">AI Dev Workshop · Wallbox 2026</span>
+          <span class="eyebrow-text">AI Dev Workshop · Kleinanzeigen 2026</span>
         </div>
         <h1>Claude Code</h1>
         <h2>From Zero to Hero</h2>
@@ -665,36 +665,17 @@
         </div>
       </div>
 
-      <!-- -- SLIDE 4: Environment status -- -->
+      <!-- -- SLIDE 4+5: Basic commands -- -->
       <div class="slide" id="slide-4">
         <div class="eyebrow">
           <div class="eyebrow-rule"></div>
           <span class="eyebrow-text">Block 1 · Step 1</span>
         </div>
-        <h2>Check Claude Code status</h2>
-        <div class="code-block"><span class="prompt">></span><span class="cmd"> /doctor</span></div>
-        <div class="tip-box">
-          <span class="tip-label">Doctor</span>
-          <p>Checks connectivity, credentials and CLI version.</p>
-        </div>
-        <div class="code-block"><span class="prompt">></span><span class="cmd"> /status</span></div>
-        <div class="tip-box">
-          <span class="tip-label">Status</span>
-          <p>Shows the active model, accumulated cost and context used in the current session.</p>
-        </div>
-      </div>
-
-      <!-- -- SLIDE 5: Session tips -- -->
-      <div class="slide" id="slide-5">
-        <div class="eyebrow">
-          <div class="eyebrow-rule"></div>
-          <span class="eyebrow-text">Tips</span>
-        </div>
-        <h2>Did Claude Code close in the middle of a task?</h2>
-        <div class="code-block">
-          <span class="prompt">$</span><span class="cmd"> claude --continue </span><span class="comment"># Resume the last session</span>
-          <span class="prompt">$</span><span class="cmd"> claude --resume </span><span class="comment"># Pick a previous session</span>
-        </div>
+        <h2>Basic commands</h2>
+        <div class="code-block"><span class="prompt">></span><span class="cmd"> /doctor</span><span class="comment">      # Connectivity, credentials and CLI version</span>
+<span class="prompt">></span><span class="cmd"> /status</span><span class="comment">      # Active model, cost and context used</span></div>
+        <div class="code-block"><span class="prompt">$</span><span class="cmd"> claude --continue </span><span class="comment"># Resume the last session</span>
+<span class="prompt">$</span><span class="cmd"> claude --resume   </span><span class="comment"># Pick a previous session</span></div>
         <div class="tip-box">
           <span class="tip-label">Remember</span>
           <p>
@@ -704,19 +685,7 @@
         </div>
       </div>
 
-      <!-- -- SLIDE 6: Golden rule -- -->
-      <div class="slide slide-quote" id="slide-6" data-reveal="1">
-        <blockquote>
-          Before, it took you 2 hours to write bad code.<br />Now it takes 2 seconds.<span
-            data-step="1"
-            class="hidden"
-            ><br /><br />If you cannot explain what you want and you do not give it enough context,
-            the agent will not know how to do it well either.</span
-          >
-        </blockquote>
-      </div>
-
-      <!-- -- SLIDE 7: Models — table -- -->
+<!-- -- SLIDE 7: Models — table -- -->
       <div class="slide" id="slide-7" data-reveal="5">
         <div class="eyebrow">
           <div class="eyebrow-rule"></div>
@@ -971,6 +940,63 @@
         </div>
       </div>
 
+      <!-- -- SLIDE 12b-C: Context degradation — table -- -->
+      <div class="slide" id="slide-13b" data-reveal="2">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Block 1 · Step 4 · Context Engineering</span>
+        </div>
+        <h2>Context window ≠ Attention window</h2>
+        <div class="tip-box hidden" data-step="1">
+          <span class="tip-label">The 60% rule</span>
+          <p>Past 50–60% of the context window, accuracy drops 20–50%.<br />
+          The model accepts all tokens — it doesn't attend to them equally.</p>
+        </div>
+        <div class="hidden" data-step="2">
+        <table class="comp-table" style="margin-top:0;width:100%">
+          <thead>
+            <tr>
+              <th style="width:28%"></th>
+              <th style="color:#d4f5d4">✅ Fresh session</th>
+              <th style="background:#7a2a0e">⚠️ Saturated (&gt;60%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Instruction following<br /><a href="https://www.databricks.com/blog/long-context-rag-performance-llms" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">Databricks RAG study</a></td>
+              <td>Follows rules consistently</td>
+              <td style="background:#fff5f2">Inconsistent — rules silently ignored</td>
+            </tr>
+            <tr>
+              <td>Hallucinations<br /><a href="https://arxiv.org/abs/2509.09614" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">LoCoBench · arXiv:2509.09614</a></td>
+              <td>Stays grounded in actual code</td>
+              <td style="background:#fff5f2">APIs, files, functions invented</td>
+            </tr>
+            <tr>
+              <td>Multi-step reasoning<br /><a href="https://arxiv.org/abs/2402.14848" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">arXiv:2402.14848</a></td>
+              <td>Cites evidence, respects format (0.92)</td>
+              <td style="background:#fff5f2">Drops to 0.68 — skips evidence, reverses format</td>
+            </tr>
+            <tr>
+              <td>Patch / diff generation<br /><a href="https://arxiv.org/abs/2602.16069" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">arXiv:2602.16069</a></td>
+              <td>Edits the right file, clean diff</td>
+              <td style="background:#fff5f2">Wrong files, hallucinated diffs</td>
+            </tr>
+            <tr>
+              <td>Instruction abandonment<br /><a href="https://www.databricks.com/blog/long-context-rag-performance-llms" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">Databricks RAG study</a></td>
+              <td>~5% failure rate</td>
+              <td style="background:#fff5f2"><strong>Up to 50%</strong> failure rate (10× increase)</td>
+            </tr>
+            <tr>
+              <td>Cross-file refactoring<br /><a href="https://arxiv.org/abs/2509.09614" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">LoCoBench · arXiv:2509.09614</a></td>
+              <td>Consistent naming &amp; interfaces</td>
+              <td style="background:#fff5f2">Naming drift, broken interfaces</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
       <!-- -- SLIDE 11: Context -- -->
       <div class="slide" id="slide-12">
         <div class="eyebrow">
@@ -1030,63 +1056,6 @@
             Files from directories added via <code>--add-dir</code> require an explicit opt-in:<br />
             set <code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1</code> in your <code>settings.json</code>.
           </p>
-        </div>
-      </div>
-
-      <!-- -- SLIDE 12b-C: Context degradation — table -- -->
-      <div class="slide" id="slide-13b" data-reveal="2">
-        <div class="eyebrow">
-          <div class="eyebrow-rule"></div>
-          <span class="eyebrow-text">Block 1 · Step 4 · Context Engineering</span>
-        </div>
-        <h2>Context window ≠ Attention window</h2>
-        <div class="tip-box hidden" data-step="1">
-          <span class="tip-label">The 60% rule</span>
-          <p>Past 50–60% of the context window, accuracy drops 20–50%.<br />
-          The model accepts all tokens — it doesn't attend to them equally.</p>
-        </div>
-        <div class="hidden" data-step="2">
-        <table class="comp-table" style="margin-top:0;width:100%">
-          <thead>
-            <tr>
-              <th style="width:28%"></th>
-              <th style="color:#d4f5d4">✅ Fresh session</th>
-              <th style="background:#7a2a0e">⚠️ Saturated (&gt;60%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Instruction following<br /><a href="https://www.databricks.com/blog/long-context-rag-performance-llms" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">Databricks RAG study</a></td>
-              <td>Follows rules consistently</td>
-              <td style="background:#fff5f2">Inconsistent — rules silently ignored</td>
-            </tr>
-            <tr>
-              <td>Hallucinations<br /><a href="https://arxiv.org/abs/2509.09614" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">LoCoBench · arXiv:2509.09614</a></td>
-              <td>Stays grounded in actual code</td>
-              <td style="background:#fff5f2">APIs, files, functions invented</td>
-            </tr>
-            <tr>
-              <td>Multi-step reasoning<br /><a href="https://arxiv.org/abs/2402.14848" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">arXiv:2402.14848</a></td>
-              <td>Cites evidence, respects format (0.92)</td>
-              <td style="background:#fff5f2">Drops to 0.68 — skips evidence, reverses format</td>
-            </tr>
-            <tr>
-              <td>Patch / diff generation<br /><a href="https://arxiv.org/abs/2602.16069" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">arXiv:2602.16069</a></td>
-              <td>Edits the right file, clean diff</td>
-              <td style="background:#fff5f2">Wrong files, hallucinated diffs</td>
-            </tr>
-            <tr>
-              <td>Instruction abandonment<br /><a href="https://www.databricks.com/blog/long-context-rag-performance-llms" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">Databricks RAG study</a></td>
-              <td>~5% failure rate</td>
-              <td style="background:#fff5f2"><strong>Up to 50%</strong> failure rate (10× increase)</td>
-            </tr>
-            <tr>
-              <td>Cross-file refactoring<br /><a href="https://arxiv.org/abs/2509.09614" target="_blank" style="font-size:0.7em;color:#888;font-weight:400">LoCoBench · arXiv:2509.09614</a></td>
-              <td>Consistent naming &amp; interfaces</td>
-              <td style="background:#fff5f2">Naming drift, broken interfaces</td>
-            </tr>
-          </tbody>
-        </table>
         </div>
       </div>
 
@@ -1460,12 +1429,14 @@
           <p>Turn it into a Skill.<br />That way the whole team shares it with no effort.</p>
         </div>
         <div class="tip-box">
-          <span class="tip-label">Anthropic Skill Creator — 2 official repos</span>
-          <p>
-            <code><a href="https://github.com/anthropics/skills" target="_blank">anthropics/skills</a> → skill-creator</code><br />
-            For <strong>Claude.ai &amp; Claude API</strong>. Base of the claude.ai skill system.<br /><br />
-            <code><a href="https://github.com/anthropics/claude-plugins-official" target="_blank">anthropics/claude-plugins-official</a> → skill-creator</code><br />
-            For <strong>Claude Code (CLI)</strong>. Packaged as a Plugin.<br />
+          <span class="tip-label">Install skill-creator in Claude Code</span>
+          <div class="code-block" style="margin-top:0.4rem;margin-bottom:0.5rem"><span class="prompt">$</span><span class="cmd"> claude plugin marketplace add anthropics/claude-plugins-official</span>
+<span class="prompt">$</span><span class="cmd"> claude plugin install skill-creator@claude-plugins-official</span></div>
+          <p style="font-size:clamp(0.7rem,1.1vw,0.95rem);color:#888;margin-top:0.3rem">
+            For <strong style="color:#666">Claude.ai &amp; API</strong>:
+            <a href="https://github.com/anthropics/skills" target="_blank" style="color:#888">anthropics/skills</a> ·
+            For <strong style="color:#666">Claude Code (CLI)</strong>:
+            <a href="https://github.com/anthropics/claude-plugins-official" target="_blank" style="color:#888">anthropics/claude-plugins-official</a>
           </p>
         </div>
       </div>
@@ -1499,7 +1470,7 @@
       </div>
 
       <!-- -- SLIDE 23: Plugins — what they are -- -->
-      <div class="slide" id="slide-23">
+      <div class="slide" id="slide-23" data-reveal="1">
         <div class="eyebrow">
           <div class="eyebrow-rule"></div>
           <span class="eyebrow-text">Block 1 · Step 8 · Plugins</span>
@@ -1510,15 +1481,67 @@
           <p>A <strong>packaged bundle</strong> of Claude Code customisations you can install, version and share — like an npm package, but for the agent.</p>
         </div>
         <ul class="checklist">
-          <li><span><strong>Slash commands</strong> — reusable workflows invoked with <code>/name</code>.</span></li>
           <li><span><strong>Sub-agents</strong> — specialised agents with their own context window.</span></li>
           <li><span><strong>Skills</strong> — procedural knowledge loaded on demand.</span></li>
           <li><span><strong>Hooks</strong> — shell commands that react to agent events.</span></li>
           <li><span><strong>MCP servers</strong> — connectors to external tools and data.</span></li>
         </ul>
-        <div class="tip-box">
-          <span class="tip-label">How you get one</span>
-          <p>Install from a marketplace: <code>/plugin marketplace add org/repo</code> → <code>/plugin install name</code>.</p>
+        <div class="tip-box hidden" data-step="1">
+          <span class="tip-label">Install stepwise-dev</span>
+          <div class="code-block" style="margin-top:0.4rem"><span class="prompt">$</span><span class="cmd"> claude plugin marketplace add https://github.com/nikeyes/stepwise-dev.git</span>
+<span class="prompt">$</span><span class="cmd"> claude plugin install stepwise-core@stepwise-dev</span>
+<span class="prompt">$</span><span class="cmd"> claude plugin install stepwise-git@stepwise-dev</span>
+<span class="prompt">$</span><span class="cmd"> claude plugin install stepwise-web@stepwise-dev</span>
+<span class="prompt">$</span><span class="cmd"> claude plugin install stepwise-research@stepwise-dev</span></div>
+        </div>
+      </div>
+
+      <!-- -- SLIDE evals: Why I trust this plugin -- -->
+      <div class="slide" id="slide-evals" data-reveal="3">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Block 1 · Step 8 · Plugins · Evals</span>
+        </div>
+        <h2>Why I trust this plugin</h2>
+        <div class="tip-box" style="margin-bottom:clamp(0.4rem,1vh,0.8rem)">
+          <span class="tip-label">What is an eval?</span>
+          <p>A repeatable test that measures whether a skill actually improves Claude's output — run before and after each change, like a CI pipeline for prompts.</p>
+        </div>
+        <div class="hidden" data-step="1">
+        <table class="comp-table" style="margin-top:0;width:100%">
+          <thead>
+            <tr>
+              <th style="width:36%">Skill</th>
+              <th>Without skill</th>
+              <th>With skill</th>
+              <th style="color:#d4f5d4">Delta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>small-safe-steps</code></td>
+              <td>51.1%</td>
+              <td>96.4%</td>
+              <td style="color:#4ade80"><strong>+45.3 pp</strong></td>
+            </tr>
+            <tr>
+              <td><code>validate-plan</code></td>
+              <td>90.6%</td>
+              <td>98.0%</td>
+              <td style="color:#4ade80"><strong>+7.4 pp</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="tip-box hidden" data-step="2">
+          <span class="tip-label">How evals work</span>
+          <p>Each skill ships with <code>evals/evals.json</code> — a set of prompts and graded rubrics.<br />
+          The skill-creator runs them automatically on every iteration.</p>
+          <div class="code-block" style="margin-top:0.4rem"><span class="prompt">$</span><span class="cmd"> /skill-creator Run evals from &lt;skill&gt;-workspace/evals/evals.json</span></div>
+        </div>
+        <div class="tip-box hidden" data-step="3">
+          <span class="tip-label">Bottom line</span>
+          <p>Any plugin on the marketplace <em>can</em> claim it helps. Only one with evals can <strong>prove it</strong>.</p>
         </div>
       </div>
 
@@ -1563,6 +1586,9 @@
                 >ka-claude-code-review-template.yaml</a
               >.</span
             >
+          </li>
+          <li>
+            <span>Want a quick local check before pushing? Use <code>/security-review</code> — runs directly in Claude Code, no CI needed.</span>
           </li>
         </ul>
       </div>
@@ -1633,18 +1659,20 @@ and a test. Use type annotations.</span></div>
           </li>
           <li>
             <span
-              ><strong>&#x1F6E0;&#xFE0F; Skills I use:</strong>
-              <a href="https://github.com/anthropics/skills" target="_blank">/simplify</a>,
-              <a href="https://github.com/nikeyes/stepwise-dev/tree/main/core/skills" target="_blank"
-                >/test-desiderata, /hamburger-method, /small-safe-steps, /story-splitting</a
-              ></span
+              ><strong>&#x1F527; My own Plugin:</strong>
+              <a href="https://github.com/nikeyes/stepwise-dev" target="_blank">stepwise-dev</a>
+              for research, plan, implement, validate workflows</span
             >
           </li>
           <li>
             <span
-              ><strong>&#x1F527; My own Plugin:</strong>
-              <a href="https://github.com/nikeyes/stepwise-dev" target="_blank">stepwise-dev</a>
-              for research, plan, implement, validate workflows</span
+              ><strong>&#x1F6E0;&#xFE0F; Skills I use:</strong>
+              <a href="https://github.com/anthropics/skills" target="_blank">/simplify</a>
+              (Anthropic),
+              <a href="https://github.com/nikeyes/stepwise-dev/tree/main/core/skills" target="_blank"
+                >/test-desiderata, /hamburger-method, /small-safe-steps, /story-splitting</a
+              >
+              (my plugin)</span
             >
           </li>
         </ul>
@@ -1677,11 +1705,19 @@ and a test. Use type annotations.</span></div>
           </thead>
           <tbody>
             <tr class="hidden" data-step="1">
+              <td><strong>Across all</strong></td>
+              <td><code>/clear</code> between phases</td>
+              <td>
+                <code>/thoughts-management</code>, <code>thoughts-locator</code>,
+                <code>thoughts-analyzer</code> keep <code>thoughts/</code> as persistent memory.
+              </td>
+            </tr>
+            <tr class="hidden" data-step="2">
               <td><strong>Before</strong> — product side</td>
               <td><code>/story-splitting</code></td>
               <td>Against the PRD / Jira / use case — not the code.</td>
             </tr>
-            <tr class="hidden" data-step="2">
+            <tr class="hidden" data-step="3">
               <td>&#x1F50D; <strong>Research</strong></td>
               <td><code>/research_codebase</code><br /><code>/deep_research</code></td>
               <td>
@@ -1690,12 +1726,12 @@ and a test. Use type annotations.</span></div>
                 <code>web-search-researcher</code>, <code>citation-analyst</code>
               </td>
             </tr>
-            <tr class="hidden" data-step="3">
+            <tr class="hidden" data-step="4">
               <td>&#x1F5FA;&#xFE0F; <strong>Plan</strong></td>
-              <td><code>/create_plan</code><br /><code>/iterate_plan</code></td>
+              <td><code>/create_plan</code><br /><code>/iterate_plan</code><br /><span style="font-size:0.8em;color:#888">or built-in: <code>/plan</code></span></td>
               <td><code>/hamburger-method</code>, <code>/small-safe-steps</code></td>
             </tr>
-            <tr class="hidden" data-step="4">
+            <tr class="hidden" data-step="5">
               <td>&#x1F6E0;&#xFE0F; <strong>Implement</strong></td>
               <td><code>/implement_plan</code><br /><code>/commit</code></td>
               <td>
@@ -1703,25 +1739,17 @@ and a test. Use type annotations.</span></div>
                 <code>/bugmagnet &lt;file&gt;</code> (edge-case &amp; bug hunt on a module)
               </td>
             </tr>
-            <tr class="hidden" data-step="5">
+            <tr class="hidden" data-step="6">
               <td>&#x2705; <strong>Validate</strong></td>
               <td><code>/validate_plan</code></td>
               <td>—</td>
             </tr>
-            <tr class="hidden" data-step="6">
+            <tr class="hidden" data-step="7">
               <td>&#x1F310; <strong>Any web lookup</strong></td>
               <td><em>"search the web for…"</em></td>
               <td>
                 <code>web-search-researcher</code> fires
                 <strong>automatically</strong>, keeps noisy fetches out of my context.
-              </td>
-            </tr>
-            <tr class="hidden" data-step="7">
-              <td><strong>Across all</strong></td>
-              <td><code>/clear</code> between phases</td>
-              <td>
-                <code>/thoughts-management</code>, <code>thoughts-locator</code>,
-                <code>thoughts-analyzer</code> keep <code>thoughts/</code> as persistent memory.
               </td>
             </tr>
           </tbody>

@@ -3,10 +3,13 @@ Practical talk & workshop on AI-assisted software development.
 
 ## Slides
 
-- [Charla (ES)](https://nikeyes.github.io/ai-dev-workshop/slides/charla-slides-es.html)
-- [Workshop (ES)](https://nikeyes.github.io/ai-dev-workshop/workshop/workshop-slides-es.html)
-- [Talk (EN)](https://nikeyes.github.io/ai-dev-workshop/slides/charla-slides-en.html)
-- [Workshop (EN)](https://nikeyes.github.io/ai-dev-workshop/workshop/workshop-slides-en.html)
+- [Charla Wallbox (ES)](https://nikeyes.github.io/ai-dev-workshop/slides/charla-slides-es.html)
+- [Workshop Wallbox (ES)](https://nikeyes.github.io/ai-dev-workshop/workshop/workshop-slides-es.html)
+- [Talk Wallbox (EN)](https://nikeyes.github.io/ai-dev-workshop/slides/charla-slides-en.html)
+- [Workshop Wallbox (EN)](https://nikeyes.github.io/ai-dev-workshop/workshop/workshop-slides-en.html)
+- [Talk Kleinanzeigen (EN)](https://nikeyes.github.io/ai-dev-workshop/slides/charla-slides-short-en.html)
+- [Workshop Kleinanzeigen (EN)](https://nikeyes.github.io/ai-dev-workshop/workshop/workshop-slides-extended-en.html)
+
 
 ## Ocultar Slides
 
