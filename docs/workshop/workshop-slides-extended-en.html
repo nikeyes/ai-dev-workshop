@@ -1259,6 +1259,53 @@
         </table>
       </div>
 
+      <!-- -- SLIDE 16c: When to use what — decision tree -- -->
+      <div class="slide" id="slide-16c" data-reveal="6">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Block 1 · Step 8 · Decision tree</span>
+        </div>
+        <h2>When to use what?</h2>
+        <div class="demo-steps">
+          <div class="demo-step hidden" data-step="1" data-type="prompt">
+            <div class="step-body" style="flex-direction:row;align-items:center;justify-content:space-between;gap:2rem">
+              <p class="step-desc">"Instructions for <strong>this session only</strong>"</p>
+              <span style="white-space:nowrap;font-weight:800;color:var(--brand);font-size:clamp(1rem,1.8vw,1.6rem)">→ PROMPT</span>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="2" data-type="prompt">
+            <div class="step-body" style="flex-direction:row;align-items:center;justify-content:space-between;gap:2rem">
+              <p class="step-desc">"Claude should <strong>always do X this way</strong>"</p>
+              <span style="white-space:nowrap;font-weight:800;color:var(--brand);font-size:clamp(1rem,1.8vw,1.6rem)">→ SKILL</span>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="3" data-type="prompt">
+            <div class="step-body" style="flex-direction:row;align-items:center;justify-content:space-between;gap:2rem">
+              <p class="step-desc">"<strong>Enforce this automatically</strong> every time X happens"</p>
+              <span style="white-space:nowrap;font-weight:800;color:var(--brand);font-size:clamp(1rem,1.8vw,1.6rem)">→ HOOK</span>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="4" data-type="prompt">
+            <div class="step-body" style="flex-direction:row;align-items:center;justify-content:space-between;gap:2rem">
+              <p class="step-desc">"I need Claude to <strong>access an external tool or service</strong>"</p>
+              <span style="white-space:nowrap;font-weight:800;color:var(--brand);font-size:clamp(1rem,1.8vw,1.6rem)">→ MCP (via MCP or its CLI)</span>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="5" data-type="prompt">
+            <div class="step-body" style="flex-direction:row;align-items:center;justify-content:space-between;gap:2rem">
+              <p class="step-desc">"Do this task <strong>without polluting my context</strong>"</p>
+              <span style="white-space:nowrap;font-weight:800;color:var(--brand);font-size:clamp(1rem,1.8vw,1.6rem)">→ SUBAGENT</span>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="6" data-type="prompt">
+            <div class="step-body" style="flex-direction:row;align-items:center;justify-content:space-between;gap:2rem">
+              <p class="step-desc">"Run <strong>multiple independent tasks</strong> in parallel"</p>
+              <span style="white-space:nowrap;font-weight:800;color:var(--brand);font-size:clamp(1rem,1.8vw,1.6rem)">→ SUBAGENTS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- -- SLIDE 16: Hooks — what they are -- -->
       <div class="slide" id="slide-17">
         <div class="eyebrow">
