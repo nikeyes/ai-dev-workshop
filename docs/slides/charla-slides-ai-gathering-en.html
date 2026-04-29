@@ -1697,8 +1697,7 @@ body { background: #fff; }
         <span class="reveal-real-num">19% SLOWER</span>
       </div>
     </div>
-    <p class="s3-aside reveal-item">February 2026 — Claude Opus 4.6 completes tasks that would take an expert human ~15 hours, 1 out of 2 times.</p>
-    <p class="source">Source: <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR — Early 2025 AI-Experienced OS Dev Study</a></p>
+<p class="source">Source: <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener">METR — Early 2025 AI-Experienced OS Dev Study</a></p>
   </div>
 </section>
 
@@ -1709,7 +1708,7 @@ body { background: #fff; }
 <section class="slide s3b" data-label="Why we are slower">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">05</div>
+  <div class="wm">04</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1756,7 +1755,7 @@ body { background: #fff; }
 <section class="slide s2b" data-label="Where are we?" data-hidden>
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">05</div>
+  <div class="wm">04b</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -1815,201 +1814,7 @@ body { background: #fff; }
 </section>
 
 
-<!-- ============================================================ -->
-<!-- SLIDE — CORE PRINCIPLE                                         -->
-<!-- ============================================================ -->
-<section class="slide s11" data-label="Our job">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">06</div>
-  <div class="content">
-    <p class="s11-statement">Our job is to<br>solve problems,<br><em>not to write code.</em></p>
-    <p class="note" style="text-align:center;max-width:min(60vw,720px);margin:0 auto;">That has never changed. AI just makes it more obvious when we forget it.</p>
-  </div>
-</section>
 
-<!-- ============================================================ -->
-<!-- SLIDE 11 — PRACTICES THAT WORK                                -->
-<!-- ============================================================ -->
-<section class="slide s6" data-label="Practices that work">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">07</div>
-  <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">We already know what works</span>
-    </div>
-    <h2 class="h2">The faster you generate,<br>the more you need these</h2>
-    <div class="practices">
-      <div class="practice reveal-item">
-        <div class="practice-bullet">01</div>
-        <div>
-          <div class="practice-title">Story Splitting</div>
-          <p class="practice-text">Split work into deployable vertical slices. With AI you can generate a lot in little time. If the scope is not cut, the chaos scales just as fast.</p>
-        </div>
-      </div>
-      <div class="practice reveal-item">
-        <div class="practice-bullet">02</div>
-        <div>
-          <div class="practice-title">Hamburger Method</div>
-          <p class="practice-text">Deliver value end-to-end continuously. Cut the feature into layers, implement the thinnest slice.</p>
-        </div>
-      </div>
-      <div class="practice reveal-item">
-        <div class="practice-bullet">03</div>
-        <div>
-          <div class="practice-title">Small safe steps</div>
-          <p class="practice-text">Each step must be reversible. Just because the agent can generate a lot very fast does not mean we should push it all to production at once.</p>
-        </div>
-      </div>
-      <div class="practice reveal-item">
-        <div class="practice-bullet">04</div>
-        <div>
-          <div class="practice-title">Advanced testing</div>
-          <p class="practice-text">Mutation testing, Acceptance Testing, Architectural Testing. All of them expand the feedback loop and now there are no excuses.</p>
-        </div>
-      </div>
-    </div>
-    <p class="bottleneck reveal-item">More generated code = more risk if you do not have a <em>solid feedback loop.</em></p>
-  </div>
-</section>
-
-
-
-<!-- ============================================================ -->
-<!-- SLIDE 13 — REAL CASE: THE PLAN                                -->
-<!-- ============================================================ -->
-<section class="slide s9b" data-label="Real case: plan questions">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">10</div>
-  <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Autonomy without oversight</span>
-    </div>
-    <h2 class="h2">Real example</h2>
-    <div class="chat">
-      <div class="chat-row user-row reveal-item">
-        <div class="chat-avatar avatar-user">YO</div>
-        <div class="chat-bubble">Del plan <code>.claude/plans/pending/2026…</code> tengo un par de dudas<span class="chat-translation">[About the plan … I have a couple of questions]</span></div>
-      </div>
-      <div class="chat-row ai-row reveal-item">
-        <div class="chat-avatar avatar-ai">CC</div>
-        <div class="chat-bubble action-bubble">
-          <div class="action-label">Acción ejecutada</div>
-          Listo, archivo eliminado.<span class="chat-translation">[Done, file deleted.]</span>
-        </div>
-      </div>
-      <div class="chat-row user-row reveal-item">
-        <div class="chat-avatar avatar-user">YO</div>
-        <div class="chat-bubble">¿Por qué has eliminado el archivo?<span class="chat-translation">[Why did you delete the file?]</span></div>
-      </div>
-      <div class="chat-row ai-row reveal-item">
-        <div class="chat-avatar avatar-ai">CC</div>
-        <div class="chat-bubble apology-bubble">Me equivoqué. Interpreté "del" como el comando inglés <em>delete</em>, pero en realidad "del plan" es la preposición en español, estabas haciendo referencia al plan, no pidiéndome eliminarlo.<br><br>Lo siento mucho. ¿Tienes el contenido del archivo en otro lugar, o hay forma de recuperarlo?<span class="chat-translation">[I made a mistake. I read "del" as the English command <em>delete</em>, but "del plan" is a Spanish preposition — you were referring to the plan, not asking me to delete it. I'm very sorry. Do you have the file content somewhere else, or is there a way to recover it?]</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SLIDE — PERMISSIONS AND AUTONOMY                              -->
-<!-- ============================================================ -->
-<section class="slide s9" data-label="Permissions and autonomy">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">11</div>
-  <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">Agent security</span>
-    </div>
-    <h2 class="h2">Set up permissions.<br>Calibrate autonomy to risk.</h2>
-    <div class="sec-table">
-      <div class="sec-col sec-col-ok reveal-item">
-        <div class="sec-col-header sec-ok-header">The agent does without asking</div>
-        <ul class="sec-list">
-          <li>Edit code</li>
-          <li>Run tests</li>
-          <li>Generate documentation</li>
-          <li>Create branches</li>
-          <li>Open draft PRs</li>
-        </ul>
-      </div>
-      <div class="sec-divider reveal-item">vs</div>
-      <div class="sec-col sec-col-danger reveal-item">
-        <div class="sec-col-header sec-danger-header">Always with your approval</div>
-        <ul class="sec-list">
-          <li>Push to main</li>
-          <li>Modify CI/CD pipelines</li>
-          <li>Touch IAM / Terraform / infra</li>
-          <li>Access secrets or credentials</li>
-          <li>Self-approve its own PRs</li>
-        </ul>
-      </div>
-    </div>
-    <div class="risk-rows">
-      <div class="risk-row risk-green reveal-item">
-        <div class="risk-dot"></div>
-        <div class="risk-label">Low risk &rarr; more autonomy. Start without asking permission.</div>
-      </div>
-      <div class="risk-row risk-red reveal-item">
-        <div class="risk-dot"></div>
-        <div class="risk-label">High risk &rarr; more oversight. The harder to undo, the more human eyes needed.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SLIDE — CALIBRATE AUTONOMY TO RISK                            -->
-<!-- ============================================================ -->
-<section class="slide s10b" data-label="Who will thrive">
-  <div class="bar"></div>
-  <div class="grid-bg"></div>
-  <div class="wm">12</div>
-  <div class="content">
-    <div class="eyebrow">
-      <div class="eyebrow-rule"></div>
-      <span class="eyebrow-text">How much autonomy?</span>
-    </div>
-    <h2 class="h2">Calibrate autonomy to risk</h2>
-    <div class="table-header">
-      <div></div>
-      <div class="th">Context</div>
-      <div class="th">Autonomy level</div>
-      <div class="th">Before merging</div>
-    </div>
-    <div class="table">
-      <div class="row green">
-        <div class="row-bar"></div>
-        <div class="row-context">Internal tooling / admin<br><small style="font-weight:400;color:#666">If it fails: only the team notices</small></div>
-        <div class="row-autonomy">You design, the AI implements. Do not worry about the code</div>
-        <div class="row-gate">Unit + integration tests<br>Straight to main</div>
-      </div>
-      <div class="row yellow">
-        <div class="row-bar"></div>
-        <div class="row-context">Search &amp; discovery<br><small style="font-weight:400;color:#666">If it fails: user friction, fewer conversions</small></div>
-        <div class="row-autonomy">You design, the AI implements, you oversee the architecture</div>
-        <div class="row-gate">Architecture + acceptance tests<br>Observability + AI-reviewed PR</div>
-      </div>
-      <div class="row orange">
-        <div class="row-bar"></div>
-        <div class="row-context">Listing &amp; messaging flow<br><small style="font-weight:400;color:#666">If it fails: users can't buy or sell</small></div>
-        <div class="row-autonomy">You design and review code in critical modules</div>
-        <div class="row-gate">Mutation testing + security scan<br>PR with human review</div>
-      </div>
-      <div class="row red">
-        <div class="row-bar"></div>
-        <div class="row-context">Payments &amp; trust &amp; safety<br><small style="font-weight:400;color:#666">If it fails: money, fraud, regulation</small></div>
-        <div class="row-autonomy">You decide and oversee at a low level — the AI only assists</div>
-        <div class="row-gate">Compliance tests + security audit<br>Mandatory human review</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============================================================ -->
 <!-- SLIDE 16 — CHANGES / ENDURES                                  -->
@@ -2020,7 +1825,7 @@ body { background: #fff; }
 <section class="slide s12" data-label="Summary">
   <div class="bar"></div>
   <div class="grid-bg"></div>
-  <div class="wm">13</div>
+  <div class="wm">05</div>
   <div class="content">
     <div class="eyebrow">
       <div class="eyebrow-rule"></div>
@@ -2030,7 +1835,7 @@ body { background: #fff; }
     <div class="key-list">
       <div class="key-item reveal-item">
         <div class="key-num">1</div>
-        <p class="key-text">Your value is in <strong>understanding the problem,</strong> not in typing the solution.</p>
+        <p class="key-text">Our job is to solve problems, not to write code. <strong>That has never changed.</strong> AI just makes it more obvious when we forget it.</p>
       </div>
       <div class="key-item reveal-item">
         <div class="key-num">2</div>

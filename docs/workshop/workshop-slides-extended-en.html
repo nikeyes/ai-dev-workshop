@@ -43,31 +43,38 @@
         width: 100vw;
         height: 100vh;
         font-family: "Archivo", sans-serif;
+        overflow: hidden;
+      }
+
+      /* -- progress bar -- */
+      .progress-bar {
+        position: fixed;
+        top: 0; left: 0;
+        height: 3px;
+        background: var(--brand);
+        z-index: 200;
+        width: 0%;
+        transition: width 0.3s ease;
+        pointer-events: none;
       }
 
       /* -- slide container -- */
       .slides-wrapper {
         width: 100%;
         height: 100%;
-        position: relative;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
       }
 
       .slide {
-        position: absolute;
-        inset: 0;
+        width: 100%;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         padding: 4vh 7vw 7vh;
         gap: clamp(1.2rem, 2.8vh, 2.8rem);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.35s ease;
-      }
-
-      .slide.active {
-        opacity: 1;
-        pointer-events: auto;
+        scroll-snap-align: start;
       }
 
       /* -- eyebrow -- */
@@ -483,6 +490,35 @@
         text-align: center;
       }
 
+      /* -- nav dots -- */
+      .nav-dots {
+        position: fixed;
+        right: clamp(0.6rem, 1.5vw, 1.2rem);
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.4rem, 0.8vh, 0.6rem);
+        z-index: 100;
+      }
+      .nav-dot {
+        width: clamp(8px, 1vw, 10px);
+        height: clamp(8px, 1vw, 10px);
+        border: 2px solid rgba(0,0,0,0.2);
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        padding: 0;
+        position: relative;
+      }
+      .nav-dot:hover { border-color: var(--brand); }
+      .nav-dot.active {
+        background: var(--brand);
+        border-color: var(--brand);
+        transform: scale(1.3);
+      }
+
       /* -- block break slide -- */
       .slide-break {
         background: #111;
@@ -560,7 +596,7 @@
 
       /* -- hidden slides -- */
       .slide[data-hidden] {
-        display: none;
+        display: none !important;
       }
 
       /* -- inline code (outside tip-box) -- */
@@ -589,6 +625,177 @@
       .checklist a:hover {
         color: var(--brand);
         text-decoration: underline;
+      }
+
+      /* -- chat bubbles -- */
+      .chat {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.5rem, 1.2vh, 0.9rem);
+      }
+      .chat-row {
+        display: flex;
+        gap: clamp(0.5rem, 1.2vw, 0.9rem);
+        align-items: flex-start;
+      }
+      .chat-row.user-row { flex-direction: row-reverse; }
+      .chat-avatar {
+        width: clamp(28px, 3vw, 38px);
+        height: clamp(28px, 3vw, 38px);
+        border-radius: 50%;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Archivo Black", sans-serif;
+        font-size: clamp(0.55rem, 0.9vw, 0.72rem);
+        color: #fff;
+      }
+      .chat-avatar.avatar-user { background: #333; }
+      .chat-avatar.avatar-ai   { background: var(--brand); }
+      .chat-bubble {
+        max-width: 72%;
+        padding: clamp(0.5rem, 1.2vh, 0.8rem) clamp(0.7rem, 1.5vw, 1.1rem);
+        border-radius: 4px;
+        font-size: clamp(0.95rem, 1.8vw, 1.55rem);
+        font-weight: 400;
+        line-height: 1.5;
+        color: #222;
+      }
+      .chat-row.user-row .chat-bubble {
+        background: #f0f0f0;
+        border: 1.5px solid rgba(0,0,0,0.1);
+      }
+      .chat-row.ai-row .chat-bubble {
+        background: #fff;
+        border: 1.5px solid rgba(0,0,0,0.1);
+      }
+      .chat-bubble code {
+        font-family: var(--font-mono);
+        font-size: 0.88em;
+        background: rgba(0,0,0,0.06);
+        padding: 0.1em 0.4em;
+        border-radius: 3px;
+      }
+      .chat-bubble .action-label {
+        font-size: clamp(0.55rem, 0.85vw, 0.68rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #ef4444;
+        margin-bottom: 0.3em;
+      }
+      .chat-bubble.action-bubble {
+        background: rgba(239,68,68,0.07);
+        border-color: rgba(239,68,68,0.4);
+        border-left: 4px solid #ef4444;
+      }
+      .chat-bubble.apology-bubble {
+        background: rgba(239,68,68,0.04);
+        border-color: rgba(239,68,68,0.2);
+      }
+      .chat-translation {
+        display: block;
+        margin-top: 0.35em;
+        font-size: 0.85em;
+        font-style: italic;
+        color: #888;
+        font-weight: 400;
+        border-top: 1px solid rgba(0,0,0,0.07);
+        padding-top: 0.3em;
+      }
+
+      /* -- agent security slide -- */
+      .sec-table {
+        display: grid;
+        grid-template-columns: 1fr clamp(2rem, 4vw, 4rem) 1fr;
+        align-items: start;
+      }
+      .sec-col {
+        padding: clamp(0.8rem, 1.8vh, 1.4rem) clamp(1rem, 2vw, 1.6rem);
+      }
+      .sec-col-ok {
+        background: rgba(34,197,94,0.06);
+        border: 2px solid rgba(34,197,94,0.25);
+      }
+      .sec-col-danger {
+        background: rgba(239,68,68,0.06);
+        border: 2px solid rgba(239,68,68,0.25);
+      }
+      .sec-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
+        font-family: "Archivo Black", sans-serif;
+        font-size: 1.5rem;
+        color: rgba(0,0,0,0.1);
+      }
+      .sec-col-header {
+        font-family: "Archivo", sans-serif;
+        font-size: clamp(1rem, 1.8vw, 1.5rem);
+        font-weight: 800;
+        margin-bottom: clamp(0.5rem, 1.2vh, 0.8rem);
+        padding-bottom: 0.35em;
+        border-bottom: 3px solid;
+      }
+      .sec-ok-header  { color: #16a34a; border-color: #22c55e; }
+      .sec-danger-header { color: #dc2626; border-color: #ef4444; }
+      .sec-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.3rem, 0.8vh, 0.6rem);
+      }
+      .sec-list li {
+        font-size: clamp(0.9rem, 1.6vw, 1.35rem);
+        font-weight: 600;
+        color: #333;
+        line-height: 1.4;
+        padding-left: 1.4em;
+        position: relative;
+      }
+      .sec-col-ok .sec-list li::before {
+        content: '\2713';
+        position: absolute;
+        left: 0;
+        font-weight: 800;
+        color: #22c55e;
+      }
+      .sec-col-danger .sec-list li::before {
+        content: '\2715';
+        position: absolute;
+        left: 0;
+        font-weight: 800;
+        color: #ef4444;
+      }
+      .risk-rows {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.4rem, 0.9vh, 0.7rem);
+      }
+      .risk-row {
+        display: flex;
+        align-items: center;
+        gap: clamp(0.8rem, 1.5vw, 1.2rem);
+        padding: clamp(0.4rem, 1vh, 0.7rem) clamp(0.8rem, 1.5vw, 1.2rem);
+        border: 1.5px solid rgba(0,0,0,0.08);
+      }
+      .risk-row.risk-green { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.25); }
+      .risk-row.risk-red   { background: rgba(239,68,68,0.06);  border-color: rgba(239,68,68,0.25); }
+      .risk-dot {
+        width: clamp(10px, 1.2vw, 14px);
+        height: clamp(10px, 1.2vw, 14px);
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .risk-green .risk-dot { background: #22c55e; }
+      .risk-red   .risk-dot { background: #ef4444; }
+      .risk-label {
+        font-family: "Archivo", sans-serif;
+        font-size: clamp(1rem, 1.9vw, 1.65rem);
+        font-weight: 800;
+        color: #111;
       }
     </style>
   </head>
@@ -685,8 +892,51 @@
         </div>
       </div>
 
+<!-- -- SLIDE 4b: Keyboard shortcuts -- -->
+      <div class="slide" id="slide-4b">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Block 1 · Step 1</span>
+        </div>
+        <h2>Keyboard shortcuts</h2>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Shift + Tab</code></td>
+              <td>Cycle permission modes: <strong>default → acceptEdits → plan</strong></td>
+            </tr>
+            <tr>
+              <td><code>Esc</code></td>
+              <td>Interrupt Claude mid-response</td>
+            </tr>
+            <tr>
+              <td><code>Esc, Esc</code></td>
+              <td>Open rewind menu — roll back the session</td>
+            </tr>
+            <tr>
+              <td><code>Ctrl + O</code></td>
+              <td>Toggle verbose / full transcript view</td>
+            </tr>
+            <tr>
+              <td><code>@ + path</code></td>
+              <td>Reference a file or directory inline</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip-box">
+          <span class="tip-label">/powerup</span>
+          <p>Interactive tutorial system built into the terminal.<br />Animated lessons for context management, plan mode, skills, MCP and more, <strong>without leaving Claude Code</strong>.</p>
+        </div>
+      </div>
+
 <!-- -- SLIDE 7: Models — table -- -->
-      <div class="slide" id="slide-7" data-reveal="5">
+      <div class="slide" id="slide-7" data-reveal="6">
         <div class="eyebrow">
           <div class="eyebrow-rule"></div>
           <span class="eyebrow-text">Block 1 · Step 2</span>
@@ -725,6 +975,15 @@
           <div class="demo-step hidden" data-step="4" data-type="action">
             <span class="step-num">$</span>
             <div class="step-body">
+              <span class="step-label">Switch model</span>
+              <p class="step-desc">
+                <code>/model</code> — change the active model mid-session without restarting.
+              </p>
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="5" data-type="action">
+            <span class="step-num">$</span>
+            <div class="step-body">
               <span class="step-label">Cost</span>
               <p class="step-desc">
                 <code>/cost</code> with Bedrock · <code>/usage</code> with subscription. Accumulated
@@ -732,7 +991,7 @@
               </p>
             </div>
           </div>
-          <div class="demo-step hidden" data-step="5">
+          <div class="demo-step hidden" data-step="6">
             <div class="tip-box tip-box--warning tip-box--sm" style="width: 100%">
               <span class="tip-label">&#x26A0;&#xFE0F; There are tools to reduce token usage</span>
               <p>
@@ -744,6 +1003,40 @@
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- -- SLIDE 9b: CLAUDE.md — what it is -- -->
+      <div class="slide" id="slide-9">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Block 1 · Step 3</span>
+        </div>
+        <h2>Claude Code memory</h2>
+        <div class="tip-box">
+          <span class="tip-label">Without CLAUDE.md</span>
+          <p>
+            The agent starts every session from zero.<br />It is like hiring someone new every
+            day.
+          </p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">With CLAUDE.md</span>
+          <p>
+            The agent has persistent context: project conventions, how to validate changes,
+            what to avoid.<br />You never have to repeat it again.
+          </p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">With Rules</span>
+          <p>
+            Specific rules the agent always applies, organized by module or task type.
+          </p>
+        </div>
+        <div class="tip-box">
+          <span class="tip-label">With <code>/memory</code></span>
+          <div class="code-block" style="margin-top:0.4rem"><span class="prompt">></span><span class="cmd"> /memory</span>
+<span class="comment"># Edit the Claude memory files</span></div>
         </div>
       </div>
 
@@ -797,35 +1090,6 @@
               <code class="step-cmd">Check if the project is ready</code>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- -- SLIDE 9b: CLAUDE.md — what it is -- -->
-      <div class="slide" id="slide-9">
-        <div class="eyebrow">
-          <div class="eyebrow-rule"></div>
-          <span class="eyebrow-text">Block 1 · Step 3</span>
-        </div>
-        <h2>Agent memory</h2>
-        <div class="tip-box">
-          <span class="tip-label">Without CLAUDE.md</span>
-          <p>
-            The agent starts every session from zero.<br />It is like hiring someone new every
-            day.
-          </p>
-        </div>
-        <div class="tip-box">
-          <span class="tip-label">With CLAUDE.md</span>
-          <p>
-            The agent has persistent context: project conventions, how to validate changes,
-            what to avoid.<br />You never have to repeat it again.
-          </p>
-        </div>
-        <div class="tip-box">
-          <span class="tip-label">With Rules</span>
-          <p>
-            Specific rules the agent always applies, organized by module or task type.
-          </p>
         </div>
       </div>
 
@@ -1111,6 +1375,78 @@
         </div>
       </div>
 
+      <!-- -- SLIDE: Real example — autonomy without oversight -- -->
+      <div class="slide" id="slide-13c" data-reveal="4">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Block 1 · Step 5 · Real example</span>
+        </div>
+        <h2>Autonomy without oversight</h2>
+        <div class="chat">
+          <div class="chat-row user-row hidden" data-step="1">
+            <div class="chat-avatar avatar-user">ME</div>
+            <div class="chat-bubble">Del plan <code>.claude/plans/pending/2026…</code> tengo un par de dudas<span class="chat-translation">[About the plan … I have a couple of questions]</span></div>
+          </div>
+          <div class="chat-row ai-row hidden" data-step="2">
+            <div class="chat-avatar avatar-ai">CC</div>
+            <div class="chat-bubble action-bubble">
+              <div class="action-label">Action executed</div>
+              Listo, archivo eliminado.<span class="chat-translation">[Done, file deleted.]</span>
+            </div>
+          </div>
+          <div class="chat-row user-row hidden" data-step="3">
+            <div class="chat-avatar avatar-user">ME</div>
+            <div class="chat-bubble">¿Por qué has eliminado el archivo?<span class="chat-translation">[Why did you delete the file?]</span></div>
+          </div>
+          <div class="chat-row ai-row hidden" data-step="4">
+            <div class="chat-avatar avatar-ai">CC</div>
+            <div class="chat-bubble apology-bubble">Me equivoqué. Interpreté "del" como el comando inglés <em>delete</em>, pero en realidad "del plan" es la preposición en español, estabas haciendo referencia al plan, no pidiéndome eliminarlo.<br><br>Lo siento mucho. ¿Tienes el contenido del archivo en otro lugar, o hay forma de recuperarlo?<span class="chat-translation">[I made a mistake. I read "del" as the English command <em>delete</em>, but "del plan" is a Spanish preposition — you were referring to the plan, not asking me to delete it. I'm very sorry. Do you have the file content somewhere else, or is there a way to recover it?]</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- -- SLIDE: Agent security — permissions and autonomy -- -->
+      <div class="slide" id="slide-agent-security" data-reveal="2">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">Block 1 · Step 5 · Agent security</span>
+        </div>
+        <h2>Set up permissions.<br>Calibrate autonomy to risk.</h2>
+        <div class="sec-table hidden" data-step="1">
+          <div class="sec-col sec-col-ok">
+            <div class="sec-col-header sec-ok-header">The agent does without asking</div>
+            <ul class="sec-list">
+              <li>Edit code</li>
+              <li>Run tests</li>
+              <li>Generate documentation</li>
+              <li>Create branches</li>
+              <li>Open draft PRs</li>
+            </ul>
+          </div>
+          <div class="sec-divider">vs</div>
+          <div class="sec-col sec-col-danger">
+            <div class="sec-col-header sec-danger-header">Always with your approval</div>
+            <ul class="sec-list">
+              <li>Push to main</li>
+              <li>Modify CI/CD pipelines</li>
+              <li>Touch IAM / Terraform / infra</li>
+              <li>Access secrets or credentials</li>
+              <li>Self-approve its own PRs</li>
+            </ul>
+          </div>
+        </div>
+        <div class="risk-rows hidden" data-step="2">
+          <div class="risk-row risk-green">
+            <div class="risk-dot"></div>
+            <div class="risk-label">Low risk &rarr; more autonomy. Start without asking permission.</div>
+          </div>
+          <div class="risk-row risk-red">
+            <div class="risk-dot"></div>
+            <div class="risk-label">High risk &rarr; more oversight. The harder to undo, the more human eyes needed.</div>
+          </div>
+        </div>
+      </div>
+
       <!-- -- SLIDE 15b: Permissions — settings hierarchy -- -->
       <div class="slide" id="slide-15">
         <div class="eyebrow">
@@ -1147,7 +1483,7 @@
       </div>
 
       <!-- -- SLIDE 15: Rewind -- -->
-      <div class="slide" id="slide-16" data-reveal="4">
+      <div class="slide" id="slide-16" data-reveal="5">
         <div class="eyebrow">
           <div class="eyebrow-rule"></div>
           <span class="eyebrow-text">Block 1 · Step 6</span>
@@ -1183,6 +1519,13 @@
                 >In recent versions, it also undoes simple bash commands, but do not rely on
                 it...</code
               >
+            </div>
+          </div>
+          <div class="demo-step hidden" data-step="5" data-type="action">
+            <span class="step-num">&#x2328;&#xFE0F;</span>
+            <div class="step-body">
+              <span class="step-label">Shortcut</span>
+              <code class="step-cmd">Esc, Esc — opens the rewind menu without typing /rewind</code>
             </div>
           </div>
         </div>
@@ -1288,7 +1631,7 @@
           <div class="demo-step hidden" data-step="4" data-type="prompt">
             <div class="step-body" style="flex-direction:row;align-items:center;justify-content:space-between;gap:2rem">
               <p class="step-desc">"I need Claude to <strong>access an external tool or service</strong>"</p>
-              <span style="white-space:nowrap;font-weight:800;color:var(--brand);font-size:clamp(1rem,1.8vw,1.6rem)">→ MCP (via MCP or its CLI)</span>
+              <span style="white-space:nowrap;font-weight:800;color:var(--brand);font-size:clamp(1rem,1.8vw,1.6rem)">→ MCP (or its CLI)</span>
             </div>
           </div>
           <div class="demo-step hidden" data-step="5" data-type="prompt">
@@ -1631,6 +1974,11 @@
                 href="https://github.mpi-internal.com/Kleinanzeigen/tns-flag-bouncer-service/blob/main/.github/workflows/ka-claude-code-review-template.yaml"
                 target="_blank"
                 >ka-claude-code-review-template.yaml</a
+              >. Example review:
+              <a
+                href="https://github.mpi-internal.com/Kleinanzeigen/tns-flag-bouncer-service/pull/22"
+                target="_blank"
+                >tns-flag-bouncer-service #22</a
               >.</span
             >
           </li>
@@ -1733,6 +2081,44 @@ and a test. Use type annotations.</span></div>
         </div>
         <h1>My Development Workflow</h1>
         <div class="accent-bar"></div>
+      </div>
+
+      <!-- -- SLIDE: Practices that work -- -->
+      <div class="slide" id="slide-practices">
+        <div class="eyebrow">
+          <div class="eyebrow-rule"></div>
+          <span class="eyebrow-text">We already know what works</span>
+        </div>
+        <h2>The faster you generate,<br>the more you need these</h2>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th style="width:22%">Practice</th>
+              <th>Why it matters with AI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Story Splitting</td>
+              <td>With AI you can generate a lot in little time. If the scope is not cut, the chaos scales just as fast.</td>
+            </tr>
+            <tr>
+              <td>Hamburger Method</td>
+              <td>Deliver value end-to-end continuously. Cut the feature into layers, implement the thinnest slice.</td>
+            </tr>
+            <tr>
+              <td>Small safe steps</td>
+              <td>Each step must be reversible. The agent generates fast — that does not mean we push it all to production at once.</td>
+            </tr>
+            <tr>
+              <td>Advanced testing</td>
+              <td>Mutation, Acceptance, Architectural testing. The feedback loop must be solid. Now there are no excuses.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="tip-box tip-box--warning">
+          <p>More generated code = more risk if you do not have a <strong>solid feedback loop.</strong></p>
+        </div>
       </div>
 
       <!-- -- SLIDE W2: The loop — per-phase commands & helpers -- -->
@@ -2002,6 +2388,12 @@ and a test. Use type annotations.</span></div>
       </div>
     </div>
 
+    <!-- -- Progress bar -- -->
+    <div class="progress-bar" id="progress-bar"></div>
+
+    <!-- -- Nav dots -- -->
+    <nav class="nav-dots" id="nav-dots"></nav>
+
     <!-- -- Navigation -- -->
     <nav class="nav" aria-label="Slide navigation">
       <button class="nav-btn" id="prev" aria-label="Previous">&#8592;</button>
@@ -2011,13 +2403,37 @@ and a test. Use type annotations.</span></div>
 
     <script>
       const slides = Array.from(document.querySelectorAll(".slide:not([data-hidden])"));
+      const slideIndexMap = new Map(slides.map((s, i) => [s, i]));
       const total = slides.length;
       const counterEl = document.getElementById("counter");
       const prevBtn = document.getElementById("prev");
       const nextBtn = document.getElementById("next");
+      const progressBar = document.getElementById("progress-bar");
+      const dotsContainer = document.getElementById("nav-dots");
+      const wrapper = document.querySelector(".slides-wrapper");
       let current = 0;
 
       const revealed = {};
+
+      /* --- Build nav dots --- */
+      slides.forEach((s, i) => {
+        const dot = document.createElement("button");
+        dot.className = "nav-dot" + (i === 0 ? " active" : "");
+        dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+        dot.addEventListener("click", () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+      const navDots = Array.from(dotsContainer.querySelectorAll(".nav-dot"));
+
+      function updateNav(idx) {
+        current = idx;
+        counterEl.textContent = (idx + 1) + " / " + total;
+        prevBtn.style.opacity = idx === 0 ? "0.3" : "1";
+        nextBtn.style.opacity = idx === total - 1 ? "0.3" : "1";
+        const pct = total > 1 ? (idx / (total - 1)) * 100 : 0;
+        progressBar.style.width = pct + "%";
+        navDots.forEach((d, i) => d.classList.toggle("active", i === idx));
+      }
 
       function getRevealData(slideEl) {
         const max = parseInt(slideEl.dataset.reveal || "0", 10);
@@ -2040,19 +2456,22 @@ and a test. Use type annotations.</span></div>
         slideEl.querySelectorAll("[data-step]").forEach((s) => s.classList.add("hidden"));
       }
 
-      function show(n) {
-        slides[current].classList.remove("active");
-        current = Math.max(0, Math.min(total - 1, n));
-        slides[current].classList.add("active");
-        counterEl.textContent = current + 1 + " / " + total;
-        prevBtn.style.opacity = current === 0 ? "0.3" : "1";
-        nextBtn.style.opacity = current === total - 1 ? "0.3" : "1";
+      function goToSlide(idx, dir) {
+        const d = dir !== undefined ? dir : (idx > current ? 1 : -1);
+        const targetItems = slides[idx].querySelectorAll("[data-step]");
+        if (d > 0) {
+          targetItems.forEach(el => el.classList.add("hidden"));
+        } else {
+          targetItems.forEach(el => el.classList.remove("hidden"));
+          revealed[slides[idx].id] = parseInt(slides[idx].dataset.reveal || "0", 10);
+        }
+        slides[idx].scrollIntoView({ behavior: "smooth" });
       }
 
       function advance() {
         const slideEl = slides[current];
         if (revealNext(slideEl)) return;
-        if (current < total - 1) show(current + 1);
+        if (current < total - 1) goToSlide(current + 1, 1);
       }
 
       function back() {
@@ -2062,19 +2481,41 @@ and a test. Use type annotations.</span></div>
           resetReveal(slideEl);
           return;
         }
-        if (current > 0) show(current - 1);
+        if (current > 0) goToSlide(current - 1, -1);
       }
 
       prevBtn.onclick = back;
       nextBtn.onclick = advance;
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") advance();
-        if (e.key === "ArrowLeft" || e.key === "ArrowUp") back();
+        if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") { e.preventDefault(); advance(); }
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); back(); }
+        if (e.key === "Home") { e.preventDefault(); goToSlide(0, -1); }
+        if (e.key === "End")  { e.preventDefault(); goToSlide(total - 1, 1); }
       });
 
-      slides.forEach((s) => s.classList.remove("active"));
-      show(0);
+      /* --- Touch / swipe --- */
+      let touchStartY = 0, touchStartX = 0;
+      wrapper.addEventListener("touchstart", e => {
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      wrapper.addEventListener("touchend", e => {
+        const dy = touchStartY - e.changedTouches[0].clientY;
+        const dx = touchStartX - e.changedTouches[0].clientX;
+        if (Math.max(Math.abs(dy), Math.abs(dx)) < 40) return;
+        Math.abs(dy) >= Math.abs(dx) ? (dy > 0 ? advance() : back()) : (dx > 0 ? advance() : back());
+      }, { passive: true });
+
+      /* --- IntersectionObserver to track current slide --- */
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) updateNav(slideIndexMap.get(entry.target));
+        });
+      }, { threshold: 0.55, root: wrapper });
+
+      slides.forEach(s => observer.observe(s));
+      updateNav(0);
     </script>
 <!-- Librecounter Analytics -->
 <a id="librecounter" href="https://librecounter.org/referer/show" title="Website Analytics" style="position:fixed;bottom:8px;right:8px;opacity:0.3;z-index:9999;">
