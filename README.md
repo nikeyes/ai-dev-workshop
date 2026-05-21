@@ -9,6 +9,8 @@ Practical talk & workshop on AI-assisted software development.
 - [Workshop Wallbox (EN)](https://nikeyes.github.io/ai-dev-workshop/workshop/workshop-slides-en.html)
 - [Talk Kleinanzeigen (EN)](https://nikeyes.github.io/ai-dev-workshop/slides/charla-slides-short-en.html)
 - [Workshop Kleinanzeigen (EN)](https://nikeyes.github.io/ai-dev-workshop/workshop/workshop-slides-extended-en.html)
+- [Talk AI Gathering (EN)](https://nikeyes.github.io/ai-dev-workshop/slides/charla-slides-ai-gathering-en.html)
+- [Workshop AI Gathering (EN)](https://nikeyes.github.io/ai-dev-workshop/workshop/workshop-slides-extended-en.html)
 
 
 ## Ocultar Slides
